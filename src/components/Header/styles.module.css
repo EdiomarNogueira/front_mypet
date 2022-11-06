@@ -1,0 +1,42 @@
+.square {
+    background-color: #294369;
+    padding: 5px;
+    margin: 0px;
+}
+
+.title {
+    color: #FFF;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px auto;
+    width: 90%;
+}
+
+.nav_button {
+    color: #FFF;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.btn_sair {
+    width: 80px;
+    height: 60px;
+    background: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFF;
+    border: 0;
+    cursor: pointer;
+    border-radius: 180px;
+}
+
+
+.btn_sair:hover {
+    background-color: #314b72;
+    transition: 0.3s;
+}

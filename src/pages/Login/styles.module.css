@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.page_login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(120.6deg, #c0f3f3 40%, #83acfa 99.05%);
+}
+
+
+.login_inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.container {
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    height: 50%;
+    justify-content: center;
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.login_desc {
+    background-color: rgb(44, 120, 150);
+    flex: 1;
+    border-radius: 10px 0px 0px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_desc h1 {
+    color: #FFF;
+    margin-bottom: 20px;
+}
+
+.login_desc p {
+    color: #FFF;
+    width: 80%;
+
+}
+
+.login_desc a {
+    color: #50ff4a;
+    text-decoration: none;
+}
+
+.login_desc h2 {
+    margin-top: 40px;
+
+}
+
+.area_btn {
+    width: 300px;
+}
+
+.btn_login {
+    width: 80px;
+    height: 40px;
+    margin-top: 40px;
+    float: right;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.btn_login:hover {
+    color: #FFF;
+    font-weight: bold;
+    width: 82px;
+    height: 42px;
+    margin-top: 38px;
+    background-color: #3661b1;
+    box-shadow: 4px 2px 4px 1px rgb(95, 95, 95);
+}
+
+.single_input {
+    width: 320px;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 5px;
+}
+
+.single_input input {
+    width: 260px;
+    border: none;
+    border-bottom: 1px solid #3661b1;
+}
+
+.text_login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+}
+
+.text_login h1 {
+    color: #3661b1;
+    margin-bottom: 30px;
+}
+
+.text_login h3 {
+    margin-top: 10px;
+    font-weight: 600;
+}

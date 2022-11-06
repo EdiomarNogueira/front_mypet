@@ -1,0 +1,18 @@
+Usando css modules
+usando typescript
+usando react-router-dow v-6
+npm install axios
+
+
+https://www.youtube.com/watch?v=0TTa5Ulmgds
+https://www.youtube.com/watch?v=ss4BXa-WfgI&t=1955s
+https://www.youtube.com/watch?v=kBSckls-Ih4
+https://surajsharma.net/blog/react-upload-file-using-axios
+
+
+usar o socket.io para atualizar a pagina ou gerar alteração na contagem de com comentario ou posts (estudar)
+
+
+api de localização https://nominatim.openstreetmap.org/search?q=222,potiragua,patagonia,+vit%C3%B3ria+da+conquista&format=json&polygon=1&addressdetails=1
+
+https://www.youtube.com/watch?v=YbTUc0GUXp8

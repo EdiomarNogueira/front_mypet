@@ -1,0 +1,86 @@
+.area_novo_post {
+    width: 80%;
+    height: 300px;
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    background-color: #fff;
+    justify-content: center;
+    margin-bottom: 40px;
+    border-radius: 6px;
+    box-shadow: 0px 2px 4px 1px rgb(67, 114, 153);
+}
+
+.area_input {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.input_text {
+    width: 80%;
+    height: 40px;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+
+
+.area_acoes {
+    border-top: 1px solid #a2a5a849;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.avatar {
+    height: 60px;
+    width: 80px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    border-radius: 6px;
+    object-fit: cover;
+    object-position: top;
+}
+
+.flex_row {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.name {
+    margin: 0;
+    font-weight: bold;
+    color: #29303a;
+}
+
+.btn_enviar {
+    width: 90px;
+    height: 40px;
+    float: right;
+    background-color: #756df4;
+    border: 0;
+    font-weight: bold;
+    color: #FFF;
+    padding: 8px 16px;
+    font-size: 18px;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+
+.btn_enviar:hover {
+    opacity: .9;
+}
+
+.Upload_Form {
+    background-color: #FFF;
+    border: 2px solid #3d3f43;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}

@@ -1,0 +1,60 @@
+.area_comments {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #DDD;
+    margin-bottom: 1px;
+    max-width: 640px;
+}
+
+.comment {
+   
+    display: flex;
+    align-items: center;
+    flex: 2;
+    padding: 5px;
+    margin-left: 5px;
+    border-left: 1px solid #DDD;
+}
+
+.autor_comment {
+    display: flex;
+    flex-direction: row;
+    flex-direction: 1;
+}
+
+.avatar {
+    height: 40px;
+    width: 60px;
+    object-fit: cover;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    border-radius: 6px;
+    object-fit: cover;
+    object-position: top;
+}
+
+.name_date {
+    display: flex;
+    flex-direction: column;
+}
+
+.name_date .name {
+    font-weight: bold;
+}
+
+.name_date .date {
+    font-size: 12px;
+}
+
+.name {
+    text-decoration: none;
+    color: #29303a;
+    font-weight: bold;
+}
+
+.name:hover {
+    color: #3f4957;
+    transition: 0.4s;
+}
