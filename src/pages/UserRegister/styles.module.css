@@ -1,0 +1,72 @@
+.page_register {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(120.6deg, #c0f3f3 40%, #83acfa 99.05%);
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: azure;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.register_desc {
+    width: 360px;
+}
+
+.register_desc h1 {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.register_desc p {
+    padding: 5px;
+    text-align: justify;
+    border-bottom: 1px solid rgba(63, 61, 61, 0.226);
+}
+
+.register_inputs {
+    border: 2px solid rgba(97, 94, 94, 0.226);
+    border-radius: 6px;
+    margin-top: 20px;
+    width: 360px;
+    padding: 5px;
+}
+
+.single_input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.single_input label {
+    flex: 1;
+    font-weight: bold;
+    color: #2a3852;
+}
+
+.single_input input {
+    flex: 4;
+    height: 30px;
+}
+
+.single_input select {
+    height: 30px;
+}
+
+
+.btn_register {
+    width: 110px;
+    height: 40px;
+    margin-top: 40px;
+    float: right;
+    background-color: #ffffff;
+    cursor: pointer;
+}

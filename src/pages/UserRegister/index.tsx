@@ -1,72 +1,81 @@
 import { ChangeEvent, useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
+import { useApi } from '../../hooks/useApi';
 import styles from './styles.module.css';
 
 export const UserRegister = () => {
 
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
-
-   
-    const [avatar, setAvatar] = useState();
-    const [biography, setBiography] = useState();
-    const [birthdate, setBirthdate] = useState();
-    const [category, setCategory] = useState();
-    const [, ] = useState();
-    const [, ] = useState();
-    const [, ] = useState();
-    const [, ] = useState();
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [, ] = useState();
-    const [, ] = useState();
-    const [, ] = useState();
-    const [, ] = useState();
-    const [, ] = useState();
-    const [, ] = useState();
-    const [, ] = useState();
-    const [, ] = useState();
     const [password, setPassword] = useState('');
-    const [, ] = useState();
-    const [, ] = useState();
-    const [, ] = useState();
-    const [, ] = useState();
+    const [birthdate, setBirthdate] = useState('');
+    const [category, setCategory] = useState("1");
+    const [phone, setPhone] = useState('');
 
+    const handleNameInput = (event: ChangeEvent<HTMLInputElement>) => {
+        setName(event.target.value);
+    }
     const handleEmailInput = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     }
-
     const handlePasswordInput = (event: ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
     }
+    const handleBirthdateInput = (event: ChangeEvent<HTMLInputElement>) => {
+        setBirthdate(event.target.value);
+    }
+    const handleCategoryInput = (event: ChangeEvent<HTMLInputElement>) => {
+        setCategory(event.target.value);
+    }
+    const handlePhoneInput = (event: ChangeEvent<HTMLInputElement>) => {
+        setPhone(event.target.value);
+    }
 
-    const handleLogin = async () => {
-        if (email && password) {
-            const isLogged = await auth.signin(email, password);
-            if (isLogged) {
-                navigate('/');
-            } else {
-                alert("Acesso Negado");
+    var api = useApi();
+
+    const handleRegister = async () => {
+        if (name && email && password && category && phone && birthdate ) {
+
+            let json = await api.postCreateuser(name, email, password, birthdate, category, phone,  );
+
+            if (json.status) {
+                const isLogged = await auth.signin(email, password);
+                if (isLogged) {
+                    navigate('/Home');
+                } else {
+                    alert("Acesso Negado");
+                }
             }
+
+        } else {
+            alert("Preencha todos os dados!");
         }
     }
 
     return (
-        <div className={styles.page_login}>
+        <div className={styles.page_register}>
 
             <div className={styles.container}>
-                <div className={styles.login_desc}>
-                    <h1>Seja Bem Vindo</h1>
-                    <p>A MyPet é uma rede social pensada para amantes de Pets e ONGs voltadas para com cuidado aos nossos amigos de quatro patas.</p>
-                    <h2><Link to="/user/user_register">Efetuar Cadastro</Link></h2>
-
+                <div className={styles.register_desc}>
+                    <h1>Cadastre-se no Seu Novo Amigo</h1>
+                    <p>Fazendo parte do MyPet você poderá encontrar os amigos do seu pet e contar com diversas funcionalidades da plataforma.</p>
                 </div>
 
+                <div className={styles.register_inputs} onSubmit={handleRegister}>
 
-                <div className={styles.login_inputs} onSubmit={handleLogin}>
-                    <div className={styles.text_login}>
-                        <h1>Olá! <br />Seja bem vindo novamente.</h1>
-                        <h3>Faça o seu login...</h3>
+                    <div className={styles.single_input}>
+                        <label htmlFor="name">Name</label>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={handleNameInput}
+                            id="name"
+                            required
+                            placeholder="Digite seu nome"
+                        />
                     </div>
                     <div className={styles.single_input}>
                         <label htmlFor="email">Email</label>
@@ -90,10 +99,40 @@ export const UserRegister = () => {
                             placeholder="Digite sua senha"
                         />
                     </div>
+                    <div className={styles.single_input}>
+                        <label htmlFor="category">Category</label>
+                        <select name="category" id="category" value={category} required onChange={cat => setCategory(cat.target.value)} >
+                            <option value="1">Usuário</option>
+                            <option value="2">Ong</option>
+                        </select>
+                    </div>
+                    <div className={styles.single_input}>
+                        <label htmlFor="phone">Phone</label>
+                        <input
+                            type="text"
+                            value={phone}
+                            onChange={handlePhoneInput}
+                            id="phone"
+                            required
+                            placeholder="Digite seu nº de telefone"
+                        />
+                    </div>
+                    <div className={styles.single_input}>
+                        <label htmlFor="birthdate">Aniversário</label>
+                        <input
+                            type="date"
+                            value={birthdate}
+                            onChange={handleBirthdateInput}
+                            id="birthdate"
+                            required
+                            placeholder="Digite sua data de aniversário"
+                        />
+                    </div>
                     <div className={styles.area_btn}>
-                        <button className={styles.btn_login} onClick={handleLogin}>Logar</button>
+                        <button className={styles.btn_register} onClick={handleRegister}>Registrar-se</button>
                     </div>
                 </div>
+                <h2><Link to="/auth/login">Já possuo uma conta!</Link></h2>
             </div>
         </div >
     );

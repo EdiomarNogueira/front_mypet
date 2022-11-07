@@ -1,13 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Posts } from '../../components/Posts/Posts';
 import { Header } from '../../components/Header/Header';
 import { Footer } from '../../components/Footer/Footer';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
 import { Sidebar } from '../../components/SideBar/Sidebar';
+import { FormUser } from '../../components/Form_User/Form_user';
 
-export const Home = () => {
+export const User = () => {
     const auth = useContext(AuthContext);
 
     return (
@@ -18,7 +18,7 @@ export const Home = () => {
                     <Sidebar />
                 </div>
                 <div className={styles.area_posts}>
-                    <Posts />
+                    <FormUser />
                 </div>
                 <div className={styles.area_3}>
                     AREA 3

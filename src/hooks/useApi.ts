@@ -36,9 +36,20 @@ export const useApi = () => ({
         return response.data;
     },
 
+    putUser: async(name: string, email: string, password: string, birthdate: string, category: string, phone: string, rua: string, bairro: string, city: string, genre: string, work: string, instagram: string, facebook: string, biography: string, latitude: string, longitude: string) => {
+        var config_headers = refreshConfig();
+        const response = await api.put('/user', { name, email, password, birthdate, category, phone, rua, bairro, city, genre, work, instagram, facebook, biography, latitude, longitude }, config_headers);
+        return response.data;
+    },
+
     logout: async () => {
         var config_headers = refreshConfig();
         const response = await api.post('/logout', {}, config_headers);
+        return response.data;
+    },
+
+    postCreateuser: async (name: string, email: string, password: string, birthdate: string, category: string, phone: string) => {//category: string,
+        const response = await api.post('/user/user_register', { name, email, password, birthdate, category,phone });
         return response.data;
     },
 
@@ -52,7 +63,6 @@ export const useApi = () => ({
         };
         
         const response = await api.get('/feed/?page='+perPage, config);
-        
         return response.data;
     },
 

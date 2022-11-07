@@ -74,6 +74,7 @@ export const Posts = () => { //{ title }: Props
                         </div>
 
                         <div className={styles.container}>
+                        <div className={styles.sentinela} id='sentinela' />
 
                             <p>Pagina atual: {currentPerPage}</p>
                             {posts.map((item, index) => (

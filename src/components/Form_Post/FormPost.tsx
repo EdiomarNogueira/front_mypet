@@ -15,7 +15,7 @@ export const FormPost = () => {
     const [loading, setLoading] = useState(false);
     const [uploading, setuploading] = useState(false);
     const [addText, setAddText] = useState('');
-    const [image, setImage] = useState()
+    const [image, setImage] = useState(null)
 
     const auth = useContext(AuthContext);
     var [user, setUser] = useState<User | null>(null);
@@ -60,11 +60,7 @@ export const FormPost = () => {
             setuploading(true);
             if (type == "photo") {
                 console.log("PHOTO");
-                const formData = new FormData();
-                formData.append('type', type);
-                formData.append('subtitle', subtitle);
-                formData.append('photo', file);
-
+            
                 var config = {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -73,23 +69,14 @@ export const FormPost = () => {
                 };
 
                 let json = await api.postNewPostFile(type, subtitle, photo);
+                setImage(null);
+                setAddText("");
 
-              
             } else if (type == "text") {
                 console.log("TEXT");
 
                 let json = await api.postNewPostText(type, body);
-                // let response = await fetch('http://127.0.0.1:8000/api/feed', {
-                //     method: 'POST',
-                //     body: JSON.stringify({
-                //         type: type,
-                //         body: body,
-                //     }),
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         'Authorization': "Bearer " + localStorage.getItem('authToken')
-                //     }
-                // });
+                setAddText("");
             }
             setLoading(false);
         } else {

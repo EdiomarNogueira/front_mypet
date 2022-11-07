@@ -11,16 +11,21 @@ export const Header = ({ title }: Props) => {
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const handleLogout = async() => {
+    const handleLogout = async () => {
         navigate('/auth/login');
         await auth.signout();
-        
+
     }
     return (
         <header className={styles.square} >
             <nav className={styles.nav}>
                 <h1 className={styles.title}>{title}</h1>
-                {auth.user && <button className={styles.btn_sair} onClick={handleLogout}>Sair</button>}
+                <div className={styles.logout}>
+                    {auth.user &&
+                        <button className={styles.btn_sair} onClick={handleLogout}>Sair </button>
+                    }
+                    <img src="src\media\icons\account_circle.svg" onClick={handleLogout} alt="Logout" />
+                </div>
             </nav>
         </header>
     )

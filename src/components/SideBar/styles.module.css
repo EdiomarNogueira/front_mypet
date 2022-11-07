@@ -1,0 +1,33 @@
+
+* {
+    text-decoration: none;
+}
+
+.sidebar_area {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+}
+
+.divisao_menu {
+    width: 240px;
+    padding: 20px;
+    margin-bottom: 10px;
+    background-color: #FFF;
+    border-radius: 10px;
+}
+
+.divisao_menu ul li {
+    margin-bottom: 10px;
+    border-bottom: 2px solid rgba(180, 177, 177, 0.178);
+    font-size: 18px;
+    font-weight: bold;
+    list-style-type: none;
+    color: rgb(68, 96, 119);
+}
+
+a:visited {
+    color: rgb(39, 63, 83);
+}
