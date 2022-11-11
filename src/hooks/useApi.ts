@@ -36,7 +36,7 @@ export const useApi = () => ({
         return response.data;
     },
 
-    putUser: async(name: string, email: string, password: string, birthdate: string, category: string, phone: string, rua: string, bairro: string, city: string, genre: string, work: string, instagram: string, facebook: string, biography: string, latitude: string, longitude: string) => {
+    putUser: async (name: string, email: string, password: string, birthdate: string, category: string, phone: string, rua: string, bairro: string, city: string, genre: string, work: string, instagram: string, facebook: string, biography: string, latitude: string, longitude: string) => {
         var config_headers = refreshConfig();
         const response = await api.put('/user', { name, email, password, birthdate, category, phone, rua, bairro, city, genre, work, instagram, facebook, biography, latitude, longitude }, config_headers);
         return response.data;
@@ -49,20 +49,20 @@ export const useApi = () => ({
     },
 
     postCreateuser: async (name: string, email: string, password: string, birthdate: string, category: string, phone: string) => {//category: string,
-        const response = await api.post('/user/user_register', { name, email, password, birthdate, category,phone });
+        const response = await api.post('/user/user_register', { name, email, password, birthdate, category, phone });
         return response.data;
     },
 
     getAllPosts: async (valorpage: number) => {
-        let  perPage = valorpage;
+        let perPage = valorpage;
         var config = {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "Bearer " + localStorage.getItem('authToken'),
             }
         };
-        
-        const response = await api.get('/feed/?page='+perPage, config);
+
+        const response = await api.get('/feed/?page=' + perPage, config);
         return response.data;
     },
 
@@ -110,7 +110,7 @@ export const useApi = () => ({
     newCommentPost: async (id: number, txt: string) => {
         let id_post = id;
         var config_headers = refreshConfig();
-        const response = await api.post('/post/'+id_post+'/comment', {
+        const response = await api.post('/post/' + id_post + '/comment', {
             txt
         }, config_headers).then((response) => {
             console.log(response);
@@ -121,7 +121,7 @@ export const useApi = () => ({
     postLiked: async (id_post: number) => {
         let id = id_post;
         var config_headers = refreshConfig();
-        const response = await api.post('/post/'+id+'/like',{}, config_headers).then((response) => {
+        const response = await api.post('/post/' + id + '/like', {}, config_headers).then((response) => {
             console.log(response);
         });
         return response;
@@ -135,7 +135,21 @@ export const useApi = () => ({
                 'Authorization': "Bearer " + localStorage.getItem('authToken')
             }
         };
-        const response = await api.get('/feed/post/'+id+'/likes', config);
+        const response = await api.get('/feed/post/' + id + '/likes', config);
         return response.data;
+    },
+
+    putNewAvatarFile: async (photo: File) => {
+        let avatar = photo;
+        var config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                'Authorization': "Bearer " + localStorage.getItem('authToken')
+            },
+        };
+        const response = await api.post('/user/avatar', { avatar }, config).then((response) => {
+            console.log(response);
+        })
+        return response;
     }
 });
