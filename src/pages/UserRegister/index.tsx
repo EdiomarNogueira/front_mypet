@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { useApi } from '../../hooks/useApi';
 import styles from './styles.module.css';
+import InputMask from 'react-input-mask';
 
 export const UserRegister = () => {
 
@@ -108,14 +109,15 @@ export const UserRegister = () => {
                     </div>
                     <div className={styles.single_input}>
                         <label htmlFor="phone">Phone</label>
-                        <input
-                            type="text"
-                            value={phone}
-                            onChange={handlePhoneInput}
-                            id="phone"
-                            required
-                            placeholder="Digite seu nº de telefone"
-                        />
+                        <InputMask 
+                                type="text"
+                                value={phone}
+                                onChange={handlePhoneInput}
+                                id="phone"
+                                mask="(99)99999-9999"
+                                required
+                                placeholder="Digite seu nº de telefone"
+                            />
                     </div>
                     <div className={styles.single_input}>
                         <label htmlFor="birthdate">Aniversário</label>

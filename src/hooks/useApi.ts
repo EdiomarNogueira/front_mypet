@@ -147,9 +147,10 @@ export const useApi = () => ({
                 'Authorization': "Bearer " + localStorage.getItem('authToken')
             },
         };
-        const response = await api.post('/user/avatar', { avatar }, config).then((response) => {
-            console.log(response);
-        })
-        return response;
-    }
+        const response = await api.post('/user/avatar', { avatar }, config);
+        // .then((response) => {
+        //     console.log(response.data);
+        // });
+        return response.data;
+    },
 });

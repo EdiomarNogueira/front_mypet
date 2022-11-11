@@ -9,6 +9,8 @@ import axios from 'axios';
 import { Link, redirect, useNavigate } from 'react-router-dom';
 import { useApiLocation } from '../../hooks/useApiGeolocation';
 import { FormAvatar } from '../Form_Avatar/Form_Avatar';
+import InputMask from 'react-input-mask';
+
 // type Props = {
 //     // title?: string; //interrogação deixa a prop não obrigatória 
 // }
@@ -163,11 +165,12 @@ export const FormUser = () => {
                         </div>
                         <div className={styles.single_input}>
                             <label htmlFor="phone">Telefone</label>
-                            <input
+                            <InputMask 
                                 type="text"
                                 value={phone}
                                 onChange={handlePhoneInput}
                                 id="phone"
+                                mask="(99)99999-9999"
                                 required
                                 placeholder="Digite seu nº de telefone"
                             />

@@ -24,7 +24,7 @@ export const Posts = () => { //{ title }: Props
 
     useEffect(() => {
         loadPosts();
-    }, [currentPerPage]);
+    }, [posts]);
 
 
    
