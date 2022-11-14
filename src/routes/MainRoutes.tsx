@@ -9,6 +9,7 @@ import { RequireAuth } from '../contexts/Auth/requireAuth';
 import { Login } from '../pages/Login';
 import { UserRegister } from '../pages/UserRegister';
 import { User } from '../pages/User/User';
+import { MyPetsAdd } from '../pages/MyPetsAdd/MyPetsAdd';
 
 export const MainRoutes = () => {
   //ROTAS ATRAVÉS DE OBJETOS (useRoutes)
@@ -18,8 +19,9 @@ export const MainRoutes = () => {
     { path: '/home', element: <RequireAuth><Home /></RequireAuth> },
     { path: '/auth/login', element: <Login /> },
     { path: '/auth/user_register', element: <UserRegister /> },
-    { path: '/user/:id/mypets', element: <RequireAuth><MyPets /></RequireAuth> },
-    { path: '/user/:id/mypet/:slug', element: <RequireAuth><MyPet /></RequireAuth> },
+    { path: '/user/:user/mypets', element: <RequireAuth><MyPets /></RequireAuth> },
+    { path: '/user/:user/add/mypet', element: <RequireAuth><MyPetsAdd /></RequireAuth> },
+    { path: '/user/:user/mypet/:slug', element: <RequireAuth><MyPet /></RequireAuth> },
     { path: '*', element: <NotFound /> }
   ]
 

@@ -4,14 +4,14 @@ import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { User } from '../../types/User';
 import { useApi } from "../../hooks/useApi";
 import axios from 'axios';
-import { Link, redirect, useNavigate } from 'react-router-dom';
-
+import { Link, redirect, useNavigate, useParams } from 'react-router-dom';
 type Props = {
     text?: string; //interrogação deixa a prop não obrigatória 
 }
 
 export const Sidebar = () => {
-
+    const auth = useContext(AuthContext);
+    let name = auth.user?.name;
     return (
         <div className={styles.sidebar_area}>
             <div className={styles.divisao_menu}>
@@ -22,7 +22,7 @@ export const Sidebar = () => {
             </div>
             <div className={styles.divisao_menu}>
                 <ul>
-                    <li><Link to="/user/:id/mypets">Meus Pets</Link></li>
+                    <li><Link to={'/user/'+ name +'/mypets'}>Meus Pets</Link></li>
                     <li><Link to="/Encontrados">Encontrados</Link></li>
                     <li><Link to="/galeria">Galeria de Fotos</Link></li>
                 </ul>

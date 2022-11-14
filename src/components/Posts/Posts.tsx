@@ -24,10 +24,10 @@ export const Posts = () => { //{ title }: Props
 
     useEffect(() => {
         loadPosts();
-    }, [posts]);
+    }, [currentPerPage]);
 
 
-   
+
     const loadPosts = async () => {
         setLoading(true);
         let json = fetch('http://127.0.0.1:8000/api/feed/?perPage=' + currentPerPage, {
@@ -74,7 +74,7 @@ export const Posts = () => { //{ title }: Props
                         </div>
 
                         <div className={styles.container}>
-                        <div className={styles.sentinela} id='sentinela' />
+                            <div className={styles.sentinela} id='sentinela' />
 
                             <p>Pagina atual: {currentPerPage}</p>
                             {posts.map((item, index) => (
@@ -100,15 +100,27 @@ export const Posts = () => { //{ title }: Props
                                             </div>
                                         )}
                                     </div>
+                                    {item.marked_pets &&
+                                        <div className={styles.area_marked_pets}>
+                                            <h4>Pets Marcados:</h4>
+                                            {item.marked_pets.map((pets_marked, index) => (
+                                                <div className={styles.marked_pets}>
+                                                    <p>{pets_marked}</p>
+                                                </div>
+                                            ))}
 
+                                        </div>
+                                    }
                                     <div className={styles.interacoes}>
                                         <div className={styles.interacao_like}>
-                                            <Likes id={item.id} /> 
+                                            <Likes id={item.id} />
                                             {/* like_count={item.likeCount} liked={item.liked}  */}
                                         </div>
                                         <div className={styles.interacao_comment}>
                                             <NewComment id={item.id} />
                                         </div>
+                                    </div>
+                                    <div>
                                     </div>
                                     <details>
                                         <summary>

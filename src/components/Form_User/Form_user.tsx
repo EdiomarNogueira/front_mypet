@@ -1,7 +1,6 @@
 import styles from './styles.module.css';
 import { ChangeEvent, useContext, useEffect, useState, FormEvent } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { Publish } from '../../types/Publish';
 import { User } from '../../types/User';
 import { useApi } from "../../hooks/useApi";
 import React, { Component } from 'react';
@@ -34,6 +33,8 @@ export const FormUser = () => {
     const [biography, setBiography] = useState('');
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
+    const [loading, setLoading] = useState(false);
+    var [user, setUser] = useState<User | null>(null);
 
     const handleNameInput = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
@@ -79,16 +80,27 @@ export const FormUser = () => {
     }
 
 
+
     var api = useApi();
     var apiLocation = useApiLocation();
     useEffect(() => {
         loadCidade(rua, city, bairro);
     }, [rua && city && bairro]);
 
+    useEffect(() => {
+        loadDadosUser();
+    }, []);
+
+    const loadDadosUser = async () => {
+        setLoading(true);
+        let json = await api.getDadosUser();
+        setLoading(false);
+        setUser(json.user);
+    }
+
 
     const loadCidade = async (rua: string, city: string, bairro: string) => {
         let json = await apiLocation.getLocation(rua, city, bairro);
-        console.log(json[0].lat);
         setLatitude(json[0].lat);
         setLongitude(json[0].lon);
     }
@@ -101,14 +113,14 @@ export const FormUser = () => {
             alert("Informe o seu endereço (rua, bairro, cidade), com o cadastro completo poderemos auxiliar caso o seu pet fuja.")
         }
 
-        if (name && email && password && phone && birthdate) {
+        // if (name && email && password) {
 
             let json = await api.putUser(name, email, password, birthdate, category, phone, rua, bairro, city, genre, work, instagram, facebook, biography, latitude, longitude);
             console.log(json);
 
-        } else {
-            alert("Os dados marcados com * não podem ficar em branco!");
-        }
+        // } else {
+            // alert("Os dados marcados com * não podem ficar em branco!");
+        // }
     }
 
     return (
@@ -131,18 +143,18 @@ export const FormUser = () => {
                                 onChange={handleNameInput}
                                 id="name"
                                 required
-                                placeholder="Digite seu nome"
+                                placeholder={user?.name}
                             />
                         </div>
                         <div className={styles.single_input}>
                             <label htmlFor="email">Email</label>
                             <input
                                 type="text"
-                                value={email}
+                                value={user?.email}
                                 onChange={handleEmailInput}
                                 id="email"
                                 required
-                                placeholder="Digite seu e-mail"
+                                placeholder={user?.email}
                             />
                         </div>
                         <div className={styles.single_input}>
@@ -153,7 +165,7 @@ export const FormUser = () => {
                                 id="password"
                                 required
                                 onChange={handlePasswordInput}
-                                placeholder="Digite sua senha"
+                                placeholder="********"
                             />
                         </div>
                         <div className={styles.single_input}>
@@ -172,29 +184,28 @@ export const FormUser = () => {
                                 id="phone"
                                 mask="(99)99999-9999"
                                 required
-                                placeholder="Digite seu nº de telefone"
+                                placeholder={user?.phone}
                             />
                         </div>
                         <div className={styles.single_input}>
                             <label htmlFor="birthdate">Aniversário</label>
                             <input
                                 type="date"
-                                value={birthdate}
+                                value={user?.birthdate}
                                 onChange={handleBirthdateInput}
                                 id="birthdate"
                                 required
-                                placeholder="Digite sua data de aniversário"
                             />
                         </div>
                         <div className={styles.single_input}>
                             <label htmlFor="genre">Gênero</label>
-                            <select name="genre" id="genre" value={genre} required onChange={gen => setGenre(gen.target.value)} >
+                            <select name="genre" id="genre" value={user?.genre} required onChange={gen => setGenre(gen.target.value)} >
                                 <option value="1">Masculino</option>
                                 <option value="2">Feminino</option>
                             </select>
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="birthdate">Rua</label>
+                            <label htmlFor="rua">Rua</label>
                             <input
                                 type="rua"
                                 value={rua}
@@ -212,7 +223,7 @@ export const FormUser = () => {
                                 onChange={handleWorkInput}
                                 id="work"
                                 required
-                                placeholder="Trabalho como..."
+                                placeholder={user?.work}
                             />
                         </div>
                         <div className={styles.single_input}>
@@ -223,7 +234,7 @@ export const FormUser = () => {
                                 onChange={handleCityInput}
                                 id="city"
                                 required
-                                placeholder="Cidade"
+                                placeholder={user?.city}
                             />
                         </div>
                         <div className={styles.single_input}>
@@ -245,7 +256,7 @@ export const FormUser = () => {
                                 onChange={handleBiographyInput}
                                 id="biography"
                                 required
-                                placeholder="biography"
+                                placeholder={user?.biography}
                             />
                         </div>
                         <div className={styles.single_input}>

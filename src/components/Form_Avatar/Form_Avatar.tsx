@@ -1,7 +1,6 @@
 import styles from './styles.module.css';
 import React, { ChangeEvent, useContext, useEffect, useState, FormEvent, Component } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { Publish } from '../../types/Publish';
 import { User } from '../../types/User';
 import { useApi } from "../../hooks/useApi";
 import axios from 'axios';
@@ -30,9 +29,6 @@ export const FormAvatar = () => {
         let json = await api.getUserMe();
         setUser(json);
     }
-    var [user, setUser] = useState<User | null>(null);
-    var api = useApi();
-
 
     const handleFormSubmit = async (e: { preventDefault: () => void; currentTarget: HTMLFormElement; }) => {
         e.preventDefault();

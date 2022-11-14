@@ -1,29 +1,47 @@
 import styles from './styles.module.css';
 import { ChangeEvent, useContext, useEffect, useState, FormEvent } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { Publish } from '../../types/Publish';
 import { User } from '../../types/User';
 import { useApi } from "../../hooks/useApi";
-import React, { Component } from 'react';
-import axios from 'axios';
-import { redirect, useNavigate } from 'react-router-dom';
+import { Pets } from '../../types/Pets';
+import Select from 'react-select';
+import { json } from 'stream/consumers';
 // type Props = {
 //     // title?: string; //interrogação deixa a prop não obrigatória 
 // }
 
 export const FormPost = () => {
-    const [loading, setLoading] = useState(false);
-    const [uploading, setuploading] = useState(false);
-    const [addText, setAddText] = useState('');
-    const [image, setImage] = useState(null)
 
-    const auth = useContext(AuthContext);
+    const [addText, setAddText] = useState('');
+    const [pets, setPets] = useState([]);
+    const [selectPets, setSelectPets] = useState([]);
     var [user, setUser] = useState<User | null>(null);
     var api = useApi();
+
+    let arraypets: { value: number; label: string; }[] = [];
+    {
+        if (pets) {
+            pets.map((item, index) => (
+                arraypets[index] = { value: item[0].id, label: item[0].name }
+            ))
+        }
+
+    }
+
+    useEffect(() => {
+        loadPets();
+    }, []);
+
+    const loadPets = async () => {
+        let json = await api.getMyPets();
+
+        setPets(await json.currentPet);
+    }
 
     useEffect(() => {
         loadUser();
     }, []);
+
 
 
     const loadUser = async () => {
@@ -38,6 +56,7 @@ export const FormPost = () => {
     }
 
     const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        console.log('pets', selectPets);
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
@@ -47,7 +66,14 @@ export const FormPost = () => {
             let body = '';
             let subtitle = '';
             let photo = file;
-            setuploading(true);
+
+            let idsPets: any[] = [];
+            selectPets.forEach(function (item: any, index: number) {
+                idsPets[index] = item.value;
+            });
+
+            let pet = idsPets;
+
             if (file && file.size > 0) {
                 type = "photo";
                 subtitle = addText;
@@ -57,28 +83,16 @@ export const FormPost = () => {
                 body = addText;
             }
 
-            setuploading(true);
             if (type == "photo") {
-                console.log("PHOTO");
-            
-                var config = {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        'Authorization': "Bearer " + localStorage.getItem('authToken')
-                    },
-                };
-
-                let json = await api.postNewPostFile(type, subtitle, photo);
-                setImage(null);
+                console.log(pet);
+                let json = await api.postNewPostFile(type, subtitle, photo, pet);
                 setAddText("");
 
             } else if (type == "text") {
-                console.log("TEXT");
 
-                let json = await api.postNewPostText(type, body);
+                let json = await api.postNewPostText(type, body, pet);
                 setAddText("");
             }
-            setLoading(false);
         } else {
             alert("Post vazio!");
         }
@@ -107,6 +121,14 @@ export const FormPost = () => {
                                 name="image"
                             />
                         </div>
+                    </div>
+                    <div className={styles.single_input}>
+                        <label htmlFor="genre">Marcar Pet</label>
+                        <Select
+                            className={styles.select_pet}
+                            isMulti options={arraypets}
+                            onChange={(item) => setSelectPets(item)}
+                        />
                     </div>
 
                     <div className={styles.area_acoes}>

@@ -19,6 +19,7 @@ export type Publish = {
     likeCount:number,
     liked:boolean,
     comments:[],
+    marked_pets: [],
     pageCount:PageCount,
     currentPage:CurrentPage,
 }

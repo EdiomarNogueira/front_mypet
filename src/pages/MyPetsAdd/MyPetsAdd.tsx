@@ -7,9 +7,10 @@ import { useContext } from 'react';
 import { Sidebar } from '../../components/SideBar/Sidebar';
 import styles from './styles.module.css';
 import { SectionMyPets } from '../../components/SectionMyPets/SectionMyPets';
+import { Form_Add_Pet } from '../../components/Form_Add_Pet/Form_Add_Pet';
 
 
-export const MyPets = () => {
+export const MyPetsAdd = () => {
     const auth = useContext(AuthContext);
 
     const params = useParams();
@@ -31,7 +32,7 @@ export const MyPets = () => {
                     <Sidebar />
                 </div>
                 <div className={styles.area_posts}>
-                    <SectionMyPets />
+                    < Form_Add_Pet/>
                 </div>
                 <div className={styles.area_3}>
                     AREA 3

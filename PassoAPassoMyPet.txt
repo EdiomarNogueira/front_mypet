@@ -16,3 +16,5 @@ usar o socket.io para atualizar a pagina ou gerar alteração na contagem de com
 api de localização https://nominatim.openstreetmap.org/search?q=222,potiragua,patagonia,+vit%C3%B3ria+da+conquista&format=json&polygon=1&addressdetails=1
 
 https://www.youtube.com/watch?v=YbTUc0GUXp8
+
+npm install react-select -> para marcar os pets

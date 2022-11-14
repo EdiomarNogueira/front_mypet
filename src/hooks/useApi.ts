@@ -42,6 +42,19 @@ export const useApi = () => ({
         return response.data;
     },
 
+    getDadosUser: async () => {
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken'),
+            }
+        };
+
+        const response = await api.get('user', config);
+        return response.data;
+
+    },
+
     logout: async () => {
         var config_headers = refreshConfig();
         const response = await api.post('/logout', {}, config_headers);
@@ -50,6 +63,19 @@ export const useApi = () => ({
 
     postCreateuser: async (name: string, email: string, password: string, birthdate: string, category: string, phone: string) => {//category: string,
         const response = await api.post('/user/user_register', { name, email, password, birthdate, category, phone });
+        return response.data;
+    },
+
+
+
+    postCreatepet: async (name: string, id_user: number, species: string, birthdate: string, situation: string, latitude: string, longitude: string) => {
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken')
+            }
+        };
+        const response = await api.post('user/pet', { name, id_user, species, birthdate, situation, latitude, longitude }, config);
         return response.data;
     },
 
@@ -80,20 +106,20 @@ export const useApi = () => ({
         return response.data;
     },
 
-    postNewPostFile: async (type: string, subtitle: string, photo: File) => {
+    postNewPostFile: async (type: string, subtitle: string, photo: File, pets: any) => {
         var config = {
             headers: {
                 "Content-Type": "multipart/form-data",
                 'Authorization': "Bearer " + localStorage.getItem('authToken')
             },
         };
-        const response = await api.post('/feed', { type, subtitle, photo }, config).then((response) => {
+        const response = await api.post('/feed', { type, subtitle, photo, pets }, config).then((response) => {
             console.log(response);
         })
         return response;
     },
 
-    postNewPostText: async (type: string, body: string) => {
+    postNewPostText: async (type: string, body: string, pets: any) => {
         var config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -101,7 +127,7 @@ export const useApi = () => ({
             }
         };
 
-        const response = await api.post('/feed', { type, body }, config).then((response) => {
+        const response = await api.post('/feed', { type, body, pets }, config).then((response) => {
             console.log(response);
         })
         return response;
@@ -153,4 +179,14 @@ export const useApi = () => ({
         // });
         return response.data;
     },
+
+    getMyPets: async () => {
+        var config_headers = refreshConfig();
+
+        const response = await api.get('/user/pet', config_headers);
+        console.log(response.data);
+        return response.data;
+    },
+
+
 });

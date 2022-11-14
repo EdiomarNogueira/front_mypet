@@ -26,9 +26,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;    
-    overflow:auto
-
+    width: 100%;
+    overflow: auto
 }
 
 .sem_post {
@@ -174,6 +173,7 @@
 .interacao_like {
     flex: 1;
 }
+
 .interacao_comment {
     flex: 5;
 }
@@ -187,6 +187,35 @@
     width: 100%;
     height: 5px;
     background-color: red;
+}
+
+
+.area_marked_pets {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.area_marked_pets h4 {
+    font-weight: bold;
+}
+
+.marked_pets {
+    margin-left: 10px;
+}
+
+.marked_pets p {
+    border: 1px solid #29303a;
+    padding: 2px;
+    border-radius: 2px;
+    background-color: #3f4957;
+    color: #FFF;
+
+}
+
+.marked_pets p:hover {
+    transition: 0.3s;
+    background-color: #266e34;
 }
 
 details {

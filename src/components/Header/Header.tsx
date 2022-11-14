@@ -24,7 +24,7 @@ export const Header = ({ title }: Props) => {
                     {auth.user &&
                         <button className={styles.btn_sair} onClick={handleLogout}>Sair </button>
                     }
-                    <img src="src\media\icons\account_circle.svg" onClick={handleLogout} alt="Logout" />
+                    <img src="\src\media\icons\account_circle.svg" onClick={handleLogout} alt="Logout" />
                 </div>
             </nav>
         </header>

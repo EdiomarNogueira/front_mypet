@@ -14,14 +14,14 @@ export const MyPet = () => {
     }
 
     const handleHomeButton = () => {
-        navigate('/');
+        navigate('/Home');
     }
     return (
         <div>
             <Header title="Seu Novo Amigo" />
             Perfil do Pet {params.slug?.toUpperCase()}
             <ul>
-                <li><Link to="/">Home</Link></li>
+                <li><Link to="/Home">Home</Link></li>
                 <li><Link to="/user/:id/mypets">Meus Pets</Link></li>
                 <button onClick={handleBackButton}>Voltar</button>
                 <button onClick={handleHomeButton}>Home</button>

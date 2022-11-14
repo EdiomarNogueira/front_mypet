@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^1.1.3",
     "cors": "^2.8.5",
+    "isset-php": "^1.0.7",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-geolocated": "^4.0.3",
@@ -17,6 +18,7 @@
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^6.4.2",
     "react-scripts": "^5.0.1",
+    "react-select": "^5.6.0",
     "styled-components": "^5.3.6",
     "uuid": "^9.0.0"
   },
