@@ -188,5 +188,12 @@ export const useApi = () => ({
         return response.data;
     },
 
+    getPet: async (id_pet: String) => {
+        var config_headers = refreshConfig();
+
+        const response = await api.get('/user/pet/'+id_pet, config_headers);
+        console.log(response.data);
+        return response.data;
+    },
 
 });

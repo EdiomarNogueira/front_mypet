@@ -10,6 +10,7 @@ export type Pets = {
     species:number,
     biography:string,
     birthdate:string,
+    age:string,
     avatar:string, 
     cover:string,
     genre:number, 

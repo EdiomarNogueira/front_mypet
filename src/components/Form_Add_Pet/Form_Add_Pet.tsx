@@ -27,14 +27,14 @@ export const Form_Add_Pet = () => {
     useEffect(() => {
         loadUser();
     }, []);
-    
+
     const loadUser = async () => {
         let json = await api.getUserMe();
         console.log(json);
+        setUser(json);
         setId_user(json.id);
         setLatitude(json.latitude);
         setLongitude(json.longitude);
-        setUser(json);
     }
 
     var api = useApi();
@@ -42,13 +42,13 @@ export const Form_Add_Pet = () => {
     const handleRegister = async () => {
         if (name && species && situation) {
 
-            let json = await api.postCreatepet(name, id_user , species, birthdate, situation, latitude, longitude);
+            let json = await api.postCreatepet(name, id_user, species, birthdate, situation, latitude, longitude);
             console.log(json);
-        } else if(!name) {
+        } else if (!name) {
             alert("Preencha o nome do pet!");
-        }else if(!species) {
+        } else if (!species) {
             alert("Preencha a espécie do pet!");
-        }else if(!situation) {
+        } else if (!situation) {
             alert("Preencha a situação do pet!");
         }
 
@@ -58,9 +58,9 @@ export const Form_Add_Pet = () => {
         setBirthdate(event.target.value);
     }
     return (
-        <div className={styles.page_register}>
+        <div className={styles.container}>
+            <div className={styles.page_register}>
 
-            <div className={styles.container}>
                 <div className={styles.register_desc}>
                     <h1>Cadastre o seu pet</h1>
                     <p>Cadastre todos os seus pets e aproveite das nossas funcionalidades.</p>
@@ -69,50 +69,55 @@ export const Form_Add_Pet = () => {
                 <div className={styles.register_inputs} onSubmit={handleRegister}>
 
                     <div className={styles.single_input}>
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">* Nome</label>
                         <input
                             type="text"
                             value={name}
                             onChange={handleNameInput}
                             id="name"
                             required
-                            placeholder="Digite seu nome"
+                            placeholder="O nome do seu pet"
                         />
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="species">Espécie</label>
+                        <label htmlFor="species">* Espécie</label>
                         <select name="species" id="species" value={species} required onChange={especie => setSpecies(especie.target.value)} >
                             <option value="1">Cachorro</option>
                             <option value="2">Gato</option>
                         </select>
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="birthdate">Aniversário</label>
+                        <label htmlFor="birthdate">Nascimento</label>
                         <input
                             type="date"
                             value={birthdate}
                             onChange={handleBirthdateInput}
                             id="birthdate"
                             required
-                            placeholder="Digite sua data de aniversário"
+                            placeholder="Digite sua data de nascimento"
                         />
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="situation">Situação</label>
+                        <label htmlFor="situation">* Situação</label>
                         <select name="situation" id="situation" value={situation} required onChange={situation => setSituation(situation.target.value)} >
                             <option value="1">Meu Pet</option>
-                            <option value="2">Perdido</option>
-                            <option value="3">Encontrado</option>
-                            <option value="4">Em tratamento</option>
+                            <option value="2">Pet Para Adoção</option>
+                            <option value="3">Meu Pet Fugiu</option>
+                            <option value="4">Encontrei Este Pet</option>
+                            {user?.category == 2 &&
+                                <option value="5">Em tratamento</option>
+                            }
+
                         </select>
                     </div>
 
                     <div className={styles.area_btn}>
+                       
                         <button className={styles.btn_register} onClick={handleRegister}>Cadastrar Pet</button>
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 }
 

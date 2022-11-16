@@ -1,0 +1,32 @@
+
+.area_secoes {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-around;
+    
+}
+
+.area_secoes div {
+    border: 2px solid #ffffff2c;
+    padding: 8px;
+    min-width: 80px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.area_secoes div:hover {
+    transition: 0.2s;
+    border: 2px solid #4b4c504d;
+}
+
+.area_galeria_pet {
+    width: 100%;
+    height: 100%;
+    border: 2px solid #4b4c5028;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

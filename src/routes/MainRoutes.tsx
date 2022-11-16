@@ -16,7 +16,7 @@ export const MainRoutes = () => {
   return useRoutes([
     { path: '/', element: <Loading /> },
     { path: '/user', element: <RequireAuth><User /></RequireAuth> },
-    { path: '/home', element: <RequireAuth><Home /></RequireAuth> },
+    { path: '/Home', element: <RequireAuth><Home /></RequireAuth> },
     { path: '/auth/login', element: <Login /> },
     { path: '/auth/user_register', element: <UserRegister /> },
     { path: '/user/:user/mypets', element: <RequireAuth><MyPets /></RequireAuth> },

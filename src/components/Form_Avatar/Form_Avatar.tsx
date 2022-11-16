@@ -24,7 +24,6 @@ export const FormAvatar = () => {
         loadUser();
     }, []);
 
-
     const loadUser = async () => {
         let json = await api.getUserMe();
         setUser(json);

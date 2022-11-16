@@ -19,7 +19,7 @@ export const MyPets = () => {
     }
 
     const handleHomeButton = () => {
-        navigate('/');
+        navigate('/Home');
     }
     return (
         <div className={styles.home}>

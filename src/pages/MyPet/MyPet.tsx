@@ -2,8 +2,14 @@ import { Link } from 'react-router-dom';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Header } from '../../components/Header/Header';
 import { Footer } from '../../components/Footer/Footer';
-import { useContext } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
+import { useContext } from 'react';
+import { Sidebar } from '../../components/SideBar/Sidebar';
+import styles from './styles.module.css';
+import { SectionMyPets } from '../../components/SectionMyPets/SectionMyPets';
+import { SectionPerfilPet } from '../../components/SectionPerfilPet/SectionPerfilPet';
+
+
 export const MyPet = () => {
     const auth = useContext(AuthContext);
 
@@ -17,18 +23,25 @@ export const MyPet = () => {
         navigate('/Home');
     }
     return (
-        <div>
-            <Header title="Seu Novo Amigo" />
-            Perfil do Pet {params.slug?.toUpperCase()}
-            <ul>
-                <li><Link to="/Home">Home</Link></li>
-                <li><Link to="/user/:id/mypets">Meus Pets</Link></li>
-                <button onClick={handleBackButton}>Voltar</button>
-                <button onClick={handleHomeButton}>Home</button>
+        <div className={styles.home}>
+            <div>
+                <Header title="Seu Novo Amigo" />
+            </div>
+            <div className={styles.area_body}>
+                <div className={styles.area_sidebar}>
+                    <Sidebar />
+                </div>
+                <div className={styles.area_posts}>
+                    <SectionPerfilPet idpet={ params.slug } />
+                </div>
+                <div className={styles.area_3}>
+                    AREA 3
+                </div>
+            </div>
 
-            </ul>
+
+
             <Footer text="Todos os direitos reservados"></Footer>
-
         </div>
     );
 }

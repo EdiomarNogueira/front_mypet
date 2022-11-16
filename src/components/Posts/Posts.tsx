@@ -12,7 +12,6 @@ type Props = {
     // title?: string; //interrogação deixa a prop não obrigatória 
 }
 
-
 export const Posts = () => { //{ title }: Props
     const [posts, setPosts] = useState<Publish[]>([]);
     const [loading, setLoading] = useState(false);
@@ -25,8 +24,6 @@ export const Posts = () => { //{ title }: Props
     useEffect(() => {
         loadPosts();
     }, [currentPerPage]);
-
-
 
     const loadPosts = async () => {
         setLoading(true);

@@ -188,7 +188,7 @@ export const FormUser = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="birthdate">Aniversário</label>
+                            <label htmlFor="birthdate">Data Nascimento</label>
                             <input
                                 type="date"
                                 value={user?.birthdate}
@@ -249,7 +249,7 @@ export const FormUser = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="briography">Biografia</label>
+                            <label htmlFor="biography">Biografia</label>
                             <input
                                 type="biography"
                                 value={biography}

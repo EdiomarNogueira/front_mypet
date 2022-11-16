@@ -120,14 +120,14 @@ export const UserRegister = () => {
                             />
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="birthdate">Aniversário</label>
+                        <label htmlFor="birthdate">Data Nascimento</label>
                         <input
                             type="date"
                             value={birthdate}
                             onChange={handleBirthdateInput}
                             id="birthdate"
                             required
-                            placeholder="Digite sua data de aniversário"
+                            placeholder="Digite sua data de nascimento"
                         />
                     </div>
                     <div className={styles.area_btn}>

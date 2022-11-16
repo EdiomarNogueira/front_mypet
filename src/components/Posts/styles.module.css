@@ -133,12 +133,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .post_text {
     width: 100%;
     padding: 5px 10px;
     text-align: justify;
+    border: 2px solid #3f495736;
+    background-color: #f0f2f5;
 }
 
 .post_photo {
@@ -146,6 +149,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 
 .post_photo img {
@@ -156,8 +160,11 @@
 }
 
 .subtitle {
-    padding-left: 20px;
-    padding-right: 20px;
+    width: 100%;
+    padding: 5px 10px;
+    
+    border: 2px solid #3f495736;
+    background-color: #f0f2f5;
 }
 
 .interacoes {

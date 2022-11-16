@@ -1,11 +1,9 @@
 import styles from './styles.module.css';
-import { ChangeEvent, useContext, useEffect, useState, FormEvent } from 'react';
-import { AuthContext } from '../../contexts/Auth/AuthContext';
+import { ChangeEvent, useEffect, useState, FormEvent } from 'react';
 import { User } from '../../types/User';
 import { useApi } from "../../hooks/useApi";
 import { Pets } from '../../types/Pets';
 import Select from 'react-select';
-import { json } from 'stream/consumers';
 // type Props = {
 //     // title?: string; //interrogação deixa a prop não obrigatória 
 // }
@@ -13,7 +11,7 @@ import { json } from 'stream/consumers';
 export const FormPost = () => {
 
     const [addText, setAddText] = useState('');
-    const [pets, setPets] = useState([]);
+    const [pets, setPets] = useState<Pets[]>();
     const [selectPets, setSelectPets] = useState([]);
     var [user, setUser] = useState<User | null>(null);
     var api = useApi();
@@ -22,7 +20,7 @@ export const FormPost = () => {
     {
         if (pets) {
             pets.map((item, index) => (
-                arraypets[index] = { value: item[0].id, label: item[0].name }
+                arraypets[index] = { value: item.id, label: item.name }
             ))
         }
 

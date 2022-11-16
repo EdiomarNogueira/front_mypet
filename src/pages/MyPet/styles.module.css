@@ -1,0 +1,23 @@
+.home {
+    width: 100%;
+    height: 100%;
+}
+
+.area_body {
+    display: flex;
+    justify-content: center;
+}
+
+.area_sidebar {
+    flex: 1;
+    height: 100vh;
+}
+
+.area_posts {
+    flex: 2;
+}
+
+.area_3 {
+    flex: 1;
+    height: 100%;
+}
