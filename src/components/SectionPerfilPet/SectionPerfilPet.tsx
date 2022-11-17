@@ -36,12 +36,15 @@ export const SectionPerfilPet = (props: { idpet: String }) => {
     let genero = '';
     let castrado = '';
     let rastreio = '';
+    let msg_rastreio = null;
     //verificar a situação do pet, a depender mudar como identificar o tutor
 
     if (pet.latitude && pet.longitude) {
         rastreio = "Disponível";
+        msg_rastreio = null;
     } else {
         rastreio = "Indisponível";
+        msg_rastreio = "*Complete o seu cadastro de usuário informando sua localização para que seja possivel ajudarmos a localizar o seu pet se necessário."
     }
     switch (pet.situation) {
         case 1:
@@ -175,6 +178,9 @@ export const SectionPerfilPet = (props: { idpet: String }) => {
                             <div>
                                 <p>{infor_cadastro}</p>
                             </div>
+                            {msg_rastreio &&
+                                <p className={styles.msg_rastreio}>{msg_rastreio}</p>
+                            }
 
                         </div>
 
@@ -191,7 +197,7 @@ export const SectionPerfilPet = (props: { idpet: String }) => {
                     </div>
                 </div>
                 <div className={styles.container}>
-                    <SectionToolsPet idpet={pet.id} />
+                    <SectionToolsPet id_user={pet.id_user} idpet={pet.id} />
                 </div>
             </div>
 

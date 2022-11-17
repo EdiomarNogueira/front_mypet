@@ -15,12 +15,12 @@ type Props = {
 export const Posts = () => { //{ title }: Props
     const [posts, setPosts] = useState<Publish[]>([]);
     const [loading, setLoading] = useState(false);
-    const [currentPerPage, setCurrentPerPage] = useState(2);
+    const [currentPerPage, setCurrentPerPage] = useState(4);
 
     const [item, setItem] = useState('');
     const [comment_post, setCommentPost] = useState('');
     var api = useApi();
-
+ 
     useEffect(() => {
         loadPosts();
     }, [currentPerPage]);

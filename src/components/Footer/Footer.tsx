@@ -8,6 +8,7 @@ export const Footer = ({ text }: Props) => {
     return (
         <footer className={styles.square} >
                 <p className={styles.text}>{text}</p>
+                
         </footer>
     )
 }

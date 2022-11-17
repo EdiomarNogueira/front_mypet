@@ -1,0 +1,41 @@
+.area_galeria {
+    width: 100%;
+    padding: 10px;
+}
+
+.sentinela {
+    width: 100%;
+    height: 1px;
+    background-color: rgb(255, 255, 255);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+
+}
+
+.area_image {
+    border: 2px solid rgba(116, 116, 116, 0.144);
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.text {
+    max-width: 18ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.date {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}

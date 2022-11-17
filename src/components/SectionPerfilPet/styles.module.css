@@ -2,6 +2,7 @@
     padding: 20px;
     border-left: 1px solid #4142442c;
     border-right: 1px solid #4142442c;
+
 }
 
 .container {
@@ -9,6 +10,7 @@
     padding: 20px;
     margin-top: 20px;
     border-radius: 10px;
+
 }
 
 .avatar {
@@ -100,7 +102,7 @@
 }
 
 .btn_alert {
-    height: 130px;
+    height: 40px;
     width: 130px;
     margin-top: 20px;
     padding: 8px;
@@ -110,7 +112,7 @@
     cursor: pointer;
     transition: 0.3s;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.349);
-    border-radius: 180px;
+    /* border-radius: 180px; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -127,4 +129,9 @@
     transition: 0.3s;
     box-shadow: none;
 
+}
+
+.msg_rastreio {
+    margin-top: 10px;
+    padding: 5px;
 }

@@ -67,7 +67,7 @@ export const FormPost = () => {
 
             let idsPets: any[] = [];
             selectPets.forEach(function (item: any, index: number) {
-                idsPets[index] = item.value;
+                idsPets[index] = parseInt(item.value);
             });
 
             let pet = idsPets;

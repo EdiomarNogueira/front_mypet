@@ -191,9 +191,24 @@ export const useApi = () => ({
     getPet: async (id_pet: String) => {
         var config_headers = refreshConfig();
 
-        const response = await api.get('/user/pet/'+id_pet, config_headers);
+        const response = await api.get('/user/pet/' + id_pet, config_headers);
         console.log(response.data);
         return response.data;
     },
+
+
+    getPetPhotos: async (id: Number, id_pet: Number, currentPerPage: Number) => {
+ 
+        let perPage = currentPerPage;
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken'),
+            }
+        };
+
+        const response = await api.get('/user/' + id + '/photos/pet/' + id_pet +'/?perPage=' + perPage, config);
+        return response.data;
+    }
 
 });

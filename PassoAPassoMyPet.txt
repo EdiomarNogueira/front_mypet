@@ -18,3 +18,6 @@ api de localização https://nominatim.openstreetmap.org/search?q=222,potiragua,
 https://www.youtube.com/watch?v=YbTUc0GUXp8
 
 npm install react-select -> para marcar os pets
+
+npm install @material-ui/icons
+
