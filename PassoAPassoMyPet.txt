@@ -21,3 +21,4 @@ npm install react-select -> para marcar os pets
 
 npm install @material-ui/icons
 
+npm install react-modal

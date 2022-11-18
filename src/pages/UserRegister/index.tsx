@@ -68,7 +68,7 @@ export const UserRegister = () => {
                 <div className={styles.register_inputs} onSubmit={handleRegister}>
 
                     <div className={styles.single_input}>
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Name: </label>
                         <input
                             type="text"
                             value={name}
@@ -79,7 +79,7 @@ export const UserRegister = () => {
                         />
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email">Email: </label>
                         <input
                             type="text"
                             value={email}
@@ -90,7 +90,7 @@ export const UserRegister = () => {
                         />
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="password">Senha</label>
+                        <label htmlFor="password">Senha: </label>
                         <input
                             type="password"
                             value={password}
@@ -101,14 +101,14 @@ export const UserRegister = () => {
                         />
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="category">Category</label>
+                        <label htmlFor="category">Categoria: </label>
                         <select name="category" id="category" value={category} required onChange={cat => setCategory(cat.target.value)} >
                             <option value="1">Usuário</option>
                             <option value="2">Ong</option>
                         </select>
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="phone">Phone</label>
+                        <label htmlFor="phone">Telefone: </label>
                         <InputMask 
                                 type="text"
                                 value={phone}
@@ -120,7 +120,7 @@ export const UserRegister = () => {
                             />
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="birthdate">Data Nascimento</label>
+                        <label htmlFor="birthdate">Data Nascimento: </label>
                         <input
                             type="date"
                             value={birthdate}

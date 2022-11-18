@@ -20,11 +20,18 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number }) => {
     const [posts, setPosts] = useState<Publish[]>([]);
     var api = useApi();
 
+
+    useEffect(() => {
+        loadPhotos();
+    }, [currentPerPage]);
+
+
+
     const handleGaleria = async () => {
         setViewGaleria(true);
         setViewRGA(false);
         setViewCartaoVacina(false);
-        setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 1);
+        setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 3);
 
     }
 
@@ -40,16 +47,11 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number }) => {
         setViewCartaoVacina(true);
     }
 
-    useEffect(() => {
-        loadPhotos();
-    }, [currentPerPage]);
-
 
     const loadPhotos = async () => {
         setLoading(true);
         let json = await api.getPetPhotos(id_user, id_pet, currentPerPage);
         setLoading(false);
-        console.log(json);
         setPosts(json.posts);
     }
 
@@ -58,7 +60,7 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number }) => {
         const intersectionObserver = new IntersectionObserver((entries) => {
             if (entries.some((entry) => entry.isIntersecting)) {
                 console.log('está visivel', currentPerPage);
-                setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 1);
+                setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 3);
             }
         });
 
