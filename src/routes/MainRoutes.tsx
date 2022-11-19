@@ -10,12 +10,15 @@ import { Login } from '../pages/Login';
 import { UserRegister } from '../pages/UserRegister';
 import { User } from '../pages/User/User';
 import { MyPetsAdd } from '../pages/MyPetsAdd/MyPetsAdd';
+import { Perfil } from '../pages/Perfil/Perfil';
 
 export const MainRoutes = () => {
   //ROTAS ATRAVÉS DE OBJETOS (useRoutes)
   return useRoutes([
     { path: '/', element: <Loading /> },
-    { path: '/user', element: <RequireAuth><User /></RequireAuth> },
+    // { path: '/user', element: <RequireAuth><Perfil /></RequireAuth> },
+    { path: '/user/:id_user', element: <RequireAuth><Perfil /></RequireAuth> },
+    { path: '/user/config', element: <RequireAuth><User /></RequireAuth> },
     { path: '/Home', element: <RequireAuth><Home /></RequireAuth> },
     { path: '/auth/login', element: <Login /> },
     { path: '/auth/user_register', element: <UserRegister /> },

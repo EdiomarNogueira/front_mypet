@@ -23,8 +23,8 @@ export const FormUser = () => {
     const [birthdate, setBirthdate] = useState('');
     const [category, setCategory] = useState("1");
     const [phone, setPhone] = useState('');
-    const [rua, setRua] = useState('');
-    const [bairro, setBairro] = useState('');
+    const [road, setRoad] = useState('');
+    const [district, setDistrict] = useState('');
     const [city, setCity] = useState('');
     const [genre, setGenre] = useState("1");
     const [work, setWork] = useState('');
@@ -54,8 +54,8 @@ export const FormUser = () => {
     const handlePhoneInput = (event: ChangeEvent<HTMLInputElement>) => {
         setPhone(event.target.value);
     }
-    const handleRuaInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setRua(event.target.value);
+    const handleRoadtInput = (event: ChangeEvent<HTMLInputElement>) => {
+        setRoad(event.target.value);
     }
     const handleGenreInput = (event: ChangeEvent<HTMLInputElement>) => {
         setGenre(event.target.value);
@@ -66,8 +66,8 @@ export const FormUser = () => {
     const handleCityInput = (event: ChangeEvent<HTMLInputElement>) => {
         setCity(event.target.value);
     }
-    const handleBairroInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setBairro(event.target.value);
+    const handleDistrictInput = (event: ChangeEvent<HTMLInputElement>) => {
+        setDistrict(event.target.value);
     }
     const handleInstagramInput = (event: ChangeEvent<HTMLInputElement>) => {
         setInstagram(event.target.value);
@@ -84,8 +84,8 @@ export const FormUser = () => {
     var api = useApi();
     var apiLocation = useApiLocation();
     useEffect(() => {
-        loadCidade(rua, city, bairro);
-    }, [rua && city && bairro]);
+        loadCidade(road, city, district);
+    }, [road && city && district]);
 
     useEffect(() => {
         loadDadosUser();
@@ -99,15 +99,15 @@ export const FormUser = () => {
     }
 
 
-    const loadCidade = async (rua: string, city: string, bairro: string) => {
-        let json = await apiLocation.getLocation(rua, city, bairro);
+    const loadCidade = async (road: string, city: string, district: string) => {
+        let json = await apiLocation.getLocation(road, city, district);
         setLatitude(json[0].lat);
         setLongitude(json[0].lon);
     }
 
 
     const handleRegister = async () => {
-        if (rua && city && bairro) {
+        if (road && city && district) {
             alert("Iremos registrar o seu endereço, com ele poderemos auxiliar caso o seu pet fuja.")
         } else {
             alert("Informe o seu endereço (rua, bairro, cidade), com o cadastro completo poderemos auxiliar caso o seu pet fuja.")
@@ -115,11 +115,11 @@ export const FormUser = () => {
 
         // if (name && email && password) {
 
-            let json = await api.putUser(name, email, password, birthdate, category, phone, rua, bairro, city, genre, work, instagram, facebook, biography, latitude, longitude);
-            console.log(json);
+        let json = await api.putUser(name, email, password, birthdate, category, phone, road, district, city, genre, work, instagram, facebook, biography, latitude, longitude);
+        console.log(json);
 
         // } else {
-            // alert("Os dados marcados com * não podem ficar em branco!");
+        // alert("Os dados marcados com * não podem ficar em branco!");
         // }
     }
 
@@ -177,7 +177,7 @@ export const FormUser = () => {
                         </div>
                         <div className={styles.single_input}>
                             <label htmlFor="phone">Telefone</label>
-                            <InputMask 
+                            <InputMask
                                 type="text"
                                 value={phone}
                                 onChange={handlePhoneInput}
@@ -205,12 +205,12 @@ export const FormUser = () => {
                             </select>
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="rua">Rua</label>
+                            <label htmlFor="road">Rua</label>
                             <input
-                                type="rua"
-                                value={rua}
-                                onChange={handleRuaInput}
-                                id="rua"
+                                type="road"
+                                value={road}
+                                onChange={handleRoadtInput}
+                                id="road"
                                 required
                                 placeholder="Informe a rua de seu endereço"
                             />
@@ -238,12 +238,12 @@ export const FormUser = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="bairro">Bairro</label>
+                            <label htmlFor="district">Bairro</label>
                             <input
-                                type="bairro"
-                                value={bairro}
-                                onChange={handleBairroInput}
-                                id="bairro"
+                                type="district"
+                                value={district}
+                                onChange={handleDistrictInput}
+                                id="district"
                                 required
                                 placeholder="Bairro"
                             />
@@ -256,6 +256,7 @@ export const FormUser = () => {
                                 onChange={handleBiographyInput}
                                 id="biography"
                                 required
+                                maxLength={48}
                                 placeholder={user?.biography}
                             />
                         </div>

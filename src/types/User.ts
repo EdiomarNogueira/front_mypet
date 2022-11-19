@@ -10,8 +10,11 @@ export type User = {
     facebook: string,
     biography: string,
     genre: number,
-    birthdate:string,
+    birthdate: string,
+    age: string,
     city: string,
+    district: string,
+    road: string,
     latitude: string,
     longitude: string,
     work: string,
@@ -21,4 +24,7 @@ export type User = {
     status: number,
     date_register: Date,
     date_change: Date,
+    followers: number;
+    following: number;
+    isFollowing: boolean;
 }

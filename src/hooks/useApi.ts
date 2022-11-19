@@ -36,9 +36,9 @@ export const useApi = () => ({
         return response.data;
     },
 
-    putUser: async (name: string, email: string, password: string, birthdate: string, category: string, phone: string, rua: string, bairro: string, city: string, genre: string, work: string, instagram: string, facebook: string, biography: string, latitude: string, longitude: string) => {
+    putUser: async (name: string, email: string, password: string, birthdate: string, category: string, phone: string, road: string, district: string, city: string, genre: string, work: string, instagram: string, facebook: string, biography: string, latitude: string, longitude: string) => {
         var config_headers = refreshConfig();
-        const response = await api.put('/user', { name, email, password, birthdate, category, phone, rua, bairro, city, genre, work, instagram, facebook, biography, latitude, longitude }, config_headers);
+        const response = await api.put('/user', { name, email, password, birthdate, category, phone, road, district, city, genre, work, instagram, facebook, biography, latitude, longitude }, config_headers);
         return response.data;
     },
 
@@ -54,6 +54,19 @@ export const useApi = () => ({
         return response.data;
 
     },
+
+    getDadosUserPerfil: async (id_user: Number) => {
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken'),
+            }
+        };
+
+        const response = await api.get('user/' + id_user, config);
+        return response.data;
+    },
+
 
     logout: async () => {
         var config_headers = refreshConfig();
@@ -104,6 +117,20 @@ export const useApi = () => ({
             id_user, type, body
         }, config_headers); //ALTERAR A VALIDAÇÃO
         return response.data;
+    },
+
+    postFollowUnfollow: async (id_user: number) => {
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken')
+            }
+        };
+
+        const response = await api.post('/user/' + id_user + '/follow', {}, config).then((response) => {
+            console.log(response);
+        })
+        return response;
     },
 
     postNewPostFile: async (type: string, subtitle: string, photo: File, pets: any) => {
@@ -198,7 +225,7 @@ export const useApi = () => ({
 
 
     getPetPhotos: async (id: Number, id_pet: Number, currentPerPage: Number) => {
- 
+
         let perPage = currentPerPage;
         var config = {
             headers: {
@@ -207,7 +234,7 @@ export const useApi = () => ({
             }
         };
 
-        const response = await api.get('/user/' + id + '/photos/pet/' + id_pet +'/?perPage=' + perPage, config);
+        const response = await api.get('/user/' + id + '/photos/pet/' + id_pet + '/?perPage=' + perPage, config);
         return response.data;
     }
 

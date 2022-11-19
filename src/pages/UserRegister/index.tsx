@@ -61,7 +61,7 @@ export const UserRegister = () => {
 
             <div className={styles.container}>
                 <div className={styles.register_desc}>
-                    <h1>Cadastre-se no Seu Novo Amigo</h1>
+                    <h1>Cadastre-se no Um Novo Amigo</h1>
                     <p>Fazendo parte do MyPet você poderá encontrar os amigos do seu pet e contar com diversas funcionalidades da plataforma.</p>
                 </div>
 

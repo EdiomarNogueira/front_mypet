@@ -24,7 +24,7 @@ export const MyPets = () => {
     return (
         <div className={styles.home}>
             <div>
-                <Header title="Seu Novo Amigo" />
+                <Header title="Um Novo Amigo" />
             </div>
             <div className={styles.area_body}>
                 <div className={styles.area_sidebar}>

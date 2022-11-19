@@ -7,7 +7,7 @@ import { User } from '../../types/User';
 import { Link } from 'react-router-dom';
 import { SectionToolsPet } from '../SectionToolsPet/SectionToolsPet';
 
-export const SectionPerfilPet = (props: { idpet: String }) => {
+export const SectionPerfilPet = (props: { idpet: any }) => {
     const [pet, setPet] = useState<Pets[]>([]);
     const [loading, setLoading] = useState(false);
     const auth = useContext(AuthContext);

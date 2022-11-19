@@ -5,13 +5,16 @@
 
 .area_body {
     display: flex;
-
     justify-content: center;
+    margin-top: 70px;
+    height: 100%;
 }
 
 .area_sidebar {
     flex: 1;
     height: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .area_posts {

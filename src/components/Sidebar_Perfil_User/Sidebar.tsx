@@ -6,7 +6,7 @@ type Props = {
     text?: string; //interrogação deixa a prop não obrigatória 
 }
 
-export const Sidebar = () => {
+export const SidebarPerfilUser = () => {
     const auth = useContext(AuthContext);
     let name = auth.user?.name;
     let id_user = auth.user?.id;
@@ -15,20 +15,10 @@ export const Sidebar = () => {
             <div className={styles.divisao_menu}>
                 <ul>
                     <li><Link to="/Home">Home</Link></li>
-                    <li><Link to={'/User/' + id_user}>Meu Perfil</Link></li>
-                    <li><Link to="/User/config">Meus Dados</Link></li>
                 </ul>
             </div>
-            <div className={styles.divisao_menu}>
-                <ul>
-                    <li><Link to={'/user/' + name + '/mypets'}>Pets</Link></li>
-                    <li><Link to="/galeria">Galeria de Fotos</Link></li>
-                </ul>
-            </div>
-            <div className={styles.divisao_menu}>
-                <ul>
-                    <li><Link to="/user/:id/mypet/:slug">Amigos</Link></li>
-                </ul>
+            <div>
+                Listar amigos
             </div>
         </div>
     )

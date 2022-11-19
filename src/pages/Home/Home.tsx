@@ -12,7 +12,7 @@ export const Home = () => {
 
     return (
         <div className={styles.home}>
-            <Header title="Seu Novo Amigo" />
+            <Header title="Um Novo Amigo" />
             <div className={styles.area_body}>
                 <div className={styles.area_sidebar}>
                     <Sidebar />
