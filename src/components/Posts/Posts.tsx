@@ -20,7 +20,7 @@ export const Posts = () => { //{ title }: Props
     const [item, setItem] = useState('');
     const [comment_post, setCommentPost] = useState('');
     var api = useApi();
- 
+
     useEffect(() => {
         loadPosts();
     }, [currentPerPage]);
@@ -80,7 +80,7 @@ export const Posts = () => { //{ title }: Props
                                     <div className={styles.user_post}>
                                         <img className={styles.avatar} src={item.user.avatar} alt="avatar" />
                                         <div className={styles.name_data}>
-                                            <p className={styles.user_name}></p><Link className={styles.link_name} to="/user/:id">{item.user.name}</Link>
+                                            <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/'+item.user.id}>{item.user.name}</Link>
                                             <p className={styles.data_post}>{item.date_register}</p>
                                         </div>
                                     </div>
@@ -97,7 +97,8 @@ export const Posts = () => { //{ title }: Props
                                             </div>
                                         )}
                                     </div>
-                                    {item.marked_pets &&
+                                    {
+                                    item.marked_pets &&
                                         <div className={styles.area_marked_pets}>
                                             <h4>Pets Marcados:</h4>
                                             {item.marked_pets.map((pets_marked, index) => (
@@ -107,8 +108,8 @@ export const Posts = () => { //{ title }: Props
                                             ))}
 
                                         </div>
-                                    }
-                                    <div className={styles.interacoes}>
+                                }
+                                < div className = { styles.interacoes } >
                                         <div className={styles.interacao_like}>
                                             <Likes id={item.id} />
                                             {/* like_count={item.likeCount} liked={item.liked}  */}
@@ -117,35 +118,35 @@ export const Posts = () => { //{ title }: Props
                                             <NewComment id={item.id} />
                                         </div>
                                     </div>
-                                    <div>
-                                    </div>
-                                    <details>
-                                        <summary>
-                                            Comentários
-                                        </summary>
-                                        <div className={styles.area_comments}>
+                        <div>
+                        </div>
+                        <details>
+                            <summary>
+                                Comentários
+                            </summary>
+                            <div className={styles.area_comments}>
 
-                                            {item.comments.map((comment_post, index) => (
-                                                <div>
-                                                    <Comments comments={comment_post} />
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </details>
-                                </div>
+                                {item.comments.map((comment_post, index) => (
+                                    <div>
+                                        <Comments comments={comment_post} />
+                                    </div>
+                                ))}
+                            </div>
+                        </details>
+                    </div>
 
                             ))}
 
-                            <div className={styles.sentinela} id='sentinela' />
+                <div className={styles.sentinela} id='sentinela' />
 
-                        </div>
-                    </>
-                } {!loading && posts.length == 0 &&
-                    <div>
-                        <div className={styles.sem_post}>Faça o seu primeiro post, mostre para a gente o seu Pet</div>
-                    </div>
-                }
             </div>
+        </>
+                } {!loading && posts.length == 0 &&
+    <div>
+        <div className={styles.sem_post}>Faça o seu primeiro post, mostre para a gente o seu Pet</div>
+    </div>
+                }
+            </div >
 
 
         </>

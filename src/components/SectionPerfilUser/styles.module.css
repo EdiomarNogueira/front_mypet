@@ -87,9 +87,9 @@
 
 }
 
-.infors_section p{
+.infors_section p {
     padding: 10px;
-    
+
 }
 
 
@@ -189,5 +189,41 @@
 .biografia {
     padding: 10px;
     font-size: 18px;
-    font-family:Geneva, Tahoma, sans-serif;
+    font-family: Geneva, Tahoma, sans-serif;
+}
+
+.follow {
+    border: 2px solid rgb(128, 226, 226);
+    padding: 5px;
+    width: 110px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.follow:hover {
+    background-color: rgb(149, 240, 240);
+    transition: 0.3s;
+}
+
+.follow:active {
+    background-color: rgb(145, 209, 209);
+    transition: 0.3s;
+}
+
+.unfollow {
+    border: 2px solid rgb(226, 128, 161);
+    padding: 5px;
+    width: 110px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.unfollow:hover {
+    background-color: rgb(238, 155, 182);
+    transition: 0.3s;
+}
+
+.unfollow:active {
+    background-color: rgb(209, 142, 164);
+    transition: 0.3s;
 }

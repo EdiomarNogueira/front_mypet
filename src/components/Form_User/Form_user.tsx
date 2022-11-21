@@ -101,10 +101,11 @@ export const FormUser = () => {
 
     const loadCidade = async (road: string, city: string, district: string) => {
         let json = await apiLocation.getLocation(road, city, district);
-        setLatitude(json[0].lat);
-        setLongitude(json[0].lon);
+        if (json[0].lat && json[0].lon) {
+            setLatitude(json[0].lat);
+            setLongitude(json[0].lon);
+        }
     }
-
 
     const handleRegister = async () => {
         if (road && city && district) {
@@ -150,7 +151,7 @@ export const FormUser = () => {
                             <label htmlFor="email">Email</label>
                             <input
                                 type="text"
-                                value={user?.email}
+                                value={email}
                                 onChange={handleEmailInput}
                                 id="email"
                                 required
@@ -205,7 +206,7 @@ export const FormUser = () => {
                             </select>
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="road">Rua</label>
+                            <label htmlFor="road">Rua/Avenida</label>
                             <input
                                 type="road"
                                 value={road}

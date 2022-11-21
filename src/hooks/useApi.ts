@@ -30,15 +30,51 @@ export const useApi = () => ({
         return response.data;
     },
 
-    signin: async (email: string, password: string) => {
+    signin: async (
+        email: string,
+        password: string) => {
         var config_headers = refreshConfig();
         const response = await api.post('/auth/login', { email, password });
         return response.data;
     },
 
-    putUser: async (name: string, email: string, password: string, birthdate: string, category: string, phone: string, road: string, district: string, city: string, genre: string, work: string, instagram: string, facebook: string, biography: string, latitude: string, longitude: string) => {
+    putUser: async (
+        name: string,
+        email: string,
+        password: string,
+        birthdate: string,
+        category: string,
+        phone: string,
+        road: string,
+        district: string,
+        city: string,
+        genre: string,
+        work: string,
+        instagram: string,
+        facebook: string,
+        biography: string,
+        latitude: string,
+        longitude: string) => {
+
         var config_headers = refreshConfig();
-        const response = await api.put('/user', { name, email, password, birthdate, category, phone, road, district, city, genre, work, instagram, facebook, biography, latitude, longitude }, config_headers);
+        const response = await api.put('/user', {
+            name,
+            email,
+            password,
+            birthdate,
+            category,
+            phone,
+            road,
+            district,
+            city,
+            genre,
+            work,
+            instagram,
+            facebook,
+            biography,
+            latitude,
+            longitude
+        }, config_headers);
         return response.data;
     },
 
@@ -74,14 +110,29 @@ export const useApi = () => ({
         return response.data;
     },
 
-    postCreateuser: async (name: string, email: string, password: string, birthdate: string, category: string, phone: string) => {//category: string,
+    postCreateuser: async (
+        name: string,
+        email: string,
+        password: string,
+        birthdate: string,
+        category: string,
+        phone: string
+    ) => {//category: string,
         const response = await api.post('/user/user_register', { name, email, password, birthdate, category, phone });
         return response.data;
     },
 
 
 
-    postCreatepet: async (name: string, id_user: number, species: string, birthdate: string, situation: string, latitude: string, longitude: string) => {
+    postCreatepet: async (
+        name: string,
+        id_user: number,
+        species: string,
+        birthdate: string,
+        situation: string,
+        latitude: string,
+        longitude: string
+    ) => {
         var config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -102,6 +153,19 @@ export const useApi = () => ({
         };
 
         const response = await api.get('/feed/?page=' + perPage, config);
+        return response.data;
+    },
+
+    getUserNear: async (latitude: String, longitude: String) => {
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken'),
+            },
+
+        };
+        const response = await api.get('/user/recommended/' + latitude + '/' + longitude, config);
+        console.log(response);
         return response.data;
     },
 
@@ -127,13 +191,16 @@ export const useApi = () => ({
             }
         };
 
-        const response = await api.post('/user/' + id_user + '/follow', {}, config).then((response) => {
-            console.log(response);
-        })
-        return response;
+        const response = await api.post('/user/' + id_user + '/follow', {}, config);
+        return response.data;
     },
 
-    postNewPostFile: async (type: string, subtitle: string, photo: File, pets: any) => {
+    postNewPostFile: async (
+        type: string,
+        subtitle: string,
+        photo: File,
+        pets: any
+    ) => {
         var config = {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -211,7 +278,6 @@ export const useApi = () => ({
         var config_headers = refreshConfig();
 
         const response = await api.get('/user/pet', config_headers);
-        console.log(response.data);
         return response.data;
     },
 
@@ -219,12 +285,14 @@ export const useApi = () => ({
         var config_headers = refreshConfig();
 
         const response = await api.get('/user/pet/' + id_pet, config_headers);
-        console.log(response.data);
         return response.data;
     },
 
 
-    getPetPhotos: async (id: Number, id_pet: Number, currentPerPage: Number) => {
+    getPetPhotos: async (
+        id: Number,
+        id_pet: Number,
+        currentPerPage: Number) => {
 
         let perPage = currentPerPage;
         var config = {

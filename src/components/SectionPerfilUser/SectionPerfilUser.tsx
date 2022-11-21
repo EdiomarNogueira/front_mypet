@@ -15,6 +15,8 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     const [currentPerPage, setCurrentPerPage] = useState(0);
     var [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(false);
+    const [isFollowing, setIsFollowing] = useState(false);
+
     const [posts, setPosts] = useState<Publish[]>([]);
     const params = useParams();
 
@@ -22,26 +24,34 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
 
 
 
-
+    if (user?.isFollowing == true) {
+        let isFollowing = user?.isFollowing;
+    }
 
     useEffect(() => {
         loadDadosUser();
-        console.log("veio aqui");
     }, []);
 
     const loadDadosUser = async () => {
         setLoading(true);
         let json = await api.getDadosUserPerfil(id_user);
-        console.log('dados user', json);
-        setLoading(false);
-        setUser(json.user);
+        if (json) {
+            setLoading(false);
+            setUser(json.user);
+        } else {
+            loadDadosUser();
+        }
+
     }
 
     const handleFollowUnfollow = async () => {
         console.log(params.id_user);
         let json = await api.postFollowUnfollow(id_user);
-        loadDadosUser();
-        console.log(json);
+        if (json) {
+            loadDadosUser();
+            setIsFollowing(json.relation);
+        }
+
     }
 
     useEffect(() => {
@@ -68,7 +78,6 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
 
     let seguidores = user?.followers;
     let seguindo = user?.following;
-    let isFollowing = false;
     let idade = ' -';
     let biografia = ' -';
     let data_nascimento = ' -';
@@ -115,9 +124,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
         trabalho = user?.work;
     }
 
-    if (user?.isFollowing == true) {
-        let isFollowing = user?.isFollowing;
-    }
+
 
     if (user?.category == 1) {
         categoria = "Usuário";
@@ -167,8 +174,6 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                         <h2>{user?.name}</h2>
                         {me &&
                             <div className={styles.area_config}>
-
-
                                 <Link to={'/user/config'}>
                                     <div className={styles.btn_config}>
                                         <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" />
@@ -176,19 +181,15 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                                     </div>
                                 </Link>
 
-
-
                             </div>}
                     </div>
 
                     <div className={styles.infors_user}>
                         <div className={styles.area_avatar}>
                             <img className={styles.avatar} src={user?.avatar} alt="imagem perfil pet" />
-                            <p className={styles.biografia}>{biografia}</p>
+                            {/* <p className={styles.biografia}>{biografia}</p> */}
                         </div>
-
                         <div className={styles.infors}>
-
                             <div className={styles.infors_dados}>
                                 <div>
                                     <p>Categoria: {categoria}</p>
@@ -197,9 +198,9 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                                     <p>Idade: {idade} anos</p>
                                     <p>Data_nascimento: {data_nascimento}</p>
                                     <p>Genero: {genero}</p>
+                                    <p>Biografia: {biografia}</p>
                                 </div>
                             </div>
-                            <p>Biografia: {biografia}</p>
 
                             <div>
                             </div>
@@ -215,10 +216,10 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                         {!me &&
                             <div onClick={handleFollowUnfollow}>
                                 {!isFollowing &&
-                                    <p>Seguir</p>
+                                    <p className={styles.follow}>Seguir</p>
                                 }
                                 {isFollowing &&
-                                    <p>Deixar de seguir</p>
+                                    <p className={styles.unfollow}>Não seguir</p>
                                 }
                             </div>
                         }
@@ -226,10 +227,10 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                         <p>Seguidores: {seguidores}</p>
                     </div>
                     <div className={styles.infors_section}>
-                        <p>{email}</p>
-                        <p>Facebook: <Link to={'www.facebook.com/' + facebook}>{facebook}</Link></p>
-                        <p>Instagram: <Link to={'www.facebook.com/' + facebook}>@{instagram}</Link></p>
-                        <p>{telefone}</p>
+                        <p>Email: {email}</p>
+                        <p>Facebook: <a target="_blank" href={'https://www.facebook.com/' + facebook}>{facebook}</a></p>
+                        <p>Instagram: <a target="_blank" href={'https://www.instagram.com/' + instagram}>@{instagram}</a></p>
+                        <p>Telefone: {telefone}</p>
                     </div>
 
                     <div className={styles.infors_section}>

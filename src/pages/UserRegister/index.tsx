@@ -68,7 +68,7 @@ export const UserRegister = () => {
                 <div className={styles.register_inputs} onSubmit={handleRegister}>
 
                     <div className={styles.single_input}>
-                        <label htmlFor="name">Name: </label>
+                        <label htmlFor="name">Nome: </label>
                         <input
                             type="text"
                             value={name}
