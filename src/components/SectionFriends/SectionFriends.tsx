@@ -10,15 +10,17 @@ import { User } from '../../types/User';
 //     text?: string; //interrogação deixa a prop não obrigatória 
 // }
 
-export const SectionListRecommended = () => {
+export const SectionFriends = () => {
 
     const [pets, setPets] = useState<Pets[]>([] || 0);
     const [loading, setLoading] = useState(false);
     const auth = useContext(AuthContext);
     var [user, setUser] = useState<User | null>(null);
-    var [recommended, setRecommended] = useState<User[] | null>(null);
+    var [friends, setFriends] = useState<User[] | null>(null);
     const [isFollowing, setIsFollowing] = useState(false);
     const [count, setCount] = useState(0);
+    const [currentPerPage, setCurrentPerPage] = useState(5);
+
     let latitude = '';
     let longitude = '';
 
@@ -30,26 +32,33 @@ export const SectionListRecommended = () => {
         longitude = '-40.8779965,13';
     }
 
-
     var api = useApi();
+
     useEffect(() => {
-        loadUsers();
+        loadFriends();
     }, [count]);
 
-    const loadUsers = async () => {
+    useEffect(() => {
+        loadFriends();
+    }, [currentPerPage]);
+
+    const loadFriends = async () => {
         setLoading(true);
-        let json = await api.getUserNear(latitude, longitude);
+        let json = await api.getUserFriend(latitude, longitude, currentPerPage);
         if (json) {
             setLoading(false);
-            setRecommended(json.recommended);
+            setFriends(json.friends);
         }
 
     }
 
-
+    const handleMoreFriends = async () => {
+        setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 5);
+    }
 
     const handleFollowUnfollow = async (id_user: any) => {
         let json = await api.postFollowUnfollow(id_user);
+        console.log('amigos', json);
         if (json) {
             setIsFollowing(json.relation);
 
@@ -57,17 +66,21 @@ export const SectionListRecommended = () => {
         }
     }
 
+
+    const handleReloadPage = async () => {
+        { window.location.reload() }
+    }
+
     return (
         <>
-            <p className={styles.text_recommended}>Perfis Recomendados:</p>
-
-            <div className={styles.area_section_recommended}>
-                {recommended &&
+            <p className={styles.text_friends}>Amigos:</p>
+            <div className={styles.area_section_friends}>
+                {friends &&
                     <div >
                         <div className={styles.area_user} >
-                            {recommended.map((item, index) => (
-                                <div className={styles.card_user}>
-                                    <Link to={'/User/' + item.id}  >
+                            {friends.map((item, index) => (
+                                <div className={styles.card_user} onClick={handleReloadPage}>
+                                    <Link to={'/User/' + item.id} >
                                         <div className={styles.flex_row}>
                                             <img className={styles.avatar} src={item?.avatar} alt="avatar user" />
                                             <p>{item.name}</p>
@@ -75,7 +88,7 @@ export const SectionListRecommended = () => {
                                     </Link>
                                     <div className={styles.area_follow}>
                                         <div onClick={() => handleFollowUnfollow(item?.id)}>
-                                            <p className={styles.follow}>Seguir</p>
+                                            <p className={styles.unfollow}>Desfazer Amizade</p>
                                         </div>
                                     </div>
                                 </div>
@@ -83,8 +96,9 @@ export const SectionListRecommended = () => {
                         </div>
                     </div>
                 }
-               
             </div>
+            <button onClick={handleMoreFriends} className={styles.btn_verMais}>Ver mais</button>
+
         </>
     )
 }

@@ -10,7 +10,7 @@ type Props = {
     text?: string; //interrogação deixa a prop não obrigatória 
 }
 
-export const NewComment = (props: { id: number }) => {
+export const NewComment = (props: { id: number, parentCommentCallBack: any }) => {
 
     const [addText, setAddText] = useState('');
     const auth = useContext(AuthContext);
@@ -28,11 +28,9 @@ export const NewComment = (props: { id: number }) => {
 
         const formData = new FormData(e.currentTarget);
         if (addText) {
-
             let comment = addText;
-
             let json = await api.newCommentPost(id_post, comment);
-
+            onTrigger();
         } else {
             alert("Post vazio!");
         }
@@ -45,8 +43,15 @@ export const NewComment = (props: { id: number }) => {
 
     const loadUser = async () => {
         let json = await api.getUserMe();
-        setUser(json);
+        if (json) {
+            setUser(json);
+        }
     }
+
+    const onTrigger = () => {
+        props.parentCommentCallBack(1);
+    };
+
     return (
         <form className={styles.comment_area} method='POST' onSubmit={handleFormSubmit}>
 

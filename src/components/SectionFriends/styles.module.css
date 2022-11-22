@@ -1,0 +1,91 @@
+.area_section_friends {
+    width: 100%;
+    height: 400px;
+    overflow-y: scroll;
+    border-radius: 6px;
+}
+
+.text_recommended{
+    margin-bottom: 20px;
+}
+
+.user_recommend {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.area_user {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgba(221, 221, 221, 0.425);
+    padding: 5px;
+    margin-bottom: 10px;
+
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.card_user {
+    border: 2px solid rgba(221, 221, 221, 0.425);
+    margin-bottom: 10px;
+}
+
+.flex_row {
+    display: flex;
+}
+
+.unfollow {
+    border: 2px solid rgba(90, 85, 85, 0.329);
+    margin-top: 5px;
+    text-align: center;
+    border: 2px solid rgb(226, 131, 128);
+    font-weight: 500;
+    color: rgb(36, 41, 58);
+    cursor: pointer;
+}
+
+
+.unfollow:hover {
+    background-color: rgb(240, 155, 149);
+    color: #FFF;
+    transition: 0.3s;
+}
+
+.unfollow:active {
+    background-color: rgb(209, 153, 145);
+    color: #FFF;
+    transition: 0.3s;
+}
+
+
+.btn_verMais {
+    border: 2px solid rgba(90, 85, 85, 0.329);
+    font-size: 16px;
+    float: right;
+    margin-top: 20px;
+    text-align: center;
+    border: 2px solid rgb(128, 226, 226);
+    font-weight: 500;
+    color: rgb(36, 41, 58);
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+
+.btn_verMais:hover {
+    background-color: rgb(149, 240, 240);
+    color: #FFF;
+    transition: 0.3s;
+}
+
+.btn_verMais:active {
+    background-color: rgb(145, 209, 209);
+    color: #FFF;
+    transition: 0.3s;
+}

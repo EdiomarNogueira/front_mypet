@@ -64,6 +64,11 @@
     justify-content: space-around;
 }
 
+
+.follow_unfollow {
+    cursor: pointer;
+}
+
 .infors_dados {
     width: 100%;
     display: flex;

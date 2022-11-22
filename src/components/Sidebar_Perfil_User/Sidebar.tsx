@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { Link } from 'react-router-dom';
 import { SectionListRecommended } from '../SectionListRecommended/SectionListRecommended';
+import { SectionFriends } from '../SectionFriends/SectionFriends';
 type Props = {
     text?: string; //interrogação deixa a prop não obrigatória 
 }
@@ -19,7 +20,7 @@ export const SidebarPerfilUser = () => {
 
             </div>
             <div className={styles.divisao_menu}>
-                {/* <SectionListRecommended /> */}
+                <SectionFriends />
             </div>
         </div>
     )

@@ -200,7 +200,6 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
                     <SectionToolsPet id_user={pet.id_user} idpet={pet.id} />
                 </div>
             </div>
-
         </>
     )
 }

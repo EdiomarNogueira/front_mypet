@@ -26,10 +26,11 @@ export const SectionMyPets = () => {
     const loadPets = async () => {
         setLoading(true);
         let json = await api.getMyPets();
-
-        console.log('json', json.currentPet);
+        if (json) {
+            setPets(await json.currentPet);
+        }
         setLoading(false);
-        setPets(await json.currentPet);
+
     }
     return (
         <>
@@ -121,7 +122,6 @@ export const SectionMyPets = () => {
                                                         </div>
                                                     }
                                                 </div>
-
                                             ))}
                                         </div>
                                     </div>

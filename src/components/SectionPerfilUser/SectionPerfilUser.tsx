@@ -30,18 +30,27 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
 
     useEffect(() => {
         loadDadosUser();
+        handleVerificFollow();
     }, []);
 
     const loadDadosUser = async () => {
         setLoading(true);
         let json = await api.getDadosUserPerfil(id_user);
         if (json) {
-            setLoading(false);
             setUser(json.user);
-        } else {
-            loadDadosUser();
         }
+        setLoading(false);
 
+    }
+
+    const handleVerificFollow = async () => {
+        console.log(params.id_user);
+        let json = await api.getVerificFollow(id_user);
+        console.log(json);
+        if (json) {
+            loadDadosUser();
+            setIsFollowing(json.isFollower);
+        }
     }
 
     const handleFollowUnfollow = async () => {
@@ -51,7 +60,6 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
             loadDadosUser();
             setIsFollowing(json.relation);
         }
-
     }
 
     useEffect(() => {
@@ -214,7 +222,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                     </div>
                     <div className={styles.area_follow}>
                         {!me &&
-                            <div onClick={handleFollowUnfollow}>
+                            <div onClick={handleFollowUnfollow} className={styles.follow_unfollow}>
                                 {!isFollowing &&
                                     <p className={styles.follow}>Seguir</p>
                                 }

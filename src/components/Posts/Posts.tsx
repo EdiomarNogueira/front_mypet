@@ -7,59 +7,65 @@ import { Likes } from '../Like/Like';
 import { NewComment } from '../NewComment/Comment';
 import { Link } from 'react-router-dom';
 import { Comments } from '../Comments/Comments';
-import React from 'react';
+
 type Props = {
     // title?: string; //interrogação deixa a prop não obrigatória 
 }
 
 export const Posts = () => { //{ title }: Props
     const [posts, setPosts] = useState<Publish[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [currentPerPage, setCurrentPerPage] = useState(4);
+    const [loading, setLoading] = useState(true);
+    const [comment_post, setCommentPost] = useState(1);
+    const [currentPerPage, setCurrentPerPage] = useState(5);
+    const [countPosts, setCountPosts] = useState(1);
 
-    const [item, setItem] = useState('');
-    const [comment_post, setCommentPost] = useState('');
     var api = useApi();
 
     useEffect(() => {
         loadPosts();
     }, [currentPerPage]);
 
-    const loadPosts = async () => {
-        setLoading(true);
-        let json = fetch('http://127.0.0.1:8000/api/feed/?perPage=' + currentPerPage, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': "Bearer " + localStorage.getItem('authToken'),
-            }
-        })
-
-            .then((response) => response.json())
-        setLoading(false);
-        setPosts(await json);
-    }
+    useEffect(() => {
+        loadPosts();
+    }, [countPosts]);
 
     useEffect(() => {
-        const intersectionObserver = new IntersectionObserver((entries) => {
-            if (entries.some((entry) => entry.isIntersecting)) {
-                console.log('está visivel', currentPerPage);
-                setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 1);
-            }
-        })
+        loadPosts();
+    }, [comment_post]);
 
-        if (document.querySelector('#sentinela')) { // AO CARREGAR A PÁGINA PELA PRIMEIRA VEZ NÃO VAI EXISTIR A DIV, ENTÃO É PRECISO ISOLAR ESTA PARTE PARA QUANDO EXISTIR A DIV
-            intersectionObserver.observe(document.querySelector('#sentinela')!);
+
+    const loadPosts = async () => {
+        let json = await api.newPost(currentPerPage);
+        if (json) {
+            setPosts(await json);
         }
+        setLoading(false);
+    }
 
 
-        return () => intersectionObserver.disconnect();
-    }, []);
+    window.onscroll = function () {
+        if (
+            window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
+        ) {
+            setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 5);
+        }
+    }
+
+
+    const handleNewPostCallback = (newPost: any) => {
+
+        setCountPosts(countPosts + newPost);
+    }
+
+    const handleCommentCallback = (newComment: any) => {
+
+        setCommentPost(comment_post + newComment);
+    }
 
     return (
         <>
             <div className={styles.area_post}>
-                <FormPost />
+                <FormPost parentNewPostCallBack={handleNewPostCallback} />
                 {loading &&
                     <div className={styles.area_loading}>Carregando...</div>
                 }
@@ -69,18 +75,13 @@ export const Posts = () => { //{ title }: Props
                             <button className={styles.btn_amigos} onClick={loadPosts}>Amigos</button>
                             <button className={styles.btn_alertas} onClick={loadPosts}>Alertas</button>
                         </div>
-
                         <div className={styles.container}>
-                            <div className={styles.sentinela} id='sentinela' />
-
-                            <p>Pagina atual: {currentPerPage}</p>
                             {posts.map((item, index) => (
-
                                 <div className={styles.post}>
                                     <div className={styles.user_post}>
                                         <img className={styles.avatar} src={item.user.avatar} alt="avatar" />
                                         <div className={styles.name_data}>
-                                            <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/'+item.user.id}>{item.user.name}</Link>
+                                            <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.user.id}>{item.user.name}</Link>
                                             <p className={styles.data_post}>{item.date_register}</p>
                                         </div>
                                     </div>
@@ -98,7 +99,7 @@ export const Posts = () => { //{ title }: Props
                                         )}
                                     </div>
                                     {
-                                    item.marked_pets &&
+                                        item.marked_pets &&
                                         <div className={styles.area_marked_pets}>
                                             <h4>Pets Marcados:</h4>
                                             {item.marked_pets.map((pets_marked, index) => (
@@ -106,49 +107,42 @@ export const Posts = () => { //{ title }: Props
                                                     <p>{pets_marked}</p>
                                                 </div>
                                             ))}
-
                                         </div>
-                                }
-                                < div className = { styles.interacoes } >
+                                    }
+                                    < div className={styles.interacoes} >
                                         <div className={styles.interacao_like}>
                                             <Likes id={item.id} />
                                             {/* like_count={item.likeCount} liked={item.liked}  */}
                                         </div>
                                         <div className={styles.interacao_comment}>
-                                            <NewComment id={item.id} />
+                                            <NewComment id={item.id} parentCommentCallBack={handleCommentCallback} />
                                         </div>
                                     </div>
-                        <div>
-                        </div>
-                        <details>
-                            <summary>
-                                Comentários
-                            </summary>
-                            <div className={styles.area_comments}>
-
-                                {item.comments.map((comment_post, index) => (
                                     <div>
-                                        <Comments comments={comment_post} />
                                     </div>
-                                ))}
-                            </div>
-                        </details>
-                    </div>
+                                    <details>
+                                        <summary>
+                                            Comentários
+                                        </summary>
+                                        <div className={styles.area_comments}>
 
+                                            {item.comments.map((comment_post, index) => (
+                                                <div>
+                                                    <Comments comments={comment_post} />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </details>
+                                </div>
                             ))}
-
-                <div className={styles.sentinela} id='sentinela' />
-
-            </div>
-        </>
+                        </div>
+                    </>
                 } {!loading && posts.length == 0 &&
-    <div>
-        <div className={styles.sem_post}>Faça o seu primeiro post, mostre para a gente o seu Pet</div>
-    </div>
+                    <div>
+                        <div className={styles.sem_post}>Faça o seu primeiro post, mostre para a gente o seu Pet</div>
+                    </div>
                 }
             </div >
-
-
         </>
     )
 }

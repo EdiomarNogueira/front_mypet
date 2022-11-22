@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
 
@@ -19,7 +19,9 @@ export const Header = ({ title }: Props) => {
     return (
         <header className={styles.square} >
             <nav className={styles.nav}>
-                <h1 className={styles.title}>{title}</h1>
+                <Link to="/Home"><h1 className={styles.title}>{title}</h1></Link>
+
+
                 <div className={styles.logout}>
                     {auth.user &&
                         <button className={styles.btn_sair} onClick={handleLogout}>Sair </button>

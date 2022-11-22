@@ -4,10 +4,10 @@ import { Footer } from '../../components/Footer/Footer';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
-import { Sidebar } from '../../components/SideBar/Sidebar';
-import { FormUser } from '../../components/Form_User/Form_user';
-import { SectionPerfilUser } from '../../components/SectionPerfilUser/SectionPerfilUser';
 import { SidebarPerfilUser } from '../../components/Sidebar_Perfil_User/Sidebar';
+import { SectionPerfilUser } from '../../components/SectionPerfilUser/SectionPerfilUser';
+import { SectionPerfilContact } from '../../components/SectionPerfilContact/SectionPerfilContact';
+
 
 export const Perfil = () => {
     const [me, setMe] = useState(false);
@@ -28,7 +28,12 @@ export const Perfil = () => {
             <Header title="Um Novo Amigo" />
             <div className={styles.area_body}>
                 <div className={styles.area_sidebar}>
-                    <SidebarPerfilUser />
+                    {me &&
+                        <SidebarPerfilUser />
+                    }
+                    {!me &&
+                        <SectionPerfilContact />
+                    }
                 </div>
                 <div className={styles.area_posts}>
                     <SectionPerfilUser id_user={params.id_user} isMe={me} />

@@ -8,8 +8,7 @@ import Select from 'react-select';
 //     // title?: string; //interrogação deixa a prop não obrigatória 
 // }
 
-export const FormPost = () => {
-
+export const FormPost = (props: {parentNewPostCallBack: any}) => {
     const [addText, setAddText] = useState('');
     const [pets, setPets] = useState<Pets[]>();
     const [selectPets, setSelectPets] = useState([]);
@@ -23,7 +22,6 @@ export const FormPost = () => {
                 arraypets[index] = { value: item.id, label: item.name }
             ))
         }
-
     }
 
     useEffect(() => {
@@ -40,7 +38,9 @@ export const FormPost = () => {
         loadUser();
     }, []);
 
-
+    const onTrigger = () => {
+        props.parentNewPostCallBack(1);
+    };
 
     const loadUser = async () => {
         let json = await api.getUserMe();
@@ -91,6 +91,7 @@ export const FormPost = () => {
                 let json = await api.postNewPostText(type, body, pet);
                 setAddText("");
             }
+            onTrigger();
         } else {
             alert("Post vazio!");
         }
@@ -125,7 +126,7 @@ export const FormPost = () => {
                         <Select
                             className={styles.select_pet}
                             isMulti options={arraypets}
-                            onChange={(item) => setSelectPets(item)}
+                            onChange={(item: any) => setSelectPets(item)}
                         />
                     </div>
 

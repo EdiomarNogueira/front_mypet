@@ -156,6 +156,32 @@ export const useApi = () => ({
         return response.data;
     },
 
+    getUserFriend: async (latitude: String, longitude: String, currentPerPage: any) => {
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken'),
+            }
+        };
+        const response = await api.get('/user/friends/' + latitude + '/' + longitude + '?perPage=' + currentPerPage, config);
+
+        console.log('response', response);
+        return response.data;
+    },
+
+    newPost: async (currentPerPage: any) => {
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken'),
+            }
+        };
+
+        const response = await api.get('/feed/?perPage=' + currentPerPage, config);
+        console.log('response', response);
+        return response.data;
+    },
+
     getUserNear: async (latitude: String, longitude: String) => {
         var config = {
             headers: {
@@ -168,6 +194,8 @@ export const useApi = () => ({
         console.log(response);
         return response.data;
     },
+
+
 
     getUserMe: async () => {
         var config_headers = refreshConfig();
@@ -192,6 +220,21 @@ export const useApi = () => ({
         };
 
         const response = await api.post('/user/' + id_user + '/follow', {}, config);
+        console.log(response);
+        return response.data;
+    },
+
+
+    getVerificFollow: async (id_user: number) => {
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken')
+            }
+        };
+
+        const response = await api.get('/user/' + id_user + '/follow', config);
+        console.log('é seguidor?',response);
         return response.data;
     },
 

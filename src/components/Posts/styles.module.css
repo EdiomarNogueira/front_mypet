@@ -27,7 +27,6 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    overflow: auto
 }
 
 .sem_post {
@@ -192,7 +191,7 @@
 
 .sentinela {
     width: 100%;
-    height: 5px;
+    height: 10px;
     background-color: red;
 }
 
