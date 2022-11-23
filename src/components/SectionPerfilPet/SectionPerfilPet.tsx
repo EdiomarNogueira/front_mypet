@@ -8,23 +8,22 @@ import { Link } from 'react-router-dom';
 import { SectionToolsPet } from '../SectionToolsPet/SectionToolsPet';
 
 export const SectionPerfilPet = (props: { idpet: any }) => {
-    const [pet, setPet] = useState<Pets[]>([]);
+    const [pet, setPet] = useState<Pets>(Object);
     const [loading, setLoading] = useState(false);
     const auth = useContext(AuthContext);
     var [user, setUser] = useState<User | null>(null);
     let id_pet = props.idpet;
     var api = useApi();
 
-    useEffect(() => {
-        loadDadosPet();
-    }, []);
+
 
     const loadDadosPet = async () => {
         setLoading(true);
         let json = await api.getPet(id_pet);
-        console.log(json.currentPet);
-        setLoading(false);
+        console.log('retorno json',json);
         setPet(json.currentPet[0]);
+        setLoading(false);
+
     }
 
     let porte = '';
@@ -146,6 +145,10 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
         //FAZER UPDATE EM SITUAÇÃO DO PET
         //FAZER VERIFICAÇÃO DE QUEM ESTÁ PROÓXIMO E ENVIAR MENSAGEM
     }
+
+    useEffect(() => {
+        loadDadosPet();
+    }, []);
 
     return (
         <>

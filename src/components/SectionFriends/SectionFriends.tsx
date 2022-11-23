@@ -34,13 +34,6 @@ export const SectionFriends = () => {
 
     var api = useApi();
 
-    useEffect(() => {
-        loadFriends();
-    }, [count]);
-
-    useEffect(() => {
-        loadFriends();
-    }, [currentPerPage]);
 
     const loadFriends = async () => {
         setLoading(true);
@@ -70,6 +63,15 @@ export const SectionFriends = () => {
     const handleReloadPage = async () => {
         { window.location.reload() }
     }
+
+    
+    useEffect(() => {
+        loadFriends();
+    }, [count]);
+
+    useEffect(() => {
+        loadFriends();
+    }, [currentPerPage]);
 
     return (
         <>

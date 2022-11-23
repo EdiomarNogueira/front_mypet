@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Header } from '../../components/Header/Header';
 import { Footer } from '../../components/Footer/Footer';
 import { useContext, useEffect, useState } from 'react';
@@ -12,7 +12,6 @@ import { SectionPerfilContact } from '../../components/SectionPerfilContact/Sect
 export const Perfil = () => {
     const [me, setMe] = useState(false);
     const auth = useContext(AuthContext);
-    let name = auth.user?.name;
     let id_user = auth.user?.id;
     const params = useParams();
 

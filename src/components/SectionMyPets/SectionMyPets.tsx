@@ -18,10 +18,7 @@ export const SectionMyPets = () => {
     var [user, setUser] = useState<User | null>(null);
 
     let name = auth.user?.name;
-    var api = useApi();
-    useEffect(() => {
-        loadPets();
-    }, []);
+
 
     const loadPets = async () => {
         setLoading(true);
@@ -32,6 +29,12 @@ export const SectionMyPets = () => {
         setLoading(false);
 
     }
+
+    var api = useApi();
+    useEffect(() => {
+        loadPets();
+    }, []);
+    
     return (
         <>
             <div className={styles.area_Section_MyPets}>
@@ -46,7 +49,6 @@ export const SectionMyPets = () => {
                     {pets &&
                         <div>
                             {!loading && pets.length > 0 && //criar container com grid
-
                                 <div className={styles.container}>
                                     <div className={styles.container_pets}>
                                         <div>
@@ -70,7 +72,6 @@ export const SectionMyPets = () => {
                                                         </div>
                                                     }
                                                 </div>
-
                                             ))}
                                         </div>
                                     </div>
@@ -183,14 +184,11 @@ export const SectionMyPets = () => {
                             }
                         </div>
                     }
-
                     {!pets &&
                         <div>
                             <p>Ainda sem pets cadastrados</p>
                         </div>
-
                     }
-
                 </div>
             </div>
         </>

@@ -1,6 +1,21 @@
 .area_galeria {
     width: 100%;
     padding: 10px;
+    border-left: 1px solid #4142442c;
+    border-right: 1px solid #4142442c;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    
+}
+
+.area_novo_post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .sentinela {
@@ -10,21 +25,25 @@
 }
 
 .container {
+
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 20px;
 }
 
 .area_image {
     border: 2px solid rgba(116, 116, 116, 0.144);
     padding: 5px;
     margin-bottom: 10px;
+    
 }
 
 .image {
     width: 100%;
-    height: 160px;
+    height: 260px;
     object-fit: cover;
 }
 
@@ -68,4 +87,10 @@
     font-size: 1.2em;
     font-weight: 400;
     background-color: rgba(0, 0, 0, 0.404);
+}
+
+.sentinela {
+    width: 100%;
+    height: 5px;
+    background-color: red;
 }

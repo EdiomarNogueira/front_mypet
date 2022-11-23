@@ -91,7 +91,7 @@ export const useApi = () => ({
 
     },
 
-    getDadosUserPerfil: async (id_user: Number) => {
+    getDadosUserPerfil: async (id_user: any) => {
         var config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -234,7 +234,7 @@ export const useApi = () => ({
         };
 
         const response = await api.get('/user/' + id_user + '/follow', config);
-        console.log('é seguidor?',response);
+        console.log('é seguidor?', response);
         return response.data;
     },
 
@@ -347,6 +347,21 @@ export const useApi = () => ({
 
         const response = await api.get('/user/' + id + '/photos/pet/' + id_pet + '/?perPage=' + perPage, config);
         return response.data;
-    }
+    },
+
+    getUserPhotos: async (
+        id: any,
+        currentPerPage: any) => {
+            let perPage = currentPerPage;
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken'),
+            }
+        };
+        const response = await api.get('/user/' + id + '/photos/?perPage=' + perPage, config);
+        console.log('response',response);
+        return response.data;
+    },
 
 });

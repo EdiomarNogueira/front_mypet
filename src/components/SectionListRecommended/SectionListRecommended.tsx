@@ -31,10 +31,6 @@ export const SectionListRecommended = () => {
     }
 
 
-    var api = useApi();
-    useEffect(() => {
-        loadUsers();
-    }, [count]);
 
     const loadUsers = async () => {
         setLoading(true);
@@ -57,9 +53,15 @@ export const SectionListRecommended = () => {
         }
     }
 
+    
+    var api = useApi();
+    useEffect(() => {
+        loadUsers();
+    }, [count]);
+
     return (
         <>
-            <p className={styles.text_recommended}>Perfis Recomendados:</p>
+            <p className={styles.text_recommended}>Próximos de você:</p>
 
             <div className={styles.area_section_recommended}>
                 {recommended &&

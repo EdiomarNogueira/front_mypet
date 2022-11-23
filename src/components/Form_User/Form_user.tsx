@@ -83,13 +83,7 @@ export const FormUser = () => {
 
     var api = useApi();
     var apiLocation = useApiLocation();
-    useEffect(() => {
-        loadCidade(road, city, district);
-    }, [road && city && district]);
-
-    useEffect(() => {
-        loadDadosUser();
-    }, []);
+  
 
     const loadDadosUser = async () => {
         setLoading(true);
@@ -123,6 +117,15 @@ export const FormUser = () => {
         // alert("Os dados marcados com * não podem ficar em branco!");
         // }
     }
+
+
+    useEffect(() => {
+        loadCidade(road, city, district);
+    }, [road && city && district]);
+
+    useEffect(() => {
+        loadDadosUser();
+    }, []);
 
     return (
         <>

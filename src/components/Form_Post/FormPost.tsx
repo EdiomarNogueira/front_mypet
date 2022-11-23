@@ -24,19 +24,12 @@ export const FormPost = (props: {parentNewPostCallBack: any}) => {
         }
     }
 
-    useEffect(() => {
-        loadPets();
-    }, []);
-
     const loadPets = async () => {
         let json = await api.getMyPets();
 
         setPets(await json.currentPet);
     }
 
-    useEffect(() => {
-        loadUser();
-    }, []);
 
     const onTrigger = () => {
         props.parentNewPostCallBack(1);
@@ -97,6 +90,14 @@ export const FormPost = (props: {parentNewPostCallBack: any}) => {
         }
 
     }
+
+    useEffect(() => {
+        loadPets();
+    }, []);
+
+    useEffect(() => {
+        loadUser();
+    }, []);
 
     return (
         <>

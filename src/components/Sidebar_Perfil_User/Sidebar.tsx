@@ -10,14 +10,20 @@ type Props = {
 
 export const SidebarPerfilUser = () => {
     const auth = useContext(AuthContext);
-
+    let id_user = auth.user?.id;
+    let name = auth.user?.name;
     return (
         <div className={styles.sidebar_area}>
             <div className={styles.divisao_menu}>
                 <ul>
                     <li><Link to="/Home">Home</Link></li>
                 </ul>
-
+            </div>
+            <div className={styles.divisao_menu}>
+                <ul>
+                    <li><Link to={'/user/' + id_user + '/mypets'}>Pets</Link></li>
+                    <li><Link to={'/user/' + id_user + '/gallery'}>Galeria de Fotos</Link></li>
+                </ul>
             </div>
             <div className={styles.divisao_menu}>
                 <SectionFriends />

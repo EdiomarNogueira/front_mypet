@@ -15,14 +15,10 @@ export const FormAvatar = () => {
     const [error, setError] = useState('');
     const [image, setImage] = useState(null)
     //const [endImg] = useState('./f5a18e6eacec994adfb8e3e25efca632.jpg');
-
     const auth = useContext(AuthContext);
     var [user, setUser] = useState<User | null>(null);
     var api = useApi();
 
-    useEffect(() => {
-        loadUser();
-    }, []);
 
     const loadUser = async () => {
         let json = await api.getUserMe();
@@ -42,7 +38,6 @@ export const FormAvatar = () => {
                     'Authorization': "Bearer " + localStorage.getItem('authToken')
                 },
             };
-
             let json = await api.putNewAvatarFile(photo);
 
             if (json.success) {
@@ -54,8 +49,12 @@ export const FormAvatar = () => {
         } else {
             alert("Post vazio!");
         }
-
     }
+
+    
+    useEffect(() => {
+        loadUser();
+    }, []);
 
     return (
         <>

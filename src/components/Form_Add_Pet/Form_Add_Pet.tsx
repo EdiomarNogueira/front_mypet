@@ -24,9 +24,6 @@ export const Form_Add_Pet = () => {
     }
 
 
-    useEffect(() => {
-        loadUser();
-    }, []);
 
     const loadUser = async () => {
         let json = await api.getUserMe();
@@ -51,12 +48,18 @@ export const Form_Add_Pet = () => {
         } else if (!situation) {
             alert("Preencha a situação do pet!");
         }
-
     }
+
 
     const handleBirthdateInput = (event: ChangeEvent<HTMLInputElement>) => {
         setBirthdate(event.target.value);
     }
+
+    
+    useEffect(() => {
+        loadUser();
+    }, []);
+
     return (
         <div className={styles.container}>
             <div className={styles.page_register}>
@@ -112,7 +115,7 @@ export const Form_Add_Pet = () => {
                     </div>
 
                     <div className={styles.area_btn}>
-                       
+
                         <button className={styles.btn_register} onClick={handleRegister}>Cadastrar Pet</button>
                     </div>
                 </div>

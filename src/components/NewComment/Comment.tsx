@@ -37,9 +37,6 @@ export const NewComment = (props: { id: number, parentCommentCallBack: any }) =>
 
     }
 
-    useEffect(() => {
-        loadUser();
-    }, []);
 
     const loadUser = async () => {
         let json = await api.getUserMe();
@@ -51,6 +48,11 @@ export const NewComment = (props: { id: number, parentCommentCallBack: any }) =>
     const onTrigger = () => {
         props.parentCommentCallBack(1);
     };
+
+    
+    useEffect(() => {
+        loadUser();
+    }, []);
 
     return (
         <form className={styles.comment_area} method='POST' onSubmit={handleFormSubmit}>

@@ -7,20 +7,24 @@ import { MyPet } from '../pages/MyPet/MyPet';
 import { NotFound } from '../pages/NoteFound/NoteFound';
 import { RequireAuth } from '../contexts/Auth/requireAuth';
 import { Login } from '../pages/Login';
-import { UserRegister } from '../pages/UserRegister';
 import { User } from '../pages/User/User';
 import { MyPetsAdd } from '../pages/MyPetsAdd/MyPetsAdd';
 import { Perfil } from '../pages/Perfil/Perfil';
+import { Gallery } from '../pages/GaleryPhotos/GaleryPhotos';
+import { UserRegister } from '../pages/UserRegister';
 
 export const MainRoutes = () => {
   //ROTAS ATRAVÉS DE OBJETOS (useRoutes)
   return useRoutes([
-    { path: '/', element: <Loading /> },
+    { path: '/', element: <RequireAuth><Loading /></RequireAuth> },
+    { path: '/home', element: <RequireAuth><Home /></RequireAuth> },
+
+    { path: '/auth/login', element: <Login /> },
+
     // { path: '/user', element: <RequireAuth><Perfil /></RequireAuth> },
     { path: '/user/:id_user', element: <RequireAuth><Perfil /></RequireAuth> },
+    { path: '/user/:id_user/gallery', element: <RequireAuth><Gallery /></RequireAuth> },
     { path: '/user/config', element: <RequireAuth><User /></RequireAuth> },
-    { path: '/Home', element: <RequireAuth><Home /></RequireAuth> },
-    { path: '/auth/login', element: <Login /> },
     { path: '/auth/user_register', element: <UserRegister /> },
     { path: '/user/:user/mypets', element: <RequireAuth><MyPets /></RequireAuth> },
     { path: '/user/:user/add/mypet', element: <RequireAuth><MyPetsAdd /></RequireAuth> },

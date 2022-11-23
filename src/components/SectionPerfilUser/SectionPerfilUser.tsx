@@ -17,7 +17,6 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     const [loading, setLoading] = useState(false);
     const [isFollowing, setIsFollowing] = useState(false);
 
-    const [posts, setPosts] = useState<Publish[]>([]);
     const params = useParams();
 
     var api = useApi();
@@ -28,12 +27,10 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
         let isFollowing = user?.isFollowing;
     }
 
-    useEffect(() => {
-        loadDadosUser();
-        handleVerificFollow();
-    }, []);
+
 
     const loadDadosUser = async () => {
+        let $cont = 0;
         setLoading(true);
         let json = await api.getDadosUserPerfil(id_user);
         if (json) {
@@ -44,9 +41,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     }
 
     const handleVerificFollow = async () => {
-        console.log(params.id_user);
         let json = await api.getVerificFollow(id_user);
-        console.log(json);
         if (json) {
             loadDadosUser();
             setIsFollowing(json.isFollower);
@@ -54,7 +49,6 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     }
 
     const handleFollowUnfollow = async () => {
-        console.log(params.id_user);
         let json = await api.postFollowUnfollow(id_user);
         if (json) {
             loadDadosUser();
@@ -62,19 +56,6 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
         }
     }
 
-    useEffect(() => {
-        const intersectionObserver = new IntersectionObserver((entries) => {
-            if (entries.some((entry) => entry.isIntersecting)) {
-                console.log('está visivel', currentPerPage);
-                setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 3);
-            }
-        });
-
-        if (document.querySelector('#sentinela')) { // AO CARREGAR A PÁGINA PELA PRIMEIRA VEZ NÃO VAI EXISTIR A DIV, ENTÃO É PRECISO ISOLAR ESTA PARTE PARA QUANDO EXISTIR A DIV
-            intersectionObserver.observe(document.querySelector('#sentinela')!);
-        }
-        return () => intersectionObserver.disconnect();
-    }, []);
 
     let name = ' -';
     let email = ' -';
@@ -171,6 +152,25 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     }
 
 
+    useEffect(() => {
+        loadDadosUser();
+        handleVerificFollow();
+    }, []);
+
+    useEffect(() => {
+        const intersectionObserver = new IntersectionObserver((entries) => {
+            if (entries.some((entry) => entry.isIntersecting)) {
+                console.log('está visivel', currentPerPage);
+                setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 3);
+            }
+        });
+
+        if (document.querySelector('#sentinela')) { // AO CARREGAR A PÁGINA PELA PRIMEIRA VEZ NÃO VAI EXISTIR A DIV, ENTÃO É PRECISO ISOLAR ESTA PARTE PARA QUANDO EXISTIR A DIV
+            intersectionObserver.observe(document.querySelector('#sentinela')!);
+        }
+        return () => intersectionObserver.disconnect();
+    }, []);
+    
     return (
         <>
             <div className={styles.area_Section_Perfil_User}>
@@ -195,6 +195,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                     <div className={styles.infors_user}>
                         <div className={styles.area_avatar}>
                             <img className={styles.avatar} src={user?.avatar} alt="imagem perfil pet" />
+
                             {/* <p className={styles.biografia}>{biografia}</p> */}
                         </div>
                         <div className={styles.infors}>

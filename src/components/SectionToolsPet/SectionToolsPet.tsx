@@ -20,19 +20,11 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number }) => {
     const [posts, setPosts] = useState<Publish[]>([]);
     var api = useApi();
 
-
-    useEffect(() => {
-        loadPhotos();
-    }, [currentPerPage]);
-
-
-
     const handleGaleria = async () => {
         setViewGaleria(true);
         setViewRGA(false);
         setViewCartaoVacina(false);
         setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 3);
-
     }
 
     const handleRGA = async () => {
@@ -70,6 +62,11 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number }) => {
         return () => intersectionObserver.disconnect();
     }, []);
 
+    
+    useEffect(() => {
+        loadPhotos();
+    }, [currentPerPage]);
+    
     return (
         <>
             <div className={styles.area_secoes}>

@@ -23,8 +23,8 @@ export const Sidebar = () => {
             </div>
             <div className={styles.divisao_menu}>
                 <ul>
-                    <li><Link to={'/user/' + name + '/mypets'}>Pets</Link></li>
-                    <li><Link to="/galeria">Galeria de Fotos</Link></li>
+                    <li><Link to={'/user/' + id_user + '/mypets'}>Pets</Link></li>
+                    <li><Link to={'/user/'+id_user+'/gallery'}>Galeria de Fotos</Link></li>
                 </ul>
             </div>
             <div className={styles.divisao_menu}>

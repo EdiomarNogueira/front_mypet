@@ -9,14 +9,6 @@ export const Likes = (props: { id: number }) => {
     var api = useApi();
     var id_post = props.id;
 
-    useEffect(() => {
-        getLikes();
-        
-    }, [like_count]);
-    useEffect(() => {
-        getLikes();
-    }, [liked_post]);
-
     const getLikes = async () => {
 
         let json = await api.getLike(id_post);
@@ -30,6 +22,15 @@ export const Likes = (props: { id: number }) => {
         let json = await api.postLiked(id_post);
         getLikes();
     }
+
+    useEffect(() => {
+        getLikes();
+        
+    }, [like_count]);
+    
+    useEffect(() => {
+        getLikes();
+    }, [liked_post]);
 
     return (
 

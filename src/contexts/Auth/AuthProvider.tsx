@@ -7,10 +7,6 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     var [user, setUser] = useState<User | null>(null);
     var api = useApi();
 
-    useEffect(() => {
-        validateToken();
-    }, []); // ERA [api] MAS PASSAR A API NESTE CAMPO ESTAVA GERANDO LOOPING
-
     const validateToken = async () => {
         const storageData = localStorage.getItem('authToken');
         if (storageData) {
@@ -44,6 +40,12 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const setToken = (token: string) => {
         localStorage.setItem('authToken', token);
     }
+
+    
+    useEffect(() => {
+        validateToken();
+    }, []); // ERA [api] MAS PASSAR A API NESTE CAMPO ESTAVA GERANDO LOOPING
+
 
     return (
         <AuthContext.Provider value={{ user, signin, signout }}>

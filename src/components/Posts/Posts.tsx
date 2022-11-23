@@ -21,23 +21,13 @@ export const Posts = () => { //{ title }: Props
 
     var api = useApi();
 
-    useEffect(() => {
-        loadPosts();
-    }, [currentPerPage]);
-
-    useEffect(() => {
-        loadPosts();
-    }, [countPosts]);
-
-    useEffect(() => {
-        loadPosts();
-    }, [comment_post]);
 
 
     const loadPosts = async () => {
         let json = await api.newPost(currentPerPage);
         if (json) {
-            setPosts(await json);
+            console.log(json);
+            setPosts(json);
         }
         setLoading(false);
     }
@@ -62,6 +52,19 @@ export const Posts = () => { //{ title }: Props
         setCommentPost(comment_post + newComment);
     }
 
+    
+    useEffect(() => {
+        loadPosts();
+    }, [currentPerPage]);
+
+    useEffect(() => {
+        loadPosts();
+    }, [countPosts]);
+
+    useEffect(() => {
+        loadPosts();
+    }, [comment_post]);
+    
     return (
         <>
             <div className={styles.area_post}>
