@@ -8,7 +8,7 @@ import Select from 'react-select';
 //     // title?: string; //interrogação deixa a prop não obrigatória 
 // }
 
-export const FormPost = (props: {parentNewPostCallBack: any}) => {
+export const FormPost = (props: { parentNewPostCallBack: any }) => {
     const [addText, setAddText] = useState('');
     const [pets, setPets] = useState<Pets[]>();
     const [selectPets, setSelectPets] = useState([]);
@@ -25,7 +25,7 @@ export const FormPost = (props: {parentNewPostCallBack: any}) => {
     }
 
     const loadPets = async () => {
-        let json = await api.getMyPets();
+        let json = await api.getMyPets(user?.id);
 
         setPets(await json.currentPet);
     }
@@ -39,8 +39,7 @@ export const FormPost = (props: {parentNewPostCallBack: any}) => {
         let json = await api.getUserMe();
         setUser(json);
     }
-    var [user, setUser] = useState<User | null>(null);
-    var api = useApi();
+
 
     const handleAddTextChange = async (e: ChangeEvent<HTMLInputElement>) => {
         setAddText(e.target.value);

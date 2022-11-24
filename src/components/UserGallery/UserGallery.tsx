@@ -1,12 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './styles.module.css';
 import { Publish } from '../../types/Publish';
 import Modal from '@mui/material/Modal';
-import { Box, DialogTitle } from '@mui/material';
-import { useParams } from 'react-router-dom';
-import { useApi } from '../../hooks/useApi';
-import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { FormPost } from '../Form_Post/FormPost';
+import { Box } from '@mui/material';
+
 
 export const UserGallery = (props: { id: any, isMe: any, posts: Publish[] }) => {
     //let id_user = props.id;

@@ -20,23 +20,25 @@ export const SectionPerfilContact = () => {
             setMe(true);
         }
     }, []);
-    
+
     return (
+
+
         <div className={styles.sidebar_area}>
             <div className={styles.divisao_menu}>
                 <ul>
                     <li><Link to="/Home">Home</Link></li>
+                    <li><Link to={'/User/' + id_user}>Meu Perfil</Link></li>
+                    <li><Link to="/User/config">Meus Dados</Link></li>
                 </ul>
-
             </div>
             <div className={styles.divisao_menu}>
                 <ul>
-                    <li><Link to={'/user/' + params.id_user + '/mypets'}>Pets</Link></li>
-                    <li><Link to={'/user/' + params.id_user + '/gallery'}>Galeria de Fotos</Link></li>
+                    <li><Link to={'/user/' + id_user + '/mypets'}>Pets</Link></li>
+                    <li><Link to={'/user/' + id_user + '/gallery'}>Galeria de Fotos</Link></li>
                 </ul>
             </div>
+            
         </div>
     )
 }
-
-

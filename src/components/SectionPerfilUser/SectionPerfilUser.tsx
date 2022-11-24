@@ -18,21 +18,14 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     const [isFollowing, setIsFollowing] = useState(false);
 
     const params = useParams();
-
+    console.log(params.id_user);
     var api = useApi();
-
-
-
-    if (user?.isFollowing == true) {
-        let isFollowing = user?.isFollowing;
-    }
-
-
 
     const loadDadosUser = async () => {
         let $cont = 0;
         setLoading(true);
         let json = await api.getDadosUserPerfil(id_user);
+        console.log('id user', id_user);
         if (json) {
             setUser(json.user);
         }
@@ -153,8 +146,18 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
 
 
     useEffect(() => {
+        handleVerificFollow();
+        if (user?.isFollowing == true) {
+            setIsFollowing(true);
+        } else {
+            setIsFollowing(false);
+        }
+    }, []);
+
+    useEffect(() => {
         loadDadosUser();
         handleVerificFollow();
+
     }, []);
 
     useEffect(() => {
@@ -170,7 +173,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
         }
         return () => intersectionObserver.disconnect();
     }, []);
-    
+
     return (
         <>
             <div className={styles.area_Section_Perfil_User}>
@@ -234,6 +237,14 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                         }
                         <p>Seguindo: {seguindo}</p>
                         <p>Seguidores: {seguidores}</p>
+                    </div>
+                    <div className={styles.infors_section}>
+                        {!me &&
+                            <div className={styles.area_action_user}>
+                                <Link className={styles.btn_action} to={'/user/' + id_user + '/mypets'}>Ver Pets</Link>
+                                <Link className={styles.btn_action} to={'/user/' + id_user + '/gallery'}>Galeria de Fotos</Link>
+                            </div>
+                        }
                     </div>
                     <div className={styles.infors_section}>
                         <p>Email: {email}</p>

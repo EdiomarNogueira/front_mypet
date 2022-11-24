@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { GaleryPhotosPet } from '../GaleryPhotosPet/GaleryPhotosPet';
 import { Publish } from '../../types/Publish';
 
-export const SectionToolsPet = (props: { id_user: Number, idpet: Number }) => {
+export const SectionToolsPet = (props: { id_user: Number, idpet: Number, me: Boolean }) => {
 
     let id_pet = props.idpet;
     let id_user = props.id_user;
@@ -62,11 +62,11 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number }) => {
         return () => intersectionObserver.disconnect();
     }, []);
 
-    
+
     useEffect(() => {
         loadPhotos();
     }, [currentPerPage]);
-    
+
     return (
         <>
             <div className={styles.area_secoes}>
@@ -74,12 +74,17 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number }) => {
                 <div onClick={handleGaleria}>
                     <p>Galeria de Fotos</p>
                 </div>
-                <div onClick={handleRGA}>
-                    <p>RGA</p>
-                </div>
-                <div onClick={handleCartaoVacina}>
-                    <p>Cartão de vacinas</p>
-                </div>
+                {props.me &&
+                    <>
+                        <div onClick={handleRGA}>
+                            <p>RGA</p>
+                        </div>
+                        <div onClick={handleCartaoVacina}>
+                            <p>Cartão de vacinas</p>
+                        </div>
+                    </>
+                }
+
             </div>
             <div>
                 {viewGaleria == true &&

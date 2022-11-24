@@ -13,6 +13,7 @@ export const MyPets = () => {
     const auth = useContext(AuthContext);
 
     const params = useParams();
+    console.log('teste',params.id_user);
     const navigate = useNavigate();
     const handleBackButton = () => {
         navigate(-1);

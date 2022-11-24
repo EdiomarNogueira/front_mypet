@@ -2,7 +2,7 @@ import styles from './styles.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { useApi } from "../../hooks/useApi";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Pets } from '../../types/Pets';
 import { User } from '../../types/User';
 
@@ -12,17 +12,17 @@ import { User } from '../../types/User';
 
 export const SectionMyPets = () => {
 
-    const [pets, setPets] = useState<Pets[]>([] || 0);
     const [loading, setLoading] = useState(false);
     const auth = useContext(AuthContext);
     var [user, setUser] = useState<User | null>(null);
-
-    let name = auth.user?.name;
-
+    const [pets, setPets] = useState<Pets[]>([]);
+    const [me, setMe] = useState(false);
+    const params = useParams();
+    var api = useApi();
 
     const loadPets = async () => {
         setLoading(true);
-        let json = await api.getMyPets();
+        let json = await api.getMyPets(params.id_user);
         if (json) {
             setPets(await json.currentPet);
         }
@@ -30,19 +30,25 @@ export const SectionMyPets = () => {
 
     }
 
-    var api = useApi();
     useEffect(() => {
+        if ( auth.user?.id == params.id_user) {
+            setMe(true);
+        }
         loadPets();
     }, []);
-    
+
     return (
         <>
             <div className={styles.area_Section_MyPets}>
 
                 <div className={styles.Section_MyPets}>
-                    <div className={styles.link_novo_pet}>
-                        <Link className={styles.novo_pet} to={'/user/' + name + '/add/mypet'}>Novo Pet</Link>
-                    </div>
+                    {me &&
+                        <div className={styles.link_novo_pet}>
+
+                            <Link className={styles.novo_pet} to={'/user/' + auth.user?.id + '/add/mypet'}>Novo Pet</Link>
+
+                        </div>
+                    }
                     {loading &&
                         <div className={styles.area_loading}>Carregando...</div>
                     }
@@ -60,7 +66,7 @@ export const SectionMyPets = () => {
                                                 <div>
                                                     {item.situation == 1 &&
                                                         <div className={styles.list_pet}>
-                                                            <Link to={'/user/' + name + '/mypet/' + item.id}>< div className={styles.pets} >
+                                                            <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
                                                                 <div className={styles.user_pet}>
                                                                     <p>{item.name}</p>
                                                                     <div className={styles.area_avatar}>
@@ -85,7 +91,7 @@ export const SectionMyPets = () => {
                                                 <div>
                                                     {item.situation == 2 &&
                                                         <div className={styles.list_pet}>
-                                                            <Link to={'/user/' + name + '/mypet/' + item.id}>< div className={styles.pets} >
+                                                            <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
                                                                 <div className={styles.user_pet}>
                                                                     <p>{item.name}</p>
                                                                     <div className={styles.area_avatar}>
@@ -111,7 +117,7 @@ export const SectionMyPets = () => {
                                                 <div>
                                                     {item.situation == 3 &&
                                                         <div className={styles.list_pet}>
-                                                            <Link to={'/user/' + name + '/mypet/' + item.id}>< div className={styles.pets} >
+                                                            <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
                                                                 <div className={styles.user_pet}>
                                                                     <p>{item.name}</p>
                                                                     <div className={styles.area_avatar}>
@@ -136,7 +142,7 @@ export const SectionMyPets = () => {
                                                 <div>
                                                     {item.situation == 4 &&
                                                         <div className={styles.list_pet}>
-                                                            <Link to={'/user/' + name + '/mypet/' + item.id}>< div className={styles.pets} >
+                                                            <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
                                                                 <div className={styles.user_pet}>
                                                                     <p>{item.name}</p>
                                                                     <div className={styles.area_avatar}>
@@ -163,7 +169,7 @@ export const SectionMyPets = () => {
                                                     <div>
                                                         {item.situation == 5 &&
                                                             <div className={styles.list_pet}>
-                                                                <Link to={'/user/' + name + '/mypet/' + item.id}>< div className={styles.pets} >
+                                                                <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
                                                                     <div className={styles.user_pet}>
                                                                         <p>{item.name}</p>
                                                                         <div className={styles.area_avatar}>

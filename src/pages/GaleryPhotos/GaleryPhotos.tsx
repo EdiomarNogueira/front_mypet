@@ -33,8 +33,6 @@ export const Gallery = () => {
         setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 3);
     }
 
-
-
     const handleNewPostCallback = (newPost: any) => {
 
         setCurrentPerPage(currentPerPage + newPost);
@@ -106,7 +104,6 @@ export const Gallery = () => {
                         <div>
                             <p>TERMINAR DE ESTILIZAR</p>
                         
-
                             <img className={styles.avatar} src={user?.avatar} alt="Avatar usuário" />
 
                             <h3>{user?.name}</h3>

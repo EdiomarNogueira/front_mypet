@@ -26,9 +26,9 @@ export const MainRoutes = () => {
     { path: '/user/:id_user/gallery', element: <RequireAuth><Gallery /></RequireAuth> },
     { path: '/user/config', element: <RequireAuth><User /></RequireAuth> },
     { path: '/auth/user_register', element: <UserRegister /> },
-    { path: '/user/:user/mypets', element: <RequireAuth><MyPets /></RequireAuth> },
-    { path: '/user/:user/add/mypet', element: <RequireAuth><MyPetsAdd /></RequireAuth> },
-    { path: '/user/:user/mypet/:slug', element: <RequireAuth><MyPet /></RequireAuth> },
+    { path: '/user/:id_user/mypets', element: <RequireAuth><MyPets /></RequireAuth> },
+    { path: '/user/:id_user/add/mypet', element: <RequireAuth><MyPetsAdd /></RequireAuth> },
+    { path: '/user/:id_user/mypet/:slug', element: <RequireAuth><MyPet /></RequireAuth> },
     { path: '*', element: <NotFound /> }
   ]
 

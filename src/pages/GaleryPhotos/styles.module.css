@@ -30,3 +30,10 @@
 .avatar {
     width: 80px;
 }
+
+.area_novo_post {
+    display: flex;
+    justify-content: center;
+    border-left: 1px solid #4142442c;
+    border-right: 1px solid #4142442c;
+}

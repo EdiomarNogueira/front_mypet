@@ -317,17 +317,18 @@ export const useApi = () => ({
         return response.data;
     },
 
-    getMyPets: async () => {
+    getMyPets: async (id_user:any) => {
         var config_headers = refreshConfig();
 
-        const response = await api.get('/user/pet', config_headers);
+        const response = await api.get('/user/'+id_user+'/pet', config_headers);
+        console.log('retorno',response);
         return response.data;
     },
 
-    getPet: async (id_pet: String) => {
+    getPet: async (id_user:any, id_pet: String) => {
         var config_headers = refreshConfig();
 
-        const response = await api.get('/user/pet/' + id_pet, config_headers);
+        const response = await api.get('/user/'+id_user+'/pet/' + id_pet, config_headers);
         return response.data;
     },
 

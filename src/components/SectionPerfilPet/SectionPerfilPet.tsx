@@ -4,27 +4,48 @@ import { useApi } from '../../hooks/useApi';
 import { Pets } from '../../types/Pets';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { User } from '../../types/User';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { SectionToolsPet } from '../SectionToolsPet/SectionToolsPet';
 
 export const SectionPerfilPet = (props: { idpet: any }) => {
     const [pet, setPet] = useState<Pets>(Object);
     const [loading, setLoading] = useState(false);
     const auth = useContext(AuthContext);
+    const [me, setMe] = useState(false);
+
     var [user, setUser] = useState<User | null>(null);
+    const params = useParams();
     let id_pet = props.idpet;
     var api = useApi();
 
 
-
     const loadDadosPet = async () => {
         setLoading(true);
-        let json = await api.getPet(id_pet);
-        console.log('retorno json',json);
-        setPet(json.currentPet[0]);
+        let json = await api.getPet(params.id_user, id_pet);
+        if (json) {
+            setPet(json.currentPet[0]);
+            console.log(json.currentPet);
+        }
         setLoading(false);
 
     }
+
+
+    const handleAlert = async () => {
+        alert('Gerar alerta');
+        //FAZER UPDATE EM SITUAÇÃO DO PET
+        //FAZER VERIFICAÇÃO DE QUEM ESTÁ PROÓXIMO E ENVIAR MENSAGEM
+    }
+
+
+    useEffect(() => {
+        if (auth.user?.id == params.id_user) {
+            setMe(true);
+        } else {
+            setMe(false);
+        }
+        loadDadosPet();
+    }, []);
 
     let porte = '';
     let biography = '';
@@ -38,7 +59,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
     let msg_rastreio = null;
     //verificar a situação do pet, a depender mudar como identificar o tutor
 
-    if (pet.latitude && pet.longitude) {
+    if (typeof (pet.latitude) !== 'undefined' && typeof (pet.longitude) !== 'undefined') {
         rastreio = "Disponível";
         msg_rastreio = null;
     } else {
@@ -140,15 +161,9 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
 
 
 
-    const handleAlert = async () => {
-        alert('Gerar alerta');
-        //FAZER UPDATE EM SITUAÇÃO DO PET
-        //FAZER VERIFICAÇÃO DE QUEM ESTÁ PROÓXIMO E ENVIAR MENSAGEM
-    }
 
-    useEffect(() => {
-        loadDadosPet();
-    }, []);
+
+
 
     return (
         <>
@@ -187,20 +202,23 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
 
                         </div>
 
-                        <div className={styles.acoes}>
-                            <Link to={'/user/' + pet.tutor_name + '/mypet/' + pet.id + '/update'}>
-                                <div className={styles.btn_config}>
-                                    <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" />
-                                    <p>Configurar</p>
-                                </div>
-                            </Link>
-                            <button className={styles.btn_alert} onClick={handleAlert}>DESAPARECIDO!!!</button>
+                        {me &&
+                            <div className={styles.acoes}>
+                                <Link to={'/user/' + pet.tutor_name + '/mypet/' + pet.id + '/update'}>
+                                    <div className={styles.btn_config}>
+                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" />
+                                        <p>Configurar</p>
+                                    </div>
+                                </Link>
+                                <button className={styles.btn_alert} onClick={handleAlert}>DESAPARECIDO!!!</button>
 
-                        </div>
+                            </div>
+                        }
+
                     </div>
                 </div>
                 <div className={styles.container}>
-                    <SectionToolsPet id_user={pet.id_user} idpet={pet.id} />
+                    <SectionToolsPet id_user={pet.id_user} idpet={pet.id} me={me} />
                 </div>
             </div>
         </>

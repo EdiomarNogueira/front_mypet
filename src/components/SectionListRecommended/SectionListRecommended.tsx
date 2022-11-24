@@ -30,8 +30,6 @@ export const SectionListRecommended = () => {
         longitude = '-40.8779965,13';
     }
 
-
-
     const loadUsers = async () => {
         setLoading(true);
         let json = await api.getUserNear(latitude, longitude);
@@ -42,8 +40,6 @@ export const SectionListRecommended = () => {
 
     }
 
-
-
     const handleFollowUnfollow = async (id_user: any) => {
         let json = await api.postFollowUnfollow(id_user);
         if (json) {
@@ -53,7 +49,6 @@ export const SectionListRecommended = () => {
         }
     }
 
-    
     var api = useApi();
     useEffect(() => {
         loadUsers();

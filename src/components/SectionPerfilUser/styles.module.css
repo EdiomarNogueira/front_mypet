@@ -232,3 +232,32 @@
     background-color: rgb(209, 142, 164);
     transition: 0.3s;
 }
+
+.area_action_user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.btn_action {
+    padding: 5px;
+    border: 2px solid #335caf7e;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 140px;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+.btn_action:hover {
+    background-color: #335caf7e;
+    color: #FFF;
+    transition: 0.3s;
+}
+
+
+.btn_action:active {
+    background-color: #28437a7e;
+
+}
