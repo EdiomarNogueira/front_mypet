@@ -2,7 +2,7 @@ import styles from './styles.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { useApi } from "../../hooks/useApi";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Pets } from '../../types/Pets';
 import { User } from '../../types/User';
 
@@ -20,29 +20,28 @@ export const SectionFriends = () => {
     const [isFollowing, setIsFollowing] = useState(false);
     const [count, setCount] = useState(0);
     const [currentPerPage, setCurrentPerPage] = useState(5);
+    const params = useParams();
 
-    let latitude = '';
-    let longitude = '';
-
-    if (user?.latitude && user.longitude) {
-        latitude = user?.latitude;
-        longitude = user.longitude;
-    } else {
-        latitude = '-14.8642253';
-        longitude = '-40.8779965,13';
-    }
 
     var api = useApi();
 
-
-    const loadFriends = async () => {
+    const loadDadosUser = async () => {
+        let $cont = 0;
         setLoading(true);
-        let json = await api.getUserFriend(latitude, longitude, currentPerPage);
+        let json = await api.getDadosUserPerfil(params.id_user);
+        if (json) {
+            setUser(json.user);
+        }
+        setLoading(false);
+    }
+
+    const loadRelations = async () => {
+        setLoading(true);
+        let json = await api.getUserRelations(latitude, longitude, currentPerPage);
         if (json) {
             setLoading(false);
             setFriends(json.friends);
         }
-
     }
 
     const handleMoreFriends = async () => {
@@ -64,13 +63,30 @@ export const SectionFriends = () => {
         { window.location.reload() }
     }
 
-    
+
+
+    let latitude = '';
+    let longitude = '';
+
+    if (user?.latitude && user.longitude) {
+        latitude = user?.latitude;
+        longitude = user.longitude;
+    } else {
+        latitude = '-14.8642253';
+        longitude = '-40.8779965,13';
+    }
+
     useEffect(() => {
-        loadFriends();
+        loadDadosUser();
+    }, []);
+
+
+    useEffect(() => {
+        loadRelations();
     }, [count]);
 
     useEffect(() => {
-        loadFriends();
+        loadRelations();
     }, [currentPerPage]);
 
     return (
@@ -84,7 +100,7 @@ export const SectionFriends = () => {
                                 <div className={styles.card_user} onClick={handleReloadPage}>
                                     <Link to={'/User/' + item.id} >
                                         <div className={styles.flex_row}>
-                                            <img className={styles.avatar} src={item?.avatar} alt="avatar user" />
+                                            <img className={styles.avatar} src={item?.avatar} alt="avatar user" loading="lazy" />
                                             <p>{item.name}</p>
                                         </div>
                                     </Link>

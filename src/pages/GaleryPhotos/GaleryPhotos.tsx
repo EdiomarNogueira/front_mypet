@@ -3,7 +3,7 @@ import { Header } from '../../components/Header/Header';
 import { Footer } from '../../components/Footer/Footer';
 import { Sidebar } from '../../components/SideBar/Sidebar';
 import styles from './styles.module.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { UserGallery } from '../../components/UserGallery/UserGallery';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
@@ -22,6 +22,7 @@ export const Gallery = () => {
     const [currentPerPage, setCurrentPerPage] = useState(3);
     const [loading, setLoading] = useState(false);
     var [user, setUser] = useState<User | null>(null);
+    const navigate = useNavigate();
 
     let id_user = auth.user?.id;
     var api = useApi();
@@ -36,6 +37,10 @@ export const Gallery = () => {
     const handleNewPostCallback = (newPost: any) => {
 
         setCurrentPerPage(currentPerPage + newPost);
+    }
+
+    const handleBackButton = () => {
+        navigate(-1);
     }
 
     const loadPhotos = async () => {
@@ -101,16 +106,21 @@ export const Gallery = () => {
                         </div>
                     }
                     {!me &&
-                        <div>
-                            <p>TERMINAR DE ESTILIZAR</p>
-                        
-                            <img className={styles.avatar} src={user?.avatar} alt="Avatar usuário" />
+                        <div className={styles.area_user_galeria}>
+                            <div className={styles.area_flex}>
+                                <div className={styles.user_ident}>
+                                    <img className={styles.avatar} src={user?.avatar} alt="Avatar usuário" loading="lazy"/>
+                                    <h3>{user?.name}</h3>
+                                </div>
+                                <div className={styles.area_btn_voltar}>
+                                    <p onClick={handleBackButton}>Voltar</p>
+                                </div>
+                            </div>
 
-                            <h3>{user?.name}</h3>
                         </div>
 
                     }
-
+              
                     <UserGallery id={params.id_user} isMe={me} posts={posts} />
                     <div className={styles.sentinela} id='sentinela' />
 

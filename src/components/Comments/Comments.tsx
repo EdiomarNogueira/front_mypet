@@ -10,7 +10,7 @@ export const Comments = (props: { comments: Comment }) => { //props: { like_coun
     return (
         <div className={styles.area_comments}>
             <div className={styles.autor_comment}>
-                <img className={styles.avatar} src={props.comments.user.avatar} alt="Avatar usuário" />
+                <img className={styles.avatar} src={props.comments.user.avatar} alt="Avatar usuário" loading="lazy"/>
                 <div className={styles.name_date}>
                     <Link className={styles.name}to={url_user}>{props.comments.user.name}</Link>
                     <p className={styles.date}>{props.comments.date_register}</p>

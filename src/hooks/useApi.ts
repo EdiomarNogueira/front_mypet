@@ -156,14 +156,14 @@ export const useApi = () => ({
         return response.data;
     },
 
-    getUserFriend: async (latitude: String, longitude: String, currentPerPage: any) => {
+    getUserRelations: async (latitude: String, longitude: String, currentPerPage: any) => {
         var config = {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "Bearer " + localStorage.getItem('authToken'),
             }
         };
-        const response = await api.get('/user/friends/' + latitude + '/' + longitude + '?perPage=' + currentPerPage, config);
+        const response = await api.get('/user/relations/' + latitude + '/' + longitude + '?perPage=' + currentPerPage, config);
 
         console.log('response', response);
         return response.data;

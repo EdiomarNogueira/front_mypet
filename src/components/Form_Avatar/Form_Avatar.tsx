@@ -73,7 +73,7 @@ export const FormAvatar = () => {
             <div className={styles.area_novo_post}>
 
                 <div className={styles.flex_row}>
-                    {image ? <img className={styles.avatar} src={URL.createObjectURL(image)} alt="Imagem" width="150" height="150" /> : <img className={styles.avatar} src={user?.avatar} alt="Imagem" width="150" height="150" />}<br /><br />
+                    {image ? <img className={styles.avatar} src={URL.createObjectURL(image)} alt="Imagem" width="150" height="150" loading="lazy" /> : <img className={styles.avatar} src={user?.avatar} alt="Imagem" width="150" height="150" loading="lazy" />}<br /><br />
 
                     {/* <img className={styles.avatar} src={user?.avatar} alt="avatar user" /> */}
                 </div>

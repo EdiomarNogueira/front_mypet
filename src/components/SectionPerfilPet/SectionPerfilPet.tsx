@@ -170,12 +170,12 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
             <div className={styles.area_Section_Perfil_Pet}>
                 <div className={styles.container}>
                     <div>
-                        <img className={styles.cover_pet} src={pet.cover} alt="cover" />
+                        <img className={styles.cover_pet} src={pet.cover} alt="cover" loading="lazy"/>
                     </div>
                     <h2>{pet.name}</h2>
                     <div className={styles.infors_pet}>
                         <div className={styles.area_avatar}>
-                            <img className={styles.avatar} src={pet.avatar} alt="imagem perfil pet" />
+                            <img className={styles.avatar} src={pet.avatar} alt="imagem perfil pet" loading="lazy"/>
                         </div>
                         <div className={styles.infors}>
                             <div className={styles.infors_dados}>
@@ -206,7 +206,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
                             <div className={styles.acoes}>
                                 <Link to={'/user/' + pet.tutor_name + '/mypet/' + pet.id + '/update'}>
                                     <div className={styles.btn_config}>
-                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" />
+                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" loading="lazy"/>
                                         <p>Configurar</p>
                                     </div>
                                 </Link>

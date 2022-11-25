@@ -102,7 +102,7 @@ export const FormPost = (props: { parentNewPostCallBack: any }) => {
         <>
             <div className={styles.area_novo_post}>
                 <div className={styles.flex_row}>
-                    <img className={styles.avatar} src={user?.avatar} alt="avatar user" />
+                    <img className={styles.avatar} src={user?.avatar} alt="avatar user" loading="lazy"/>
                     <p className={styles.name}>{user?.name}</p>
                 </div>
                 <form method='POST' onSubmit={handleFormSubmit}>

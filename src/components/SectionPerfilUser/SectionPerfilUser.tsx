@@ -18,7 +18,6 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     const [isFollowing, setIsFollowing] = useState(false);
 
     const params = useParams();
-    console.log(params.id_user);
     var api = useApi();
 
     const loadDadosUser = async () => {
@@ -30,7 +29,6 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
             setUser(json.user);
         }
         setLoading(false);
-
     }
 
     const handleVerificFollow = async () => {
@@ -179,7 +177,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
             <div className={styles.area_Section_Perfil_User}>
                 <div className={styles.container}>
                     <div>
-                        <img className={styles.cover_user} src={user?.cover} alt="cover" />
+                        <img className={styles.cover_user} src={user?.cover} alt="cover" loading="lazy"/>
                     </div>
                     <div className={styles.flex_row}>
                         <h2>{user?.name}</h2>
@@ -187,7 +185,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                             <div className={styles.area_config}>
                                 <Link to={'/user/config'}>
                                     <div className={styles.btn_config}>
-                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" />
+                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" loading="lazy"/>
                                         <p>Configurar</p>
                                     </div>
                                 </Link>
@@ -197,7 +195,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
 
                     <div className={styles.infors_user}>
                         <div className={styles.area_avatar}>
-                            <img className={styles.avatar} src={user?.avatar} alt="imagem perfil pet" />
+                            <img className={styles.avatar} src={user?.avatar} alt="imagem perfil pet" loading="lazy"/>
 
                             {/* <p className={styles.biografia}>{biografia}</p> */}
                         </div>
@@ -235,8 +233,8 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                                 }
                             </div>
                         }
-                        <p>Seguindo: {seguindo}</p>
-                        <p>Seguidores: {seguidores}</p>
+                        <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Seguindo: {seguindo}</Link>
+                        <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Seguidores: {seguidores}</Link>
                     </div>
                     <div className={styles.infors_section}>
                         {!me &&

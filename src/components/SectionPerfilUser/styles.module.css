@@ -250,6 +250,7 @@
     font-weight: 700;
 }
 
+
 .btn_action:hover {
     background-color: #335caf7e;
     color: #FFF;
@@ -260,4 +261,15 @@
 .btn_action:active {
     background-color: #28437a7e;
 
+}
+
+
+.btn_follows {
+    border-bottom: 2px solid #335caf7e;
+    transition: 0.3s;
+}
+
+
+.btn_follows:hover {
+    border-bottom: 2px solid #203661;
 }

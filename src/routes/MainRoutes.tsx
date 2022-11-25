@@ -12,6 +12,7 @@ import { MyPetsAdd } from '../pages/MyPetsAdd/MyPetsAdd';
 import { Perfil } from '../pages/Perfil/Perfil';
 import { Gallery } from '../pages/GaleryPhotos/GaleryPhotos';
 import { UserRegister } from '../pages/UserRegister';
+import { ConnectionsUser } from '../pages/ConnectionsUser/ConnectionsUser';
 
 export const MainRoutes = () => {
   //ROTAS ATRAVÉS DE OBJETOS (useRoutes)
@@ -24,6 +25,7 @@ export const MainRoutes = () => {
     // { path: '/user', element: <RequireAuth><Perfil /></RequireAuth> },
     { path: '/user/:id_user', element: <RequireAuth><Perfil /></RequireAuth> },
     { path: '/user/:id_user/gallery', element: <RequireAuth><Gallery /></RequireAuth> },
+    { path: '/user/:id_user/connections', element: <RequireAuth><ConnectionsUser /></RequireAuth> },
     { path: '/user/config', element: <RequireAuth><User /></RequireAuth> },
     { path: '/auth/user_register', element: <UserRegister /> },
     { path: '/user/:id_user/mypets', element: <RequireAuth><MyPets /></RequireAuth> },

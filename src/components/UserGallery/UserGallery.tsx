@@ -15,7 +15,6 @@ export const UserGallery = (props: { id: any, isMe: any, posts: Publish[] }) => 
     const [date_register_pet, setDate_register_pet] = useState("");
     const [subtitle_pet, setSubtitle_pet] = useState("");
     const [currentPerPage, setCurrentPerPage] = useState(3);
-    //const [posts, setPosts] = useState<Publish[]>([]);
     const [idUser, setIdUser] = useState(props.id);
 
     // var api = useApi();
@@ -38,7 +37,7 @@ export const UserGallery = (props: { id: any, isMe: any, posts: Publish[] }) => 
         setSubtitle_pet(subtitle_pet);
     }
 
- 
+
 
     // window.onscroll = function () {
     //     if (
@@ -62,7 +61,7 @@ export const UserGallery = (props: { id: any, isMe: any, posts: Publish[] }) => 
 
             {!loading && props.posts.length > 0 &&
                 <div className={styles.area_galeria}>
-                    
+                    <h1>Galeria de fotos</h1>
 
                     <div className={styles.container}>
 
@@ -78,7 +77,7 @@ export const UserGallery = (props: { id: any, isMe: any, posts: Publish[] }) => 
                             </div>
                         ))}
                         <Modal className={styles.modal} open={open} onClose={() => setOpen(false)}>
-                            <Box>
+                            <Box className={styles.area_modal}>
                                 <p className={styles.date_modal}>{date_register_pet}</p>
                                 <img className={styles.image_modal} src={image} alt="avatar" loading="lazy" />
                                 <p className={styles.text_modal}>{subtitle_pet}</p>

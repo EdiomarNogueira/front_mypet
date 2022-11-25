@@ -66,7 +66,7 @@ export const SectionListRecommended = () => {
                                 <div className={styles.card_user}>
                                     <Link to={'/User/' + item.id}  >
                                         <div className={styles.flex_row}>
-                                            <img className={styles.avatar} src={item?.avatar} alt="avatar user" />
+                                            <img className={styles.avatar} src={item?.avatar} alt="avatar user" loading="lazy" />
                                             <p>{item.name}</p>
                                         </div>
                                     </Link>

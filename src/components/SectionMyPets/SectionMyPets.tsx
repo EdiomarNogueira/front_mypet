@@ -70,7 +70,7 @@ export const SectionMyPets = () => {
                                                                 <div className={styles.user_pet}>
                                                                     <p>{item.name}</p>
                                                                     <div className={styles.area_avatar}>
-                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" />
+                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy"/>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -95,7 +95,7 @@ export const SectionMyPets = () => {
                                                                 <div className={styles.user_pet}>
                                                                     <p>{item.name}</p>
                                                                     <div className={styles.area_avatar}>
-                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" />
+                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy"/>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -146,7 +146,7 @@ export const SectionMyPets = () => {
                                                                 <div className={styles.user_pet}>
                                                                     <p>{item.name}</p>
                                                                     <div className={styles.area_avatar}>
-                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" />
+                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy"/>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -173,7 +173,7 @@ export const SectionMyPets = () => {
                                                                     <div className={styles.user_pet}>
                                                                         <p>{item.name}</p>
                                                                         <div className={styles.area_avatar}>
-                                                                            <img className={styles.avatar} src={item.avatar} alt="avatar" />
+                                                                            <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy"/>
                                                                         </div>
                                                                     </div>
                                                                 </div>

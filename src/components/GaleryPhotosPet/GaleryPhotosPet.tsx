@@ -70,7 +70,7 @@ export const GaleryPhotosPet = (props: { posts: Publish[] }) => {
                             </div>
                         ))}
                         <Modal className={styles.modal} open={open} onClose={() => setOpen(false)}>
-                            <Box>
+                            <Box className={styles.area_modal}>
                                 <p className={styles.date_modal}>{date_register_pet}</p>
                                 <img className={styles.image_modal} src={image} alt="avatar" loading="lazy" />
                                 <p className={styles.text_modal}>{subtitle_pet}</p>

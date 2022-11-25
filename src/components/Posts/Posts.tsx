@@ -82,7 +82,7 @@ export const Posts = () => { //{ title }: Props
                             {posts.map((item, index) => (
                                 <div className={styles.post}>
                                     <div className={styles.user_post}>
-                                        <img className={styles.avatar} src={item.user.avatar} alt="avatar" />
+                                        <img className={styles.avatar} src={item.user.avatar} alt="avatar" loading="lazy"/>
                                         <div className={styles.name_data}>
                                             <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.user.id}>{item.user.name}</Link>
                                             <p className={styles.data_post}>{item.date_register}</p>
