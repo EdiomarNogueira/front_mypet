@@ -31,7 +31,7 @@ export const SectionMyPets = () => {
     }
 
     useEffect(() => {
-        if ( auth.user?.id == params.id_user) {
+        if (auth.user?.id == params.id_user) {
             setMe(true);
         }
         loadPets();
@@ -64,13 +64,13 @@ export const SectionMyPets = () => {
 
                                             {pets.map((item, index) => (
                                                 <div>
-                                                    {item.situation == 1 &&
+                                                    {item.situation == '1' &&
                                                         <div className={styles.list_pet}>
                                                             <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
                                                                 <div className={styles.user_pet}>
                                                                     <p>{item.name}</p>
                                                                     <div className={styles.area_avatar}>
-                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy"/>
+                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -89,13 +89,13 @@ export const SectionMyPets = () => {
 
                                             {pets.map((item, index) => (
                                                 <div>
-                                                    {item.situation == 2 &&
+                                                    {item.situation == '2' &&
                                                         <div className={styles.list_pet}>
                                                             <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
                                                                 <div className={styles.user_pet}>
                                                                     <p>{item.name}</p>
                                                                     <div className={styles.area_avatar}>
-                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy"/>
+                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -115,7 +115,7 @@ export const SectionMyPets = () => {
 
                                             {pets.map((item, index) => (
                                                 <div>
-                                                    {item.situation == 3 &&
+                                                    {item.situation == '3' &&
                                                         <div className={styles.list_pet}>
                                                             <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
                                                                 <div className={styles.user_pet}>
@@ -140,13 +140,13 @@ export const SectionMyPets = () => {
 
                                             {pets.map((item, index) => (
                                                 <div>
-                                                    {item.situation == 4 &&
+                                                    {item.situation == '4' &&
                                                         <div className={styles.list_pet}>
                                                             <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
                                                                 <div className={styles.user_pet}>
                                                                     <p>{item.name}</p>
                                                                     <div className={styles.area_avatar}>
-                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy"/>
+                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -158,7 +158,7 @@ export const SectionMyPets = () => {
                                             ))}
                                         </div>
                                     </div>
-                                    {user?.category == 2 &&
+                                    {user?.category == '2' &&
                                         <div className={styles.container_pets}>
                                             <div>
                                                 <h2>EM Tratamento</h2>
@@ -167,13 +167,13 @@ export const SectionMyPets = () => {
 
                                                 {pets.map((item, index) => (
                                                     <div>
-                                                        {item.situation == 5 &&
+                                                        {item.situation == '5' &&
                                                             <div className={styles.list_pet}>
                                                                 <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
                                                                     <div className={styles.user_pet}>
                                                                         <p>{item.name}</p>
                                                                         <div className={styles.area_avatar}>
-                                                                            <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy"/>
+                                                                            <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy" />
                                                                         </div>
                                                                     </div>
                                                                 </div>

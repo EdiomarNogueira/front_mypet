@@ -10,7 +10,7 @@ import { redirect, useNavigate } from 'react-router-dom';
 //     // title?: string; //interrogação deixa a prop não obrigatória 
 // }
 
-export const FormAvatar = () => {
+export const FormCoverUser = () => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const [image, setImage] = useState(null)
@@ -22,23 +22,20 @@ export const FormAvatar = () => {
 
     const loadUser = async () => {
         let json = await api.getUserMe();
-        setUser(json);
+        if (json) {
+            setUser(json);
+        }
+        console.log(json);
     }
 
-    const handleFormSubmit = async (e: { preventDefault: () => void; currentTarget: HTMLFormElement; }) => {
+    const handleFormCoverSubmit = async (e: { preventDefault: () => void; currentTarget: HTMLFormElement; }) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const file = formData.get('image') as File;
         if (file && file.size > 0) {
             let photo = file;
 
-            var config = {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    'Authorization': "Bearer " + localStorage.getItem('authToken')
-                },
-            };
-            let json = await api.putNewAvatarFile(photo);
+            let json = await api.putNewCoverFile(photo);
 
             if (json.success) {
                 setSuccess(json.success);
@@ -51,7 +48,7 @@ export const FormAvatar = () => {
         }
     }
 
-    
+
     useEffect(() => {
         loadUser();
     }, []);
@@ -73,27 +70,27 @@ export const FormAvatar = () => {
             <div className={styles.area_novo_post}>
 
                 <div className={styles.flex_row}>
-                    {image ? <img className={styles.avatar} src={URL.createObjectURL(image)} alt="Imagem" width="150" height="150" loading="lazy" /> : <img className={styles.avatar} src={user?.avatar} alt="Imagem" width="150" height="150" loading="lazy" />}<br /><br />
+                    {image ? <img className={styles.cover} src={URL.createObjectURL(image)} alt="Imagem" width="150" height="150" loading="lazy" /> : <img className={styles.cover} src={user?.cover} alt="Imagem" width="150" height="150" loading="lazy" />}<br /><br />
 
                     {/* <img className={styles.avatar} src={user?.avatar} alt="avatar user" /> */}
                 </div>
 
 
 
-                <form method='POST' onSubmit={handleFormSubmit}>
+                <form method='POST' onSubmit={handleFormCoverSubmit}>
 
                     <div className={styles.Upload_Form}>
-                        <div>
-                            {/* <input type="file"
+
+                        {/* <input type="file"
                                 name="image"
                             /> */}
-                            <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
+                        <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
 
-                        </div>
+
                     </div>
 
                     <div className={styles.area_acoes}>
-                        <input className={styles.btn_enviar} type="submit" value="Atualizar Avatar" />
+                        <input className={styles.btn_enviar} type="submit" value="Atualizar Cover" />
                     </div>
                 </form>
             </div>

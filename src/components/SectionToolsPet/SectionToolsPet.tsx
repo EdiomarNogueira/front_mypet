@@ -7,9 +7,11 @@ import { User } from '../../types/User';
 import { Link } from 'react-router-dom';
 import { GaleryPhotosPet } from '../GaleryPhotosPet/GaleryPhotosPet';
 import { Publish } from '../../types/Publish';
+import { RGA } from '../RGA/RGA';
+import { VaccineCard } from '../VaccineCard/VaccineCard';
 
-export const SectionToolsPet = (props: { id_user: Number, idpet: Number, me: Boolean }) => {
-
+export const SectionToolsPet = (props: { id_user: Number, idpet: Number, me: Boolean, pet: Pets }) => {
+    let pet = props.pet
     let id_pet = props.idpet;
     let id_user = props.id_user;
     const [viewGaleria, setViewGaleria] = useState(true);
@@ -97,13 +99,13 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number, me: Boo
                     </div>
                 }
                 {viewRGA == true &&
-                    <div>
-                        <p>EXIBE RGA</p>
+                    <div className={styles.area_rga}>
+                        <RGA pet={pet} />
                     </div>
                 }
                 {viewCartaoVacina == true &&
                     <div>
-                        <p>EXIBE Cartão De Vacinas</p>
+                        <VaccineCard pet={pet} />
                     </div>
                 }
 

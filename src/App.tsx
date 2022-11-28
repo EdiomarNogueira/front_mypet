@@ -1,6 +1,7 @@
 import React from 'react';
 import { MainRoutes } from './routes/MainRoutes';
 import styles from './styles_global.module.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
 

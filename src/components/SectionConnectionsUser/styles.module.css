@@ -7,7 +7,6 @@
     padding: 20px;
 }
 
-
 .area_secoes {
     display: flex;
     flex-direction: row;
@@ -17,10 +16,9 @@
     background-color: #FFF;
     padding: 10px;
     border-radius: 6px;
+    border-bottom: 2px solid rgb(104, 97, 97);
 
 }
-
-
 
 .area_galeria_pet {
     width: 100%;
@@ -68,8 +66,8 @@
 
 }
 
-.btn_navigate  p {
-   margin-right: 10px;
+.btn_navigate p {
+    margin-right: 10px;
 
 }
 
@@ -77,4 +75,125 @@
 .btn_navigate:hover {
     border: 2px solid rgba(43, 38, 38, 0.685);
     transition: 0.3s;
- }
+}
+
+
+.area_relations_list {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.list_relations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.container {
+    width: 80%;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+
+}
+
+.area_user {
+    border-bottom: 2px solid rgb(104, 97, 97);
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #FFF;
+    width: 80%;
+}
+
+.flex_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flex_row img {
+    margin-right: 20px;
+}
+
+
+.follow_unfollow {
+    cursor: pointer;
+}
+
+
+.follow {
+    border: 2px solid rgb(128, 226, 226);
+    padding: 5px;
+    width: 110px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.follow:hover {
+    background-color: rgb(149, 240, 240);
+    transition: 0.3s;
+}
+
+.follow:active {
+    background-color: rgb(145, 209, 209);
+    transition: 0.3s;
+}
+
+.unfollow {
+    border: 2px solid rgb(226, 128, 161);
+    padding: 5px;
+    width: 110px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.unfollow:hover {
+    background-color: rgb(238, 155, 182);
+    transition: 0.3s;
+}
+
+.unfollow:active {
+    background-color: rgb(209, 142, 164);
+    transition: 0.3s;
+}
+
+
+.btn_verMais {
+    border: 2px solid rgba(90, 85, 85, 0.329);
+    font-size: 16px;
+    margin-top: 20px;
+    text-align: center;
+    border: 2px solid rgb(128, 226, 226);
+    font-weight: 500;
+    color: rgb(36, 41, 58);
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+
+.btn_verMais:hover {
+    background-color: rgb(149, 240, 240);
+    color: #FFF;
+    transition: 0.3s;
+}
+
+.btn_verMais:active {
+    background-color: rgb(145, 209, 209);
+    color: #FFF;
+    transition: 0.3s;
+}
+
+.area_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

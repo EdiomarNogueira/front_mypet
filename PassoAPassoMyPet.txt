@@ -22,3 +22,13 @@ npm install react-select -> para marcar os pets
 npm install @material-ui/icons
 
 npm install react-modal
+
+gerar qrcode https://www.youtube.com/watch?v=AFrgv72POAg
+npm install qrcode
+https://www.npmjs.com/package/react-qr-code
+https://www.youtube.com/watch?v=cFaihdXLy5A
+
+
+npm i html-to-image -> converter div em imagem
+
+

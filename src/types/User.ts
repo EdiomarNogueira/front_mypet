@@ -1,15 +1,15 @@
 
 export type User = {
     id: number;
-    category: number;
+    category: string;
     name: string;
     email: string;
-    password?: string;
+    password: string;
     phone: string,
     instagram: string,
     facebook: string,
     biography: string,
-    genre: number,
+    genre: string,
     birthdate: string,
     age: string,
     city: string,
@@ -26,5 +26,6 @@ export type User = {
     date_change: Date,
     followers: number;
     following: number;
+    friends: number;
     isFollowing: boolean;
 }

@@ -6,8 +6,9 @@ import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
 import { Sidebar } from '../../components/SideBar/Sidebar';
 import { FormUser } from '../../components/Form_User/Form_user';
+import { FormPet } from '../../components/Form_Pet/Form_Pet';
 
-export const User = () => {
+export const ConfigPet = () => {
     const auth = useContext(AuthContext);
 
     return (
@@ -18,7 +19,7 @@ export const User = () => {
                     <Sidebar />
                 </div>
                 <div className={styles.area_posts}>
-                    <FormUser />
+                    <FormPet />
                 </div>
                 <div className={styles.area_3}>
                     AREA 3

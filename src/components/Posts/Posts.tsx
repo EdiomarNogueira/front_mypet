@@ -52,7 +52,7 @@ export const Posts = () => { //{ title }: Props
         setCommentPost(comment_post + newComment);
     }
 
-    
+
     useEffect(() => {
         loadPosts();
     }, [currentPerPage]);
@@ -64,7 +64,7 @@ export const Posts = () => { //{ title }: Props
     useEffect(() => {
         loadPosts();
     }, [comment_post]);
-    
+
     return (
         <>
             <div className={styles.area_post}>
@@ -82,7 +82,7 @@ export const Posts = () => { //{ title }: Props
                             {posts.map((item, index) => (
                                 <div className={styles.post}>
                                     <div className={styles.user_post}>
-                                        <img className={styles.avatar} src={item.user.avatar} alt="avatar" loading="lazy"/>
+                                        <img className={styles.avatar} src={item.user.avatar} alt="avatar" loading="lazy" />
                                         <div className={styles.name_data}>
                                             <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.user.id}>{item.user.name}</Link>
                                             <p className={styles.data_post}>{item.date_register}</p>
@@ -107,7 +107,9 @@ export const Posts = () => { //{ title }: Props
                                             <h4>Pets Marcados:</h4>
                                             {item.marked_pets.map((pets_marked, index) => (
                                                 <div className={styles.marked_pets}>
-                                                    <p>{pets_marked}</p>
+                                                    <Link className={styles.mark} to={'/user/' + item.id_user + '/mypet/' + item.id}>{pets_marked}</Link>
+
+                                                    {/* <p>{pets_marked}</p> */}
                                                 </div>
                                             ))}
                                         </div>

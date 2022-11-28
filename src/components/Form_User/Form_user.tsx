@@ -7,26 +7,29 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link, redirect, useNavigate } from 'react-router-dom';
 import { useApiLocation } from '../../hooks/useApiGeolocation';
-import { FormAvatar } from '../Form_Avatar/Form_Avatar';
+import { FormAvatarUser } from '../Form_Avatar_User/Form_Avatar_User';
 import InputMask from 'react-input-mask';
+import { FormCoverUser } from '../Form_Cover_User/Form_Cover_User';
 
 // type Props = {
 //     // title?: string; //interrogação deixa a prop não obrigatória 
 // }
 
 export const FormUser = () => {
+    var [user, setUser] = useState<User | null>(null);
+
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState(String);
     const [birthdate, setBirthdate] = useState('');
-    const [category, setCategory] = useState("1");
+    const [category, setCategory] = useState(String);
     const [phone, setPhone] = useState('');
     const [road, setRoad] = useState('');
     const [district, setDistrict] = useState('');
     const [city, setCity] = useState('');
-    const [genre, setGenre] = useState("1");
+    const [genre, setGenre] = useState('');
     const [work, setWork] = useState('');
     const [instagram, setInstagram] = useState('');
     const [facebook, setFacebook] = useState('');
@@ -34,62 +37,82 @@ export const FormUser = () => {
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     const [loading, setLoading] = useState(false);
-    var [user, setUser] = useState<User | null>(null);
 
-    const handleNameInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value);
-    }
-    const handleEmailInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value);
-    }
-    const handlePasswordInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
-    }
-    const handleBirthdateInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setBirthdate(event.target.value);
-    }
-    const handleCategoryInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setCategory(event.target.value);
-    }
-    const handlePhoneInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setPhone(event.target.value);
-    }
-    const handleRoadtInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setRoad(event.target.value);
-    }
-    const handleGenreInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setGenre(event.target.value);
-    }
-    const handleWorkInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setWork(event.target.value);
-    }
-    const handleCityInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setCity(event.target.value);
-    }
-    const handleDistrictInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setDistrict(event.target.value);
-    }
-    const handleInstagramInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setInstagram(event.target.value);
-    }
-    const handleFacebookInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setFacebook(event.target.value);
-    }
-    const handleBiographyInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setBiography(event.target.value);
-    }
+    // const handleNameInput = (element: ChangeEvent<HTMLInputElement>) => {
+    //     setName(element.target.value);
+    // }
+    // const handleEmailInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setEmail(event.target.value);
+    // }
+    // const handlePasswordInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setPassword(event.target.value);
+    // }
+    // const handleBirthdateInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setBirthdate(event.target.value);
+    // }
+    // const handleCategoryInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setCategory(event.target.value);
+    // }
+    // const handlePhoneInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setPhone(event.target.value);
+    // }
+    // const handleRoadtInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setRoad(event.target.value);
+    // }
+    // const handleGenreInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setGenre(event.target.value);
+    // }
+    // const handleWorkInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setWork(event.target.value);
+    // }
+    // const handleCityInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setCity(event.target.value);
+    // }
+    // const handleDistrictInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setDistrict(event.target.value);
+    // }
+    // const handleInstagramInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setInstagram(event.target.value);
+    // }
+    // const handleFacebookInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setFacebook(event.target.value);
+    // }
+    // const handleBiographyInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setBiography(event.target.value);
+    // }
 
 
 
     var api = useApi();
     var apiLocation = useApiLocation();
-  
+
+    const setDados = async (user: User) => {
+        setName(user?.name);
+        setEmail(user?.email);
+        setPassword(user?.password);
+        setBirthdate(user?.birthdate);
+        setCategory(user?.category);
+        setPhone(user?.phone);
+        setRoad(user?.road);
+        setDistrict(user?.district);
+        setCity(user?.city);
+        setGenre(user?.genre);
+        setWork(user?.work);
+        setInstagram(user?.instagram);
+        setFacebook(user?.facebook);
+        setBiography(user?.biography);
+        setLatitude(user?.latitude);
+        setLongitude(user?.longitude);
+    }
 
     const loadDadosUser = async () => {
         setLoading(true);
         let json = await api.getDadosUser();
+        if (json) {
+            setUser(json.user);
+            setDados(json.user);
+        }
         setLoading(false);
-        setUser(json.user);
     }
 
 
@@ -108,14 +131,8 @@ export const FormUser = () => {
             alert("Informe o seu endereço (rua, bairro, cidade), com o cadastro completo poderemos auxiliar caso o seu pet fuja.")
         }
 
-        // if (name && email && password) {
-
         let json = await api.putUser(name, email, password, birthdate, category, phone, road, district, city, genre, work, instagram, facebook, biography, latitude, longitude);
-        console.log(json);
 
-        // } else {
-        // alert("Os dados marcados com * não podem ficar em branco!");
-        // }
     }
 
 
@@ -130,7 +147,8 @@ export const FormUser = () => {
     return (
         <>
             <div className={styles.container}>
-                <FormAvatar />
+                <FormCoverUser />
+                <FormAvatarUser />
                 <div className={styles.page_register}>
                     <div className={styles.register_desc}>
                         <h1>Complete o dados do seu perfil</h1>
@@ -144,10 +162,10 @@ export const FormUser = () => {
                             <input
                                 type="text"
                                 value={name}
-                                onChange={handleNameInput}
+                                onChange={(element) => { setName(element.target.value) }}
                                 id="name"
                                 required
-                                placeholder={user?.name}
+
                             />
                         </div>
                         <div className={styles.single_input}>
@@ -155,7 +173,7 @@ export const FormUser = () => {
                             <input
                                 type="text"
                                 value={email}
-                                onChange={handleEmailInput}
+                                onChange={(element) => { setEmail(element.target.value) }}
                                 id="email"
                                 required
                                 placeholder={user?.email}
@@ -168,7 +186,7 @@ export const FormUser = () => {
                                 value={password}
                                 id="password"
                                 required
-                                onChange={handlePasswordInput}
+                                onChange={(element) => { setPassword(element.target.value) }}
                                 placeholder="********"
                             />
                         </div>
@@ -184,7 +202,7 @@ export const FormUser = () => {
                             <InputMask
                                 type="text"
                                 value={phone}
-                                onChange={handlePhoneInput}
+                                onChange={(element) => { setPhone(element.target.value) }}
                                 id="phone"
                                 mask="(99)99999-9999"
                                 required
@@ -196,14 +214,14 @@ export const FormUser = () => {
                             <input
                                 type="date"
                                 value={user?.birthdate}
-                                onChange={handleBirthdateInput}
+                                onChange={(element) => { setBirthdate(element.target.value) }}
                                 id="birthdate"
                                 required
                             />
                         </div>
                         <div className={styles.single_input}>
                             <label htmlFor="genre">Gênero</label>
-                            <select name="genre" id="genre" value={user?.genre} required onChange={gen => setGenre(gen.target.value)} >
+                            <select name="genre" id="genre" value={genre} required onChange={gen => setGenre(gen.target.value)} >
                                 <option value="1">Masculino</option>
                                 <option value="2">Feminino</option>
                             </select>
@@ -213,7 +231,7 @@ export const FormUser = () => {
                             <input
                                 type="road"
                                 value={road}
-                                onChange={handleRoadtInput}
+                                onChange={(element) => { setRoad(element.target.value) }}
                                 id="road"
                                 required
                                 placeholder="Informe a rua de seu endereço"
@@ -224,7 +242,7 @@ export const FormUser = () => {
                             <input
                                 type="work"
                                 value={work}
-                                onChange={handleWorkInput}
+                                onChange={(element) => { setWork(element.target.value) }}
                                 id="work"
                                 required
                                 placeholder={user?.work}
@@ -235,7 +253,7 @@ export const FormUser = () => {
                             <input
                                 type="city"
                                 value={city}
-                                onChange={handleCityInput}
+                                onChange={(element) => { setCity(element.target.value) }}
                                 id="city"
                                 required
                                 placeholder={user?.city}
@@ -246,7 +264,7 @@ export const FormUser = () => {
                             <input
                                 type="district"
                                 value={district}
-                                onChange={handleDistrictInput}
+                                onChange={(element) => { setDistrict(element.target.value) }}
                                 id="district"
                                 required
                                 placeholder="Bairro"
@@ -257,7 +275,7 @@ export const FormUser = () => {
                             <input
                                 type="biography"
                                 value={biography}
-                                onChange={handleBiographyInput}
+                                onChange={(element) => { setBiography(element.target.value) }}
                                 id="biography"
                                 required
                                 maxLength={48}
@@ -269,7 +287,7 @@ export const FormUser = () => {
                             <input
                                 type="instagram"
                                 value={instagram}
-                                onChange={handleInstagramInput}
+                                onChange={(element) => { setInstagram(element.target.value) }}
                                 id="instagram"
                                 required
                                 placeholder="@instagram"
@@ -280,7 +298,7 @@ export const FormUser = () => {
                             <input
                                 type="facebook"
                                 value={facebook}
-                                onChange={handleFacebookInput}
+                                onChange={(element) => { setFacebook(element.target.value) }}
                                 id="facebook"
                                 required
                                 placeholder="Facebook"

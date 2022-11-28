@@ -16,18 +16,19 @@ export const FormPost = (props: { parentNewPostCallBack: any }) => {
     var api = useApi();
 
     let arraypets: { value: number; label: string; }[] = [];
-    {
-        if (pets) {
-            pets.map((item, index) => (
-                arraypets[index] = { value: item.id, label: item.name }
-            ))
-        }
+
+    if (pets) {
+        pets.map((item, index) => (
+            arraypets[index] = { value: item.id, label: item.name }
+        ))
     }
+
 
     const loadPets = async () => {
         let json = await api.getMyPets(user?.id);
 
-        setPets(await json.currentPet);
+        setPets(json.currentPet);
+
     }
 
 
@@ -92,7 +93,7 @@ export const FormPost = (props: { parentNewPostCallBack: any }) => {
 
     useEffect(() => {
         loadPets();
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         loadUser();
@@ -102,7 +103,7 @@ export const FormPost = (props: { parentNewPostCallBack: any }) => {
         <>
             <div className={styles.area_novo_post}>
                 <div className={styles.flex_row}>
-                    <img className={styles.avatar} src={user?.avatar} alt="avatar user" loading="lazy"/>
+                    <img className={styles.avatar} src={user?.avatar} alt="avatar user" loading="lazy" />
                     <p className={styles.name}>{user?.name}</p>
                 </div>
                 <form method='POST' onSubmit={handleFormSubmit}>
@@ -122,8 +123,9 @@ export const FormPost = (props: { parentNewPostCallBack: any }) => {
                         </div>
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="genre">Marcar Pet</label>
+                        <label htmlFor="marcar_pet">Marcar Pet</label>
                         <Select
+                            name='marcar_pet'
                             className={styles.select_pet}
                             isMulti options={arraypets}
                             onChange={(item: any) => setSelectPets(item)}

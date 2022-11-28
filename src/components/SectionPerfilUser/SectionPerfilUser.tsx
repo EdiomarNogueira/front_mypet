@@ -24,8 +24,9 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
         let $cont = 0;
         setLoading(true);
         let json = await api.getDadosUserPerfil(id_user);
-        console.log('id user', id_user);
         if (json) {
+            console.log('json user', json);
+
             setUser(json.user);
         }
         setLoading(false);
@@ -58,6 +59,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
 
     let seguidores = user?.followers;
     let seguindo = user?.following;
+    let amigos = user?.friends;
     let idade = ' -';
     let biografia = ' -';
     let data_nascimento = ' -';
@@ -177,7 +179,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
             <div className={styles.area_Section_Perfil_User}>
                 <div className={styles.container}>
                     <div>
-                        <img className={styles.cover_user} src={user?.cover} alt="cover" loading="lazy"/>
+                        <img className={styles.cover_user} src={user?.cover} alt="cover" loading="lazy" />
                     </div>
                     <div className={styles.flex_row}>
                         <h2>{user?.name}</h2>
@@ -185,7 +187,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                             <div className={styles.area_config}>
                                 <Link to={'/user/config'}>
                                     <div className={styles.btn_config}>
-                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" loading="lazy"/>
+                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" loading="lazy" />
                                         <p>Configurar</p>
                                     </div>
                                 </Link>
@@ -195,7 +197,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
 
                     <div className={styles.infors_user}>
                         <div className={styles.area_avatar}>
-                            <img className={styles.avatar} src={user?.avatar} alt="imagem perfil pet" loading="lazy"/>
+                            <img className={styles.avatar} src={user?.avatar} alt="imagem perfil pet" loading="lazy" />
 
                             {/* <p className={styles.biografia}>{biografia}</p> */}
                         </div>
@@ -233,6 +235,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                                 }
                             </div>
                         }
+                        <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Amigos: {amigos}</Link>
                         <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Seguindo: {seguindo}</Link>
                         <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Seguidores: {seguidores}</Link>
                     </div>

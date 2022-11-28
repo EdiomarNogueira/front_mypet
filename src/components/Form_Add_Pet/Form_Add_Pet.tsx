@@ -107,7 +107,7 @@ export const Form_Add_Pet = () => {
                             <option value="2">Pet Para Adoção</option>
                             <option value="3">Meu Pet Fugiu</option>
                             <option value="4">Encontrei Este Pet</option>
-                            {user?.category == 2 &&
+                            {user?.category == '2' &&
                                 <option value="5">Em tratamento</option>
                             }
 

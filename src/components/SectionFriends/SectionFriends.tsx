@@ -37,11 +37,12 @@ export const SectionFriends = () => {
 
     const loadRelations = async () => {
         setLoading(true);
-        let json = await api.getUserRelations(latitude, longitude, currentPerPage);
+        let json = await api.getUserRelations(latitude, longitude, currentPerPage, params.id_user);
         if (json) {
-            setLoading(false);
+
             setFriends(json.friends);
         }
+        setLoading(false);
     }
 
     const handleMoreFriends = async () => {
@@ -50,20 +51,18 @@ export const SectionFriends = () => {
 
     const handleFollowUnfollow = async (id_user: any) => {
         let json = await api.postFollowUnfollow(id_user);
-        console.log('amigos', json);
+        console.log(json);
         if (json) {
-            setIsFollowing(json.relation);
 
+            setIsFollowing(json.relation);
             setCount(count + 1);
+            handleReloadPage();
         }
     }
-
 
     const handleReloadPage = async () => {
         { window.location.reload() }
     }
-
-
 
     let latitude = '';
     let longitude = '';
@@ -97,7 +96,7 @@ export const SectionFriends = () => {
                     <div >
                         <div className={styles.area_user} >
                             {friends.map((item, index) => (
-                                <div className={styles.card_user} onClick={handleReloadPage}>
+                                <div className={styles.card_user} >
                                     <Link to={'/User/' + item.id} >
                                         <div className={styles.flex_row}>
                                             <img className={styles.avatar} src={item?.avatar} alt="avatar user" loading="lazy" />

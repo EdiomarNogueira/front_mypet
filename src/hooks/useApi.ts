@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://127.0.0.1:8000/api",
+    // baseURL: "http://127.0.0.1:8000/api",
+    baseURL: "http://187.44.236.16:8000/api",
+
     //baseURL:process.env.REACT_APP_API
 });
 
@@ -35,6 +37,42 @@ export const useApi = () => ({
         password: string) => {
         var config_headers = refreshConfig();
         const response = await api.post('/auth/login', { email, password });
+        return response.data;
+    },
+
+
+    putPet: async (
+        id: any,
+        name: string,
+        species: string,
+        breed: string,
+        birthdate: string,
+        biography: string,
+        tutor_name: string,
+        castrated: string,
+        genre: string,
+        latitude: string,
+        longitude: string,
+        size: string,
+        fur: string,
+        situation: string,
+    ) => {
+        var config_headers = refreshConfig();
+        const response = await api.put('/user/pet/' + id, {
+            name,
+            species,
+            breed,
+            birthdate,
+            biography,
+            tutor_name,
+            castrated,
+            genre,
+            latitude,
+            longitude,
+            size,
+            fur,
+            situation,
+        }, config_headers);
         return response.data;
     },
 
@@ -156,16 +194,14 @@ export const useApi = () => ({
         return response.data;
     },
 
-    getUserRelations: async (latitude: String, longitude: String, currentPerPage: any) => {
+    getUserRelations: async (latitude: String, longitude: String, currentPerPage: any, id_user: any) => {
         var config = {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "Bearer " + localStorage.getItem('authToken'),
             }
         };
-        const response = await api.get('/user/relations/' + latitude + '/' + longitude + '?perPage=' + currentPerPage, config);
-
-        console.log('response', response);
+        const response = await api.get('/user/' + id_user + '/connections/' + latitude + '/' + longitude + '?perPage=' + currentPerPage, config);
         return response.data;
     },
 
@@ -178,7 +214,6 @@ export const useApi = () => ({
         };
 
         const response = await api.get('/feed/?perPage=' + currentPerPage, config);
-        console.log('response', response);
         return response.data;
     },
 
@@ -191,7 +226,6 @@ export const useApi = () => ({
 
         };
         const response = await api.get('/user/recommended/' + latitude + '/' + longitude, config);
-        console.log(response);
         return response.data;
     },
 
@@ -211,7 +245,7 @@ export const useApi = () => ({
         return response.data;
     },
 
-    postFollowUnfollow: async (id_user: number) => {
+    postFollowUnfollow: async (id_user: any) => {
         var config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -220,12 +254,11 @@ export const useApi = () => ({
         };
 
         const response = await api.post('/user/' + id_user + '/follow', {}, config);
-        console.log(response);
         return response.data;
     },
 
 
-    getVerificFollow: async (id_user: number) => {
+    getVerificFollow: async (id_user: any) => {
         var config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -234,7 +267,6 @@ export const useApi = () => ({
         };
 
         const response = await api.get('/user/' + id_user + '/follow', config);
-        console.log('é seguidor?', response);
         return response.data;
     },
 
@@ -251,7 +283,6 @@ export const useApi = () => ({
             },
         };
         const response = await api.post('/feed', { type, subtitle, photo, pets }, config).then((response) => {
-            console.log(response);
         })
         return response;
     },
@@ -265,7 +296,6 @@ export const useApi = () => ({
         };
 
         const response = await api.post('/feed', { type, body, pets }, config).then((response) => {
-            console.log(response);
         })
         return response;
     },
@@ -276,7 +306,6 @@ export const useApi = () => ({
         const response = await api.post('/post/' + id_post + '/comment', {
             txt
         }, config_headers).then((response) => {
-            console.log(response);
         }); //ALTERAR A VALIDAÇÃO
         return response;
     },
@@ -285,7 +314,6 @@ export const useApi = () => ({
         let id = id_post;
         var config_headers = refreshConfig();
         const response = await api.post('/post/' + id + '/like', {}, config_headers).then((response) => {
-            console.log(response);
         });
         return response;
     },
@@ -311,24 +339,58 @@ export const useApi = () => ({
             },
         };
         const response = await api.post('/user/avatar', { avatar }, config);
-        // .then((response) => {
-        //     console.log(response.data);
-        // });
         return response.data;
     },
 
-    getMyPets: async (id_user:any) => {
-        var config_headers = refreshConfig();
-
-        const response = await api.get('/user/'+id_user+'/pet', config_headers);
-        console.log('retorno',response);
+    putNewAvatarFilePet: async (photo: File, id_pet: any) => {
+        let avatar = photo;
+        var config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                'Authorization': "Bearer " + localStorage.getItem('authToken')
+            },
+        };
+        const response = await api.post('/user/pet/' + id_pet + '/avatar', { avatar }, config);
+        console.log('response', response);
         return response.data;
     },
 
-    getPet: async (id_user:any, id_pet: String) => {
+    putNewCoverFilePet: async (photo: File, id_pet: any) => {
+        let cover = photo;
+        var config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                'Authorization': "Bearer " + localStorage.getItem('authToken')
+            },
+        };
+        const response = await api.post('/user/pet/' + id_pet + '/cover', { cover }, config);
+        return response.data;
+    },
+
+
+    putNewCoverFile: async (photo: File) => {
+        let cover = photo;
+        var config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                'Authorization': "Bearer " + localStorage.getItem('authToken')
+            },
+        };
+        const response = await api.post('/user/cover', { cover }, config);
+        return response.data;
+    },
+
+    getMyPets: async (id_user: any) => {
         var config_headers = refreshConfig();
 
-        const response = await api.get('/user/'+id_user+'/pet/' + id_pet, config_headers);
+        const response = await api.get('/user/' + id_user + '/pet', config_headers);
+        return response.data;
+    },
+
+    getPet: async (id_user: any, id_pet: any) => {
+        var config_headers = refreshConfig();
+
+        const response = await api.get('/user/' + id_user + '/pet/' + id_pet, config_headers);
         return response.data;
     },
 
@@ -353,7 +415,7 @@ export const useApi = () => ({
     getUserPhotos: async (
         id: any,
         currentPerPage: any) => {
-            let perPage = currentPerPage;
+        let perPage = currentPerPage;
         var config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -361,7 +423,6 @@ export const useApi = () => ({
             }
         };
         const response = await api.get('/user/' + id + '/photos/?perPage=' + perPage, config);
-        console.log('response',response);
         return response.data;
     },
 

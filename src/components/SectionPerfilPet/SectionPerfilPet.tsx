@@ -87,7 +87,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
             break;
     }
 
-    if (pet.genre == 1) {
+    if (pet.genre == '1') {
         genero = "Macho";
     } else {
         genero = "Fêmea";
@@ -117,9 +117,9 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
         biography = ' -';
     }
 
-    if (pet.castrated == 0) {
+    if (pet.castrated == '1') {
         castrado = 'Não Castrado';
-    } else if (pet.castrated == 1) {
+    } else if (pet.castrated == '2') {
         castrado = 'Castrado';
     } else {
         castrado = ' -';
@@ -146,13 +146,13 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
 
     switch (pet.fur) {
         case 1:
-            pelo = 'Pequena'
+            pelo = 'Curto'
             break;
         case 2:
-            pelo = 'Média'
+            pelo = 'Médio'
             break;
         case 3:
-            pelo = 'Grande'
+            pelo = 'Longo'
             break;
         default:
             pelo = ' -'
@@ -170,12 +170,12 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
             <div className={styles.area_Section_Perfil_Pet}>
                 <div className={styles.container}>
                     <div>
-                        <img className={styles.cover_pet} src={pet.cover} alt="cover" loading="lazy"/>
+                        <img className={styles.cover_pet} src={pet.cover} alt="cover" loading="lazy" />
                     </div>
                     <h2>{pet.name}</h2>
                     <div className={styles.infors_pet}>
                         <div className={styles.area_avatar}>
-                            <img className={styles.avatar} src={pet.avatar} alt="imagem perfil pet" loading="lazy"/>
+                            <img className={styles.avatar} src={pet.avatar} alt="imagem perfil pet" loading="lazy" />
                         </div>
                         <div className={styles.infors}>
                             <div className={styles.infors_dados}>
@@ -204,12 +204,19 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
 
                         {me &&
                             <div className={styles.acoes}>
-                                <Link to={'/user/' + pet.tutor_name + '/mypet/' + pet.id + '/update'}>
+                                {/* <Link to={+'/mypet/'+pet.id+'/config'}> */}
+                                <Link to={'/user/' + pet.id + '/mypet/' + pet.id + '/config'}>
                                     <div className={styles.btn_config}>
-                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" loading="lazy"/>
+                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" loading="lazy" />
                                         <p>Configurar</p>
                                     </div>
                                 </Link>
+                                {/* <Link to={'/user/' + pet.tutor_name + '/mypet/' + pet.id + '/update'}>
+                                    <div className={styles.btn_config}>
+                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" loading="lazy" />
+                                        <p>Configurar</p>
+                                    </div>
+                                </Link> */}
                                 <button className={styles.btn_alert} onClick={handleAlert}>DESAPARECIDO!!!</button>
 
                             </div>
@@ -218,7 +225,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
                     </div>
                 </div>
                 <div className={styles.container}>
-                    <SectionToolsPet id_user={pet.id_user} idpet={pet.id} me={me} />
+                    <SectionToolsPet id_user={pet.id_user} idpet={pet.id} me={me} pet={pet} />
                 </div>
             </div>
         </>
