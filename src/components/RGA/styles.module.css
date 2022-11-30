@@ -86,12 +86,14 @@ body {
 
 .rga_borda {
     border: 5px solid #3a8338;
+    height: 100%;
 }
 
 .flex_row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 100%;
 }
 
 .horientacao_horizontal {

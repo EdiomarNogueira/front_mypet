@@ -71,12 +71,10 @@ export const UserGallery = (props: { id: any, isMe: any, posts: Publish[] }) => 
                                     <p className={styles.date}>{item.date_register}</p>
                                     <img className={styles.image} src={item.body} alt="avatar" loading="lazy" />
                                     <p className={styles.text}>{item.subtitle}</p>
-
                                 </div>
-
                             </div>
                         ))}
-                        <Modal className={styles.modal} open={open} onClose={() => setOpen(false)}>
+                        <Modal onClick={() => setOpen(false)} className={styles.modal} open={open} onClose={() => setOpen(false)} >
                             <Box className={styles.area_modal}>
                                 <p className={styles.date_modal}>{date_register_pet}</p>
                                 <img className={styles.image_modal} src={image} alt="avatar" loading="lazy" />

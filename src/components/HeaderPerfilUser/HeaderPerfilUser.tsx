@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
+import { SectionFriends } from '../SectionFriends/SectionFriends';
 import { SectionListRecommended } from '../SectionListRecommended/SectionListRecommended';
 import styles from './styles.module.css';
 
@@ -8,7 +9,7 @@ type Props = {
     title?: string; //interrogação deixa a prop não obrigatória 
 }
 
-export const Header = ({ title }: Props) => {
+export const HeaderPerfilUser = ({ title }: Props) => {
     const auth = useContext(AuthContext);
     const [isActive, setIsActive] = useState(false);
     const navigate = useNavigate();
@@ -21,8 +22,6 @@ export const Header = ({ title }: Props) => {
     }
 
     const menu_hamburguer = () => setIsActive(!isActive);
-
- 
     return (
         <div>
 
@@ -49,11 +48,10 @@ export const Header = ({ title }: Props) => {
             <nav className={`${styles['nav_tablet']} ${!isActive && styles.inactive}`}>
 
                 <ul className={`${styles['menu_tablet']} ${!isActive && styles.inactive}`}>
-                    <div className={styles.menu_sidebar}>
-                        <div className={styles.divisao_menu}>
-                            
-                            <Link to="/Home"><h1 className={styles.title_nav_tablet}>{title}</h1></Link>
+                <Link to="/Home"><h1 className={styles.title_nav_tablet}>{title}</h1></Link>
 
+                    <div className={styles.sidebar_area}>
+                        <div className={styles.divisao_menu}>
                             <ul>
                                 <li><Link to="/Home">Home</Link></li>
                                 <li><Link to={'/User/' + id_user}>Meu Perfil</Link></li>
@@ -67,7 +65,7 @@ export const Header = ({ title }: Props) => {
                             </ul>
                         </div>
                         <div className={styles.divisao_menu}>
-                            <SectionListRecommended />
+                            {/* <SectionFriends /> */}
                         </div>
                     </div>
 

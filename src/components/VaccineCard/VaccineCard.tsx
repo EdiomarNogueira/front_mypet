@@ -26,18 +26,18 @@ export const VaccineCard = (props: { pet: Pets }) => {
     }
 
     let species = '';
-    if (pet.species = 1) {
+    if (pet.species = '1') {
         species = 'Cachorro';
-    } else if (pet.species = 2) {
+    } else if (pet.species = '2') {
         species = 'Gato';
     } else {
         species = '- '
     }
 
     let sexo = '';
-    if (pet.genre == 1) {
+    if (pet.genre == '1') {
         sexo = 'Macho'
-    } else if (pet.genre == 2) {
+    } else if (pet.genre == '2') {
         sexo = 'Femea'
     }
 

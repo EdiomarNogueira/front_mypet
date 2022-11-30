@@ -42,7 +42,6 @@ export const SectionConnectionsUser = () => {
 
     const handleFollowUnfollow = async (id_user: any) => { //<div onClick={() => handleFollowUnfollow(item?.id)}>
         let json = await api.postFollowUnfollow(id_user);
-        console.log('amigos', json);
         if (json) {
             setIsFollowing(json.relation);
             setCount(count + 1);
@@ -84,7 +83,6 @@ export const SectionConnectionsUser = () => {
         setLoading(true);
         let json = await api.getUserRelations(latitude, longitude, currentPerPageFriends, params.id_user);
         if (json) {
-            console.log('amigos', json);
             setFriends(json.friends);
             setFollowings(json.following);
             setFollowers(json.followers);

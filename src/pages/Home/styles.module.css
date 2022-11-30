@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .home {
     width: 100%;
 }
@@ -22,4 +28,21 @@
 .area_3 {
     flex: 1;
     height: 100%;
+}
+
+
+@media (max-width: 1080px) {
+
+    .area_3 {
+        display: none;
+    }
+}
+
+
+
+@media (max-width: 860px) {
+
+    .area_sidebar {
+        display: none;
+    }
 }

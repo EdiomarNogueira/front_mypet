@@ -273,3 +273,35 @@
 .btn_follows:hover {
     border-bottom: 2px solid #203661;
 }
+
+
+
+
+@media (max-width: 1080px) {}
+
+
+
+@media (max-width: 860px) {
+
+    .infors_user {
+        flex-direction: column;
+    }
+}
+
+
+
+
+@media (max-width: 500px) {
+    .flex_row {
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .area_follow {
+        flex-direction: column;
+    }
+
+    .btn_follows {
+        margin-bottom: 10px;
+    }
+}

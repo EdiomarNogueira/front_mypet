@@ -27,12 +27,10 @@ export const FormCoverPet = () => {
         if (json) {
             setUser(json);
         }
-        console.log(json);
     }
 
     const loadDadosPet = async () => {
         let json = await api.getPet(user?.id, params.id_pet);
-        console.log(json);
         if (json) {
             setPet(json.currentPet[0]);
         }

@@ -27,7 +27,6 @@ export const Form_Add_Pet = () => {
 
     const loadUser = async () => {
         let json = await api.getUserMe();
-        console.log(json);
         setUser(json);
         setId_user(json.id);
         setLatitude(json.latitude);
@@ -40,7 +39,6 @@ export const Form_Add_Pet = () => {
         if (name && species && situation) {
 
             let json = await api.postCreatepet(name, id_user, species, birthdate, situation, latitude, longitude);
-            console.log(json);
         } else if (!name) {
             alert("Preencha o nome do pet!");
         } else if (!species) {

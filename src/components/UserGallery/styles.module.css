@@ -7,13 +7,14 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    
+
 }
 
 
 .area_galeria h1 {
     padding: 10px;
 }
+
 .area_novo_post {
     display: flex;
     flex-direction: column;
@@ -30,9 +31,10 @@
 
 .container {
 
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     background-color: #fff;
     border-radius: 6px;
     padding: 20px;
@@ -40,9 +42,11 @@
 
 .area_image {
     border: 2px solid rgba(116, 116, 116, 0.144);
-    padding: 5px;
-    margin-bottom: 10px;
-    
+    padding: 10px;
+    margin: 10px;
+    min-width: 180px;
+    max-width: 300px;
+
 }
 
 .image {
@@ -75,8 +79,8 @@
 }
 
 .image_modal {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    object-fit: cover;
 }
 
 .date_modal {

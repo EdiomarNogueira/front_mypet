@@ -22,6 +22,7 @@ export const SectionFriends = () => {
     const [currentPerPage, setCurrentPerPage] = useState(5);
     const params = useParams();
 
+    let id_user = auth.user?.id;
 
     var api = useApi();
 
@@ -51,7 +52,6 @@ export const SectionFriends = () => {
 
     const handleFollowUnfollow = async (id_user: any) => {
         let json = await api.postFollowUnfollow(id_user);
-        console.log(json);
         if (json) {
 
             setIsFollowing(json.relation);
@@ -104,9 +104,13 @@ export const SectionFriends = () => {
                                         </div>
                                     </Link>
                                     <div className={styles.area_follow}>
-                                        <div onClick={() => handleFollowUnfollow(item?.id)}>
-                                            <p className={styles.unfollow}>Desfazer Amizade</p>
-                                        </div>
+
+                                        {id_user != item?.id &&
+                                            <div onClick={() => handleFollowUnfollow(item?.id)}>
+                                                <p className={styles.unfollow}>Desfazer Amizade</p>
+                                            </div>
+                                        }
+
                                     </div>
                                 </div>
                             ))}

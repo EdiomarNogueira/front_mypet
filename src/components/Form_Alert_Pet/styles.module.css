@@ -20,12 +20,15 @@
 
 .input_text {
     width: 80%;
-    height: 40px;
+    height: 30px;
     display: flex;
     margin-bottom: 10px;
 }
 
 
+input {
+    padding-left: 5px;
+}
 
 .area_acoes {
     border-top: 1px solid #a2a5a849;
@@ -66,8 +69,8 @@
 }
 
 .avatar {
-    height: 120px;
-    width: 120px;
+    width: 280px;
+    height: auto;
     margin-right: 10px;
     border-radius: 6px;
     object-fit: cover;
@@ -79,7 +82,14 @@
     display: flex;
     margin-bottom: 20px;
     justify-content: center;
+}
 
+.flex_column {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 .name {
@@ -115,7 +125,56 @@
     margin-bottom: 30px;
 }
 
+.single_input_situation {
+    display: flex;
+    margin-bottom: 15px;
+}
 
+.single_input_situation label {
+    margin-right: 20px;
+}
+
+.single_input_situation select {
+    width: 280px;
+}
+
+.single_input_phone label {
+    margin-right: 20px;
+}
+
+.single_input_data {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.single_input_data label {
+    margin-right: 20px;
+}
+
+.single_input_data input {
+    width: 280px;
+}
+
+.single_input {
+    display: flex;
+    margin-bottom: 5px;
+    justify-content: space-between;
+}
+
+.single_input label {
+    flex: 1;
+}
+
+.single_input input {
+    flex: 4;
+}
+
+.local_tutor {
+    border: 2px solid #3d3f43;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
 
 @media (max-width: 1080px) {}
 

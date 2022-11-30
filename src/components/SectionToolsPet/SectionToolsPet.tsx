@@ -53,7 +53,6 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number, me: Boo
     useEffect(() => {
         const intersectionObserver = new IntersectionObserver((entries) => {
             if (entries.some((entry) => entry.isIntersecting)) {
-                console.log('está visivel', currentPerPage);
                 setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 3);
             }
         });
@@ -88,7 +87,7 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number, me: Boo
                 }
 
             </div>
-            <div>
+            <div className={styles.secoes}>
                 {viewGaleria == true &&
                     <div>
                         <div className={styles.area_galeria_pet}>

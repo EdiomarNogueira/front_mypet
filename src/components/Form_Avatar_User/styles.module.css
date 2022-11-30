@@ -1,6 +1,7 @@
 .area_novo_post {
-    width: 60%;
+    width: 80%;
     display: flex;
+    flex-direction: column;
     padding: 20px;
     background-color: #fff;
     justify-content: center;
@@ -77,6 +78,7 @@
 .flex_row {
     display: flex;
     margin-bottom: 20px;
+    justify-content: center;
 }
 
 .name {
@@ -110,4 +112,17 @@
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 30px;
+}
+
+
+
+@media (max-width: 1080px) {}
+
+
+@media (max-width: 860px) {}
+
+@media (max-width: 530px) {
+    .area_novo_post {
+        width: 100%;
+    }
 }

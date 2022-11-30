@@ -47,7 +47,6 @@ export const FormPost = (props: { parentNewPostCallBack: any }) => {
     }
 
     const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        console.log('pets', selectPets);
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
@@ -75,7 +74,6 @@ export const FormPost = (props: { parentNewPostCallBack: any }) => {
             }
 
             if (type == "photo") {
-                console.log(pet);
                 let json = await api.postNewPostFile(type, subtitle, photo, pet);
                 setAddText("");
 
@@ -106,7 +104,7 @@ export const FormPost = (props: { parentNewPostCallBack: any }) => {
                     <img className={styles.avatar} src={user?.avatar} alt="avatar user" loading="lazy" />
                     <p className={styles.name}>{user?.name}</p>
                 </div>
-                <form method='POST' onSubmit={handleFormSubmit}>
+                <form method='POST' onSubmit={handleFormSubmit} className={styles.form}>
 
                     <div className={styles.Upload_Form}>
                         <input value={addText}

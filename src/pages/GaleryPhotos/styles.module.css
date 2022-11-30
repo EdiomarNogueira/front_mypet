@@ -87,3 +87,21 @@
 .area_btn_voltar:active {
     background-color: #1d2a448c;
 }
+
+
+
+@media (max-width: 1080px) {
+
+    .area_3 {
+        display: none;
+    }
+}
+
+
+
+@media (max-width: 860px) {
+
+    .area_sidebar {
+        display: none;
+    }
+}

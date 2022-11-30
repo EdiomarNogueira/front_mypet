@@ -6,6 +6,7 @@
     display: flex;
     justify-content: center;
     margin-top: 70px;
+
 }
 
 .area_sidebar {
@@ -17,9 +18,30 @@
 
 .area_posts {
     flex: 2;
+    display: flex;
+    justify-content: center;
 }
 
 .area_3 {
     flex: 1;
     height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+@media (max-width: 1080px) {
+
+    .area_3 {
+        display: none;
+    }
+}
+
+
+
+@media (max-width: 860px) {
+
+    .area_sidebar {
+        display: none;
+    }
 }

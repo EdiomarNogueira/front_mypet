@@ -8,7 +8,6 @@
     flex-direction: column;
     padding: 20px;
     align-items: center;
-    position: fixed;
 }
 
 .divisao_menu {
@@ -28,6 +27,14 @@
     color: rgb(68, 96, 119);
 }
 
+a {
+    text-decoration: none;
+}
+
 a:visited {
     color: rgb(39, 63, 83);
+}
+
+a:link {
+    text-decoration: none;
 }

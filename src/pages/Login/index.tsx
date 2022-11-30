@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
@@ -31,19 +31,21 @@ export const Login = () => {
         }
     }
 
+
     return (
         <div className={styles.page_login}>
 
             <div className={styles.container}>
                 <div className={styles.login_desc}>
                     <h1>Seja Bem Vindo</h1>
-                    <p>A MyPet é uma rede social pensada para amantes de Pets e ONGs voltadas para com cuidado aos nossos amigos de quatro patas.</p>
+                    <p>O Um Novo Amigo é uma rede social pensada para amantes de Pets e ONGs voltadas para com cuidado aos nossos amigos de quatro patas.</p>
                     <h2><Link to="/auth/user_register">Efetuar Cadastro</Link></h2>
 
                 </div>
 
 
                 <div className={styles.login_inputs} onSubmit={handleLogin}>
+                   
                     <div className={styles.text_login}>
                         <h1>Olá! <br />Seja bem vindo novamente.</h1>
                         <h3>Faça o seu login...</h3>

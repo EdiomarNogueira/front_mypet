@@ -25,7 +25,6 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
         setLoading(true);
         let json = await api.getDadosUserPerfil(id_user);
         if (json) {
-            console.log('json user', json);
 
             setUser(json.user);
         }
@@ -108,9 +107,9 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
 
 
 
-    if (user?.category == 1) {
+    if (user?.category == '1') {
         categoria = "Usuário";
-    } else if (user?.category == 2) {
+    } else if (user?.category == '2') {
         categoria = "ONG";
     }
     if (user?.latitude && user?.longitude) {
@@ -163,7 +162,6 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     useEffect(() => {
         const intersectionObserver = new IntersectionObserver((entries) => {
             if (entries.some((entry) => entry.isIntersecting)) {
-                console.log('está visivel', currentPerPage);
                 setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 3);
             }
         });

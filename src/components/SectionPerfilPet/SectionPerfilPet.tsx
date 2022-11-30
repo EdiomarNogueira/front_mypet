@@ -6,6 +6,8 @@ import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { User } from '../../types/User';
 import { Link, useParams } from 'react-router-dom';
 import { SectionToolsPet } from '../SectionToolsPet/SectionToolsPet';
+import Modal from '@mui/material/Modal';
+import { Box, DialogTitle } from '@mui/material';
 
 export const SectionPerfilPet = (props: { idpet: any }) => {
     const [pet, setPet] = useState<Pets>(Object);
@@ -24,18 +26,11 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
         let json = await api.getPet(params.id_user, id_pet);
         if (json) {
             setPet(json.currentPet[0]);
-            console.log(json.currentPet);
         }
         setLoading(false);
 
     }
 
-
-    const handleAlert = async () => {
-        alert('Gerar alerta');
-        //FAZER UPDATE EM SITUAÇÃO DO PET
-        //FAZER VERIFICAÇÃO DE QUEM ESTÁ PROÓXIMO E ENVIAR MENSAGEM
-    }
 
 
     useEffect(() => {
@@ -217,7 +212,8 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
                                         <p>Configurar</p>
                                     </div>
                                 </Link> */}
-                                <button className={styles.btn_alert} onClick={handleAlert}>DESAPARECIDO!!!</button>
+                                <Link className={styles.btn_alert} to={'/user/' + pet.id + '/mypet/' + pet.id + '/addAlert'}>Gerar Alerta!</Link>
+
 
                             </div>
                         }

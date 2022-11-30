@@ -25,7 +25,6 @@ export const FormCoverUser = () => {
         if (json) {
             setUser(json);
         }
-        console.log(json);
     }
 
     const handleFormCoverSubmit = async (e: { preventDefault: () => void; currentTarget: HTMLFormElement; }) => {

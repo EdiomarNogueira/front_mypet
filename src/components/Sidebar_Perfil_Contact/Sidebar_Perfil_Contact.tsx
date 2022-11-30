@@ -8,7 +8,7 @@ type Props = {
     text?: string; //interrogação deixa a prop não obrigatória 
 }
 
-export const SectionPerfilContact = () => {
+export const SidebarPerfilContact = () => {
     const auth = useContext(AuthContext);
     const [me, setMe] = useState(false);
     let id_user = auth.user?.id;

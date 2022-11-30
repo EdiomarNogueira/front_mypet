@@ -4,9 +4,10 @@ import { Footer } from '../../components/Footer/Footer';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
-import { SidebarPerfilUser } from '../../components/Sidebar_Perfil_User/Sidebar';
+import { SidebarPerfilUser } from '../../components/Sidebar_Perfil_User/Sidebar_Perfil_User';
 import { SectionPerfilUser } from '../../components/SectionPerfilUser/SectionPerfilUser';
-import { SectionPerfilContact } from '../../components/SectionPerfilContact/SectionPerfilContact';
+import { SidebarPerfilContact } from '../../components/Sidebar_Perfil_Contact/Sidebar_Perfil_Contact';
+import { HeaderPerfilUser } from '../../components/HeaderPerfilUser/HeaderPerfilUser';
 
 
 export const Perfil = () => {
@@ -24,24 +25,18 @@ export const Perfil = () => {
 
     return (
         <div className={styles.home}>
-            <Header title="Um Novo Amigo" />
+            <HeaderPerfilUser title="Um Novo Amigo" />
             <div className={styles.area_body}>
                 <div className={styles.area_sidebar}>
                     {me &&
                         <SidebarPerfilUser />
                     }
                     {!me &&
-                        <SectionPerfilContact />
+                        <SidebarPerfilContact />
                     }
                 </div>
                 <div className={styles.area_posts}>
                     <SectionPerfilUser id_user={params.id_user} isMe={me} />
-                    {/* {me &&
-                        <p>Meu Perfil</p>
-                    }
-                    {!me &&
-                        <p>Outro Perfil</p>
-                    } */}
                 </div>
                 <div className={styles.area_3}>
                     AREA 3

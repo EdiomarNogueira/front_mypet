@@ -287,6 +287,35 @@ export const useApi = () => ({
         return response;
     },
 
+    postNewAlertPet: async (
+        photo: File,
+        id_pet: String,
+        id_user: Number,
+        name: String,
+        addText: String,
+        situation: String,
+        date_occurrence: String,
+        road: String,
+        district: String,
+        city: String,
+        email: String,
+        phone: String,
+        latitude: String,
+        longitude: String,
+    ) => {
+        var config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                'Authorization': "Bearer " + localStorage.getItem('authToken')
+            },
+        };
+        const response = await api.post('/user/' + id_user + '/pet/' + id_pet + '/alert', {
+            photo, id_pet, id_user, name, addText, situation, date_occurrence, road, district, city, email, phone, latitude, longitude
+        }, config);
+        return response.data;
+    },
+
+
     postNewPostText: async (type: string, body: string, pets: any) => {
         var config = {
             headers: {
@@ -351,7 +380,6 @@ export const useApi = () => ({
             },
         };
         const response = await api.post('/user/pet/' + id_pet + '/avatar', { avatar }, config);
-        console.log('response', response);
         return response.data;
     },
 

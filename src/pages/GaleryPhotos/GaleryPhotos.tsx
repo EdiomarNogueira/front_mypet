@@ -16,13 +16,13 @@ import { User } from '../../types/User';
 export const Gallery = () => {
 
     const [me, setMe] = useState(false);
-    const auth = useContext(AuthContext);
     const [posts, setPosts] = useState<Publish[]>([]);
     const [viewGaleria, setViewGaleria] = useState(true);
     const [currentPerPage, setCurrentPerPage] = useState(3);
     const [loading, setLoading] = useState(false);
     var [user, setUser] = useState<User | null>(null);
     const navigate = useNavigate();
+    const auth = useContext(AuthContext);
 
     let id_user = auth.user?.id;
     var api = useApi();
@@ -66,7 +66,6 @@ export const Gallery = () => {
     useEffect(() => {
         const intersectionObserver = new IntersectionObserver((entries) => {
             if (entries.some((entry) => entry.isIntersecting)) {
-                console.log('está visivel', currentPerPage);
                 setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 3);
             }
         });

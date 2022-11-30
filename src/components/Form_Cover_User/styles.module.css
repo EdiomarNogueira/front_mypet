@@ -66,8 +66,8 @@
 }
 
 .cover {
-    height: 160px;
-    width: 300px;
+    width: 90%;
+    height: 40%;
     margin-right: 10px;
     border-radius: 6px;
     object-fit: cover;
@@ -116,4 +116,16 @@
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+
+@media (max-width: 1080px) {}
+
+@media (max-width: 860px) {}
+
+
+@media (max-width: 530px) {
+    .area_novo_post {
+        width: 100%;
+    }
 }

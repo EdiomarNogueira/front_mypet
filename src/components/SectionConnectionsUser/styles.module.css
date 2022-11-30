@@ -1,6 +1,5 @@
 .area_section_connections {
-    width: 100%;
-    min-height: 100vh;
+    width: 90%;
     border-radius: 6px;
     border-left: 1px solid #4142442c;
     border-right: 1px solid #4142442c;
@@ -196,4 +195,34 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+
+@media (max-width: 1080px) {
+    .area_section_connections {
+        width: 90%;
+        padding: 5px;
+    }
+}
+
+
+@media (max-width: 860px) {
+    .area_section_connections {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .area_secoes {
+
+        padding: 10px;
+        flex-direction: column;
+    }
+
+    .area_user {
+        width: 100%;
+    }
+
 }

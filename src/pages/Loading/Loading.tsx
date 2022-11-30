@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { Home } from '../Home/Home';
@@ -20,6 +20,8 @@ export const Loading = () => {
     }
 
     navigate('/Home');
+
+  
     return (
         <div className={styles.home}>
             <h1>Carregando</h1>

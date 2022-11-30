@@ -26,7 +26,6 @@ export const Posts = () => { //{ title }: Props
     const loadPosts = async () => {
         let json = await api.newPost(currentPerPage);
         if (json) {
-            console.log(json);
             setPosts(json);
         }
         setLoading(false);

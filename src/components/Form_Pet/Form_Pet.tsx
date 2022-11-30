@@ -97,6 +97,7 @@ export const FormPet = () => {
     useEffect(() => {
         loadDadosUser();
         loadDadosPet();
+
     }, []);
 
     return (

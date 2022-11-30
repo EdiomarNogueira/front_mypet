@@ -20,12 +20,14 @@
 
 .input_text {
     width: 80%;
-    height: 40px;
     display: flex;
     margin-bottom: 10px;
+    font-size: 16px;
 }
 
-
+.form {
+    padding: 10px;
+}
 
 .area_acoes {
     border-top: 1px solid #a2a5a849;
@@ -48,6 +50,7 @@
 .flex_row {
     display: flex;
     margin-bottom: 20px;
+    padding: 10px;
 }
 
 .name {
@@ -67,7 +70,7 @@
     padding: 8px 16px;
     font-size: 18px;
     border-radius: 10px;
-    margin-top: 20px;
+    margin: 20px;
     cursor: pointer;
 }
 
@@ -86,4 +89,35 @@
 
 .select_pet {
     margin-top: 5px;
+}
+
+.single_input {
+    padding: 10px;
+}
+
+@media (max-width: 1080px) {
+
+    .area_3 {
+        display: none;
+    }
+}
+
+
+
+@media (max-width: 860px) {
+
+    .area_novo_post {
+        width: 100%;
+        padding: 10px;
+
+    }
+}
+
+@media (max-width: 390px) {
+
+    .area_novo_post {
+        width: 100%;
+        padding: 0px;
+        margin-top: 10px;
+    }
 }

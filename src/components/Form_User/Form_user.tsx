@@ -38,49 +38,6 @@ export const FormUser = () => {
     const [longitude, setLongitude] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // const handleNameInput = (element: ChangeEvent<HTMLInputElement>) => {
-    //     setName(element.target.value);
-    // }
-    // const handleEmailInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setEmail(event.target.value);
-    // }
-    // const handlePasswordInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setPassword(event.target.value);
-    // }
-    // const handleBirthdateInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setBirthdate(event.target.value);
-    // }
-    // const handleCategoryInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setCategory(event.target.value);
-    // }
-    // const handlePhoneInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setPhone(event.target.value);
-    // }
-    // const handleRoadtInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setRoad(event.target.value);
-    // }
-    // const handleGenreInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setGenre(event.target.value);
-    // }
-    // const handleWorkInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setWork(event.target.value);
-    // }
-    // const handleCityInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setCity(event.target.value);
-    // }
-    // const handleDistrictInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setDistrict(event.target.value);
-    // }
-    // const handleInstagramInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setInstagram(event.target.value);
-    // }
-    // const handleFacebookInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setFacebook(event.target.value);
-    // }
-    // const handleBiographyInput = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setBiography(event.target.value);
-    // }
-
 
 
     var api = useApi();
@@ -142,6 +99,7 @@ export const FormUser = () => {
 
     useEffect(() => {
         loadDadosUser();
+
     }, []);
 
     return (
