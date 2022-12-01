@@ -17,6 +17,9 @@ export const Form_Add_Pet = () => {
     const [situation, setSituation] = useState('1'); //DEFAULT 1 - NORMAL/2 - Perdido / 3 - Encontrado / 4 - Em tratamento
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
+
     var [user, setUser] = useState<User | null>(null);
 
     const handleNameInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -37,8 +40,12 @@ export const Form_Add_Pet = () => {
 
     const handleRegister = async () => {
         if (name && species && situation) {
-
             let json = await api.postCreatepet(name, id_user, species, birthdate, situation, latitude, longitude);
+            if (json.success) {
+                setSuccess(json.success);
+            } else {
+                setError(json.error);
+            }
         } else if (!name) {
             alert("Preencha o nome do pet!");
         } else if (!species) {
@@ -53,13 +60,25 @@ export const Form_Add_Pet = () => {
         setBirthdate(event.target.value);
     }
 
-    
+
     useEffect(() => {
         loadUser();
     }, []);
 
     return (
         <div className={styles.container}>
+            <div className={styles.area_return} >
+                {success &&
+                    <div className={styles.return_sucess}>
+                        {success}
+                    </div>
+                }
+                {error &&
+                    <div className={styles.return_error}>
+                        {error}
+                    </div>
+                }
+            </div>
             <div className={styles.page_register}>
 
                 <div className={styles.register_desc}>

@@ -205,7 +205,7 @@ export const useApi = () => ({
         return response.data;
     },
 
-    newPost: async (currentPerPage: any) => {
+    getPosts: async (currentPerPage: any) => {
         var config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -217,19 +217,28 @@ export const useApi = () => ({
         return response.data;
     },
 
+
+    getAlerts: async (currentPerPageAlerts: any) => {
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken'),
+            }
+        };
+        const response = await api.get('/user/alert/?perPage=' + currentPerPageAlerts, config);
+        return response.data;
+    },
+
     getUserNear: async (latitude: String, longitude: String) => {
         var config = {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "Bearer " + localStorage.getItem('authToken'),
             },
-
         };
         const response = await api.get('/user/recommended/' + latitude + '/' + longitude, config);
         return response.data;
     },
-
-
 
     getUserMe: async () => {
         var config_headers = refreshConfig();

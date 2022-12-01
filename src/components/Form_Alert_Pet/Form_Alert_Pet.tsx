@@ -76,7 +76,6 @@ export const FormAlertPet = () => {
             let id_user = user?.id;
             let id_pet = params.id_pet;
             let json = await api.postNewAlertPet(photo, id_pet, id_user, name, addText, situation, date_occurrence, road, district, city, email, phone, latitude, longitude); //CRIAR INSERÇÃO DE ALERTA
-            console.log(json);
             if (json.success) {
                 setSuccess(json.success);
             } else {
@@ -184,6 +183,7 @@ export const FormAlertPet = () => {
                         <label htmlFor="situation">Situação</label>
                         <select name="situation" id="situation" value={situation} required onChange={situation => setSituation(situation.target.value)} >
                             {/* <option value="1">Meu Pet</option> */}
+                            <option value="">Selecione uma situação</option>
                             <option value="2">Pet Para Adoção</option>
                             <option value="3">Meu Pet Fugiu</option>
                             <option value="4">Encontrei Este Pet</option>

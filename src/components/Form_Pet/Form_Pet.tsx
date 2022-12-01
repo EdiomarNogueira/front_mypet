@@ -41,6 +41,8 @@ export const FormPet = () => {
     const [status, setStatus] = useState('');
     const [loading, setLoading] = useState(false);
     const params = useParams();
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
 
     var api = useApi();
     var apiLocation = useApiLocation();
@@ -87,7 +89,12 @@ export const FormPet = () => {
     const handleRegister = async () => {
 
         let json = await api.putPet(params.id_pet, name, species, breed, birthdate, biography, tutor_name, castrated, genre, latitude, longitude, size, fur, situation);
-
+        console.log(json);
+        if (json.success) {
+            setSuccess(json.success);
+        } else {
+            setError(json.error);
+        }
     }
 
     useEffect(() => {
@@ -105,7 +112,20 @@ export const FormPet = () => {
             <div className={styles.container}>
                 <FormCoverPet />
                 <FormAvatarPet />
+                <div className={styles.area_return} >
+                    {success &&
+                        <div className={styles.return_sucess}>
+                            {success}
+                        </div>
+                    }
+                    {error &&
+                        <div className={styles.return_error}>
+                            {error}
+                        </div>
+                    }
+                </div>
                 <div className={styles.page_register}>
+
                     <div className={styles.register_desc}>
                         <h1>Complete o dados do seu pet</h1>
                         <p>... Cadastre todos os dados do seu pet para uma melhor experiência com a plataforma.</p>

@@ -107,7 +107,7 @@ export const SectionConnectionsUser = () => {
         setCurrentPerPageFriends((currentPerPageFriendsInsideState) => currentPerPageFriendsInsideState + 10);
     }
 
-
+ 
     return (
         <>
             <div className={styles.area_section_connections}>

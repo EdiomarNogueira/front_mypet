@@ -7,26 +7,48 @@ import { Likes } from '../Like/Like';
 import { NewComment } from '../NewComment/Comment';
 import { Link } from 'react-router-dom';
 import { Comments } from '../Comments/Comments';
+import { Alerts } from '../../types/Alerts';
 
 type Props = {
     // title?: string; //interrogação deixa a prop não obrigatória 
 }
 
 export const Posts = () => { //{ title }: Props
-    const [posts, setPosts] = useState<Publish[]>([]);
     const [loading, setLoading] = useState(true);
     const [comment_post, setCommentPost] = useState(1);
-    const [currentPerPage, setCurrentPerPage] = useState(5);
+    const [currentPerPage, setCurrentPerPage] = useState(2);
+    const [currentPerPageAlerts, setCurrentPerPageAlerts] = useState(2);
     const [countPosts, setCountPosts] = useState(1);
+    const [viewPostsFriends, setPostsFriends] = useState(true);
+    const [viewAlerts, setViewAlerts] = useState(false);
+    const [posts, setPosts] = useState<Publish[]>([]);
+    const [alerts, setAlerts] = useState<Alerts[]>([]);
 
     var api = useApi();
 
-
-
     const loadPosts = async () => {
-        let json = await api.newPost(currentPerPage);
+        let json = await api.getPosts(currentPerPage);
+        //setLoading(true);
+
+        console.log(json);
         if (json) {
-            setPosts(json);
+            if (posts != json) {
+                setPosts(json);
+            }
+        }
+        setLoading(false);
+
+    }
+
+    const loadAlerts = async () => {
+        //setLoading(true);
+        let json = await api.getAlerts(currentPerPageAlerts);
+        console.log(json);
+
+        if (json) {
+            if (alerts != json.alerts) {
+                setAlerts(json.alerts);
+            }
         }
         setLoading(false);
     }
@@ -36,10 +58,10 @@ export const Posts = () => { //{ title }: Props
         if (
             window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
         ) {
+            setCurrentPerPageAlerts((currentPerPageAlertsInsideState) => currentPerPageAlertsInsideState + 5);
             setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 5);
         }
     }
-
 
     const handleNewPostCallback = (newPost: any) => {
 
@@ -51,94 +73,262 @@ export const Posts = () => { //{ title }: Props
         setCommentPost(comment_post + newComment);
     }
 
+    const handlePostsFriends = async () => {
+        loadPosts();
+        setPostsFriends(true);
+        setViewAlerts(false);
+    }
+
+    const handleAlerts = async () => {
+        loadAlerts();
+        setPostsFriends(false);
+        setViewAlerts(true);
+    }
+
+    useEffect(() => {
+        loadAlerts();
+    }, [currentPerPageAlerts]);
 
     useEffect(() => {
         loadPosts();
-    }, [currentPerPage]);
-
-    useEffect(() => {
-        loadPosts();
-    }, [countPosts]);
-
-    useEffect(() => {
-        loadPosts();
-    }, [comment_post]);
+    }, [comment_post, currentPerPage, countPosts]);
 
     return (
         <>
             <div className={styles.area_post}>
                 <FormPost parentNewPostCallBack={handleNewPostCallback} />
+                <div className={styles.area_nav_feeds}>
+                    {viewPostsFriends &&
+                        <button className={styles.btn_amigos_active} onClick={handlePostsFriends}>Feed</button>
+                    }
+                    {!viewPostsFriends &&
+                        <button className={styles.btn_amigos} onClick={handlePostsFriends}>Ver Feed</button>
+                    }
+                    {viewAlerts &&
+                        <button className={styles.btn_alertas_active} onClick={handleAlerts}>Alertas</button>
+                    }
+                    {!viewAlerts &&
+                        <button className={styles.btn_alertas} onClick={handleAlerts}>Ver Alertas</button>
+                    }
+                </div>
                 {loading &&
                     <div className={styles.area_loading}>Carregando...</div>
                 }
                 {!loading && posts.length > 0 &&
                     <>
-                        <div className={styles.area_nav_feeds}>
-                            <button className={styles.btn_amigos} onClick={loadPosts}>Amigos</button>
-                            <button className={styles.btn_alertas} onClick={loadPosts}>Alertas</button>
-                        </div>
+
                         <div className={styles.container}>
-                            {posts.map((item, index) => (
-                                <div className={styles.post}>
-                                    <div className={styles.user_post}>
-                                        <img className={styles.avatar} src={item.user.avatar} alt="avatar" loading="lazy" />
-                                        <div className={styles.name_data}>
-                                            <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.user.id}>{item.user.name}</Link>
-                                            <p className={styles.data_post}>{item.date_register}</p>
-                                        </div>
-                                    </div>
-                                    <div className={styles.post_body}>
-                                        {item.type == 'text' && (
-                                            <div className={styles.post_text}>
-                                                <p>{item.body}</p>
-                                            </div>
-                                        )}
-                                        {item.type == 'photo' && (
-                                            <div className={styles.post_photo}>
-                                                <p className={styles.subtitle}>{item.subtitle}</p>
-                                                <img src={item.body} alt={item.subtitle} />
-                                            </div>
-                                        )}
-                                    </div>
-                                    {
-                                        item.marked_pets &&
-                                        <div className={styles.area_marked_pets}>
-                                            <h4>Pets Marcados:</h4>
-                                            {item.marked_pets.map((pets_marked, index) => (
-                                                <div className={styles.marked_pets}>
-                                                    <Link className={styles.mark} to={'/user/' + item.id_user + '/mypet/' + item.id}>{pets_marked}</Link>
-
-                                                    {/* <p>{pets_marked}</p> */}
+                            {viewPostsFriends == true &&
+                                <div className={styles.container_justify_content}>
+                                    {posts.map((item, index) => (
+                                        <div className={styles.post}>
+                                            <div className={styles.user_post}>
+                                                <img className={styles.avatar} src={item.user.avatar} alt="avatar" loading="lazy" />
+                                                <div className={styles.name_data}>
+                                                    <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.user.id}>{item.user.name}</Link>
+                                                    <p className={styles.data_post}>{item.date_register}</p>
                                                 </div>
-                                            ))}
-                                        </div>
-                                    }
-                                    < div className={styles.interacoes} >
-                                        <div className={styles.interacao_like}>
-                                            <Likes id={item.id} />
-                                            {/* like_count={item.likeCount} liked={item.liked}  */}
-                                        </div>
-                                        <div className={styles.interacao_comment}>
-                                            <NewComment id={item.id} parentCommentCallBack={handleCommentCallback} />
-                                        </div>
-                                    </div>
-                                    <div>
-                                    </div>
-                                    <details>
-                                        <summary>
-                                            Comentários
-                                        </summary>
-                                        <div className={styles.area_comments}>
+                                            </div>
+                                            <div className={styles.post_body}>
+                                                {item.type == 'text' && (
+                                                    <div className={styles.post_text}>
+                                                        <p>{item.body}</p>
+                                                    </div>
+                                                )}
+                                                {item.type == 'photo' && (
+                                                    <div className={styles.post_photo}>
+                                                        <p className={styles.subtitle}>{item.subtitle}</p>
+                                                        <img src={item.body} alt={item.subtitle} />
+                                                    </div>
+                                                )}
+                                            </div>
+                                            {
+                                                item.marked_pets &&
+                                                <div className={styles.area_marked_pets}>
+                                                    <h4>Pets Marcados:</h4>
+                                                    {item.marked_pets.map((pets_marked, index) => (
+                                                        <div className={styles.marked_pets}>
+                                                            <Link className={styles.mark} to={'/user/' + item.id_user + '/mypet/' + item.id}>{pets_marked}</Link>
 
-                                            {item.comments.map((comment_post, index) => (
-                                                <div>
-                                                    <Comments comments={comment_post} />
+                                                            {/* <p>{pets_marked}</p> */}
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            ))}
+                                            }
+                                            < div className={styles.interacoes} >
+                                                <div className={styles.interacao_like}>
+                                                    <Likes id={item.id} />
+                                                    {/* like_count={item.likeCount} liked={item.liked}  */}
+                                                </div>
+                                                <div className={styles.interacao_comment}>
+                                                    <NewComment id={item.id} parentCommentCallBack={handleCommentCallback} />
+                                                </div>
+                                            </div>
+                                            <div>
+                                            </div>
+                                            <details>
+                                                <summary>
+                                                    Comentários
+                                                </summary>
+                                                <div className={styles.area_comments}>
+
+                                                    {item.comments.map((comment_post, index) => (
+                                                        <div>
+                                                            <Comments comments={comment_post} />
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </details>
                                         </div>
-                                    </details>
+                                    ))}
                                 </div>
-                            ))}
+                            }
+                            {viewAlerts == true &&
+                                <div className={styles.container_alert}>
+                                    {alerts.map((item, index) => (
+                                        <div className={styles.area_alert}>
+                                            <div className={styles.user_alert}>
+                                                <img className={styles.avatar} src={item.avatar_tutor} alt="avatar" loading="lazy" />
+                                                <div className={styles.name_data}>
+                                                    <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>{item.tutor_name}</Link>
+                                                    <p className={styles.data_post}>{item.date_register}</p>
+                                                </div>
+                                            </div>
+                                            <div className={styles.area_cartaz_alert}>
+                                                {item.situation == 2 &&
+                                                    <>
+                                                        <div className={styles.header_alert_donating}>
+                                                            {item.species == 1 &&
+                                                                <>
+                                                                    <h2 className={styles.title_header}>Cão Para Adoção!</h2>
+                                                                    <h4 className={styles.subTitle_header}>Tenha este doguinho como seu novo amigo...</h4>
+                                                                </>
+                                                            }
+                                                            {item.species == 2 &&
+                                                                <>
+                                                                    <h2 className={styles.title_header}>Gato Para Adoção!</h2>
+                                                                    <h4 className={styles.subTitle_header}>Tenha este miau como seu novo amigo...</h4>
+                                                                </>
+                                                            }
+                                                        </div>
+                                                        <div className={styles.body_alert_lost}>
+                                                            <div className={styles.area_photo_alert}>
+                                                                <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                            </div>
+                                                            <div className={styles.area_infor}>
+                                                                <ul>
+                                                                    <li><h1>{item.name_pet}</h1></li>
+                                                                    <li><h4>Raça: {item.breed}</h4></li>
+                                                                    <li><h4>Idade:{item.age}</h4></li>
+                                                                    <li><h4>Distância: {item.distance} km</h4></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </>
+
+                                                }
+                                                {item.situation == 3 &&
+                                                    <>
+                                                        <div className={styles.header_alert_lost}>
+                                                            {item.species == 1 &&
+                                                                <>
+                                                                    <h2 className={styles.title_header}>Cão Perdido!</h2>
+                                                                    <h4 className={styles.subTitle_header}>Você viu este doguinho por ai?</h4>
+
+                                                                </>
+                                                            }
+                                                            {item.species == 2 &&
+                                                                <>
+                                                                    <h2 className={styles.title_header}>Gato Perdido!</h2>
+                                                                    <h4 className={styles.subTitle_header}>Você viu este miau por ai?</h4>
+                                                                </>
+                                                            }
+                                                        </div>
+                                                        <div className={styles.body_alert_lost}>
+                                                            <div className={styles.area_photo_alert}>
+                                                                <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                            </div>
+                                                            <div className={styles.area_infor}>
+                                                                <ul>
+                                                                    <li><h1>{item.name_pet}</h1></li>
+                                                                    <li><h4>Raça: {item.breed}</h4></li>
+                                                                    <li><h4>Idade:{item.age}</h4></li>
+                                                                    <li><h4>Distância: {item.distance} km</h4></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                }
+                                                {item.situation == 4 &&
+                                                    <>
+                                                        <div className={styles.header_alert_found}>
+                                                            {item.species == 1 &&
+                                                                <>
+                                                                    <h2 className={styles.title_header}>Cão Encontrado!</h2>
+                                                                    <h4 className={styles.subTitle_header}>Ei, você conhece o dono deste cão?</h4>
+                                                                </>
+                                                            }
+                                                            {item.species == 2 &&
+                                                                <>
+                                                                    <h2 className={styles.title_header}>Gato Encontrado!</h2>
+                                                                    <h4 className={styles.subTitle_header}>Ei, você conhece o dono deste gato?</h4>
+                                                                </>
+                                                            }
+                                                        </div>
+                                                        <div className={styles.body_alert_lost}>
+                                                            <div className={styles.area_photo_alert}>
+                                                                <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                            </div>
+                                                            <div className={styles.area_infor}>
+                                                                <ul>
+                                                                    <li><h1>{item.name_pet}</h1></li>
+                                                                    <li><h4>Raça: {item.breed}</h4></li>
+                                                                    <li><h4>Idade:{item.age}</h4></li>
+                                                                    <li><h4>Distância: {item.distance} km</h4></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </>
+
+                                                }
+                                                {item.situation == 5 &&
+                                                    <>
+                                                        <div className={styles.header_alert_treatment}>
+                                                            {item.species == 1 &&
+                                                                <>
+                                                                    <h2 className={styles.title_header}>Cão precisando de ajuda!</h2>
+                                                                    <h4 className={styles.subTitle_header}>Este doguinho precisa da sua ajuda!</h4>
+                                                                </>
+                                                            }
+                                                            {item.species == 2 &&
+                                                                <>
+                                                                    <h2 className={styles.title_header}>Gato precisando de ajuda!</h2>
+                                                                    <h4 className={styles.subTitle_header}>Este miau precisa da sua ajuda!</h4>
+                                                                </>
+                                                            }
+                                                        </div>
+                                                        <div className={styles.body_alert_lost}>
+                                                            <div className={styles.area_photo_alert}>
+                                                                <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                            </div>
+                                                            <div className={styles.area_infor}>
+                                                                <ul>
+                                                                    <li><h1>{item.name_pet}</h1></li>
+                                                                    <li><h4>Raça: {item.breed}</h4></li>
+                                                                    <li><h4>Idade: {item.age}</h4></li>
+                                                                    <li><h4>Distância: {item.distance} km</h4></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                    </>
+                                                }
+                                            </div>
+                                        </div>
+
+                                    ))}
+                                </div>
+                            }
                         </div>
                     </>
                 } {!loading && posts.length == 0 &&
