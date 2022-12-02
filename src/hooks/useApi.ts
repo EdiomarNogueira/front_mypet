@@ -296,6 +296,19 @@ export const useApi = () => ({
         return response;
     },
 
+    postDeletePost: async (id_delete: Number, id_user: any) => {
+
+        var config_headers = refreshConfig();
+        const response = await api.post('/feed/delete/', { id_delete, id_user }, config_headers);
+        return response.data;
+    },
+
+    postDeleteComment: async (id_delete: Number, id_user: any) => {
+        var config_headers = refreshConfig();
+        const response = await api.post('/feed/comment/delete/', { id_delete, id_user }, config_headers);
+        return response.data;
+    },
+
     postNewAlertPet: async (
         photo: File,
         id_pet: String,

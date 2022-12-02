@@ -4,11 +4,28 @@
     justify-content: space-between;
     border: 1px solid #DDD;
     margin-bottom: 1px;
-    max-width: 640px;
+    width: 100%;
+
+}
+
+.header_comment {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.area_100 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.btn_deletar img {
+    width: 25px;
+    cursor: pointer;
 }
 
 .comment {
-   
     display: flex;
     align-items: center;
     flex: 2;

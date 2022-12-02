@@ -56,6 +56,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 .container_alert {
@@ -135,6 +136,36 @@
 .user_post {
     display: flex;
     padding: 10px;
+    justify-content: space-between;
+}
+
+.area_btn_deletar {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.btn_deletar {
+    border: 2px solid #29303a;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.btn_deletar:hover {
+    border: 2px solid #2c538a;
+    background-color: #2c538a80;
+    transition: 0.3s;
+    color: #FFF;
+}
+
+.btn_deletar:active {
+    border: 2px solid #2c538a;
+    background-color: #111b29a9;
+    transition: 0.3s;
+    color: #FFF;
 }
 
 .user_alert {

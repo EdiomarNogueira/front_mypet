@@ -1,6 +1,6 @@
 import styles from './styles.module.css';
 import { useApi } from "../../hooks/useApi";
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Publish } from '../../types/Publish';
 import { FormPost } from '../Form_Post/FormPost';
 import { Likes } from '../Like/Like';
@@ -8,6 +8,7 @@ import { NewComment } from '../NewComment/Comment';
 import { Link } from 'react-router-dom';
 import { Comments } from '../Comments/Comments';
 import { Alerts } from '../../types/Alerts';
+import { AuthContext } from '../../contexts/Auth/AuthContext';
 
 type Props = {
     // title?: string; //interrogação deixa a prop não obrigatória 
@@ -23,6 +24,7 @@ export const Posts = () => { //{ title }: Props
     const [viewAlerts, setViewAlerts] = useState(false);
     const [posts, setPosts] = useState<Publish[]>([]);
     const [alerts, setAlerts] = useState<Alerts[]>([]);
+    const auth = useContext(AuthContext);
 
     var api = useApi();
 
@@ -85,6 +87,11 @@ export const Posts = () => { //{ title }: Props
         setViewAlerts(true);
     }
 
+    const handleDeletePost = async (id_post: Number) => {
+        let json = await api.postDeletePost(id_post, auth.user?.id);
+        loadPosts();
+    }
+
     useEffect(() => {
         loadAlerts();
     }, [currentPerPageAlerts]);
@@ -123,11 +130,18 @@ export const Posts = () => { //{ title }: Props
                                     {posts.map((item, index) => (
                                         <div className={styles.post}>
                                             <div className={styles.user_post}>
-                                                <img className={styles.avatar} src={item.user.avatar} alt="avatar" loading="lazy" />
-                                                <div className={styles.name_data}>
-                                                    <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.user.id}>{item.user.name}</Link>
-                                                    <p className={styles.data_post}>{item.date_register}</p>
+                                                <div>
+                                                    <img className={styles.avatar} src={item.user.avatar} alt="avatar" loading="lazy" />
+                                                    <div className={styles.name_data}>
+                                                        <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.user.id}>{item.user.name}</Link>
+                                                        <p className={styles.data_post}>{item.date_register}</p>
+                                                    </div>
                                                 </div>
+                                                {auth.user?.id == item.id_user &&
+                                                    <div className={styles.area_btn_deletar}>
+                                                        <p onClick={() => handleDeletePost(item.id)} className={styles.btn_deletar}>Deletar</p>
+                                                    </div>
+                                                }
                                             </div>
                                             <div className={styles.post_body}>
                                                 {item.type == 'text' && (
@@ -174,7 +188,7 @@ export const Posts = () => { //{ title }: Props
 
                                                     {item.comments.map((comment_post, index) => (
                                                         <div>
-                                                            <Comments comments={comment_post} />
+                                                            <Comments comments={comment_post} parentCommentCallBack={handleCommentCallback} />
                                                         </div>
                                                     ))}
                                                 </div>
