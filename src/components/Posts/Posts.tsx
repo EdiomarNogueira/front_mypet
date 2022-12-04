@@ -139,7 +139,7 @@ export const Posts = () => { //{ title }: Props
                                                 </div>
                                                 {auth.user?.id == item.id_user &&
                                                     <div className={styles.area_btn_deletar}>
-                                                        <p onClick={() => handleDeletePost(item.id)} className={styles.btn_deletar}>Deletar</p>
+                                                        <p onClick={() => handleDeletePost(item.id)} className={styles.btn_deletar}><img src="src\media\icons\trash.png" alt="deletar post" /></p>
                                                     </div>
                                                 }
                                             </div>
@@ -197,155 +197,162 @@ export const Posts = () => { //{ title }: Props
                                     ))}
                                 </div>
                             }
-                            {viewAlerts == true &&
-                                <div className={styles.container_alert}>
-                                    {alerts.map((item, index) => (
-                                        <div className={styles.area_alert}>
-                                            <div className={styles.user_alert}>
-                                                <img className={styles.avatar} src={item.avatar_tutor} alt="avatar" loading="lazy" />
-                                                <div className={styles.name_data}>
-                                                    <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>{item.tutor_name}</Link>
-                                                    <p className={styles.data_post}>{item.date_register}</p>
-                                                </div>
-                                            </div>
-                                            <div className={styles.area_cartaz_alert}>
-                                                {item.situation == 2 &&
-                                                    <>
-                                                        <div className={styles.header_alert_donating}>
-                                                            {item.species == 1 &&
-                                                                <>
-                                                                    <h2 className={styles.title_header}>Cão Para Adoção!</h2>
-                                                                    <h4 className={styles.subTitle_header}>Tenha este doguinho como seu novo amigo...</h4>
-                                                                </>
-                                                            }
-                                                            {item.species == 2 &&
-                                                                <>
-                                                                    <h2 className={styles.title_header}>Gato Para Adoção!</h2>
-                                                                    <h4 className={styles.subTitle_header}>Tenha este miau como seu novo amigo...</h4>
-                                                                </>
-                                                            }
-                                                        </div>
-                                                        <div className={styles.body_alert_lost}>
-                                                            <div className={styles.area_photo_alert}>
-                                                                <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
-                                                            </div>
-                                                            <div className={styles.area_infor}>
-                                                                <ul>
-                                                                    <li><h1>{item.name_pet}</h1></li>
-                                                                    <li><h4>Raça: {item.breed}</h4></li>
-                                                                    <li><h4>Idade:{item.age}</h4></li>
-                                                                    <li><h4>Distância: {item.distance} km</h4></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </>
 
-                                                }
-                                                {item.situation == 3 &&
-                                                    <>
-                                                        <div className={styles.header_alert_lost}>
-                                                            {item.species == 1 &&
-                                                                <>
-                                                                    <h2 className={styles.title_header}>Cão Perdido!</h2>
-                                                                    <h4 className={styles.subTitle_header}>Você viu este doguinho por ai?</h4>
-
-                                                                </>
-                                                            }
-                                                            {item.species == 2 &&
-                                                                <>
-                                                                    <h2 className={styles.title_header}>Gato Perdido!</h2>
-                                                                    <h4 className={styles.subTitle_header}>Você viu este miau por ai?</h4>
-                                                                </>
-                                                            }
-                                                        </div>
-                                                        <div className={styles.body_alert_lost}>
-                                                            <div className={styles.area_photo_alert}>
-                                                                <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
-                                                            </div>
-                                                            <div className={styles.area_infor}>
-                                                                <ul>
-                                                                    <li><h1>{item.name_pet}</h1></li>
-                                                                    <li><h4>Raça: {item.breed}</h4></li>
-                                                                    <li><h4>Idade:{item.age}</h4></li>
-                                                                    <li><h4>Distância: {item.distance} km</h4></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </>
-                                                }
-                                                {item.situation == 4 &&
-                                                    <>
-                                                        <div className={styles.header_alert_found}>
-                                                            {item.species == 1 &&
-                                                                <>
-                                                                    <h2 className={styles.title_header}>Cão Encontrado!</h2>
-                                                                    <h4 className={styles.subTitle_header}>Ei, você conhece o dono deste cão?</h4>
-                                                                </>
-                                                            }
-                                                            {item.species == 2 &&
-                                                                <>
-                                                                    <h2 className={styles.title_header}>Gato Encontrado!</h2>
-                                                                    <h4 className={styles.subTitle_header}>Ei, você conhece o dono deste gato?</h4>
-                                                                </>
-                                                            }
-                                                        </div>
-                                                        <div className={styles.body_alert_lost}>
-                                                            <div className={styles.area_photo_alert}>
-                                                                <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
-                                                            </div>
-                                                            <div className={styles.area_infor}>
-                                                                <ul>
-                                                                    <li><h1>{item.name_pet}</h1></li>
-                                                                    <li><h4>Raça: {item.breed}</h4></li>
-                                                                    <li><h4>Idade:{item.age}</h4></li>
-                                                                    <li><h4>Distância: {item.distance} km</h4></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </>
-
-                                                }
-                                                {item.situation == 5 &&
-                                                    <>
-                                                        <div className={styles.header_alert_treatment}>
-                                                            {item.species == 1 &&
-                                                                <>
-                                                                    <h2 className={styles.title_header}>Cão precisando de ajuda!</h2>
-                                                                    <h4 className={styles.subTitle_header}>Este doguinho precisa da sua ajuda!</h4>
-                                                                </>
-                                                            }
-                                                            {item.species == 2 &&
-                                                                <>
-                                                                    <h2 className={styles.title_header}>Gato precisando de ajuda!</h2>
-                                                                    <h4 className={styles.subTitle_header}>Este miau precisa da sua ajuda!</h4>
-                                                                </>
-                                                            }
-                                                        </div>
-                                                        <div className={styles.body_alert_lost}>
-                                                            <div className={styles.area_photo_alert}>
-                                                                <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
-                                                            </div>
-                                                            <div className={styles.area_infor}>
-                                                                <ul>
-                                                                    <li><h1>{item.name_pet}</h1></li>
-                                                                    <li><h4>Raça: {item.breed}</h4></li>
-                                                                    <li><h4>Idade: {item.age}</h4></li>
-                                                                    <li><h4>Distância: {item.distance} km</h4></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-
-                                                    </>
-                                                }
-                                            </div>
-                                        </div>
-
-                                    ))}
-                                </div>
-                            }
                         </div>
                     </>
-                } {!loading && posts.length == 0 &&
+                }
+                {!loading && alerts.length > 0 &&
+                    <div>
+                        {viewAlerts == true &&
+                            <div className={styles.container_alert}>
+                                {alerts.map((item, index) => (
+                                    <div className={styles.area_alert}>
+                                        <div className={styles.user_alert}>
+                                            <img className={styles.avatar} src={item.avatar_tutor} alt="avatar" loading="lazy" />
+                                            <div className={styles.name_data}>
+                                                <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>{item.tutor_name}</Link>
+                                                <p className={styles.data_post}>{item.date_register}</p>
+                                            </div>
+                                        </div>
+                                        <div className={styles.area_cartaz_alert}>
+                                            {item.situation == 2 &&
+                                                <>
+                                                    <div className={styles.header_alert_donating}>
+                                                        {item.species == 1 &&
+                                                            <>
+                                                                <h2 className={styles.title_header}>Cão Para Adoção!</h2>
+                                                                <h4 className={styles.subTitle_header}>Tenha este doguinho como seu novo amigo...</h4>
+                                                            </>
+                                                        }
+                                                        {item.species == 2 &&
+                                                            <>
+                                                                <h2 className={styles.title_header}>Gato Para Adoção!</h2>
+                                                                <h4 className={styles.subTitle_header}>Tenha este miau como seu novo amigo...</h4>
+                                                            </>
+                                                        }
+                                                    </div>
+                                                    <div className={styles.body_alert_lost}>
+                                                        <div className={styles.area_photo_alert}>
+                                                            <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                        </div>
+                                                        <div className={styles.area_infor}>
+                                                            <ul>
+                                                                <li><h1>{item.name_pet}</h1></li>
+                                                                <li><h4>Raça: {item.breed}</h4></li>
+                                                                <li><h4>Idade:{item.age}</h4></li>
+                                                                <li><h4>Distância: {item.distance} km</h4></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </>
+
+                                            }
+                                            {item.situation == 3 &&
+                                                <>
+                                                    <div className={styles.header_alert_lost}>
+                                                        {item.species == 1 &&
+                                                            <>
+                                                                <h2 className={styles.title_header}>Cão Perdido!</h2>
+                                                                <h4 className={styles.subTitle_header}>Você viu este doguinho por ai?</h4>
+
+                                                            </>
+                                                        }
+                                                        {item.species == 2 &&
+                                                            <>
+                                                                <h2 className={styles.title_header}>Gato Perdido!</h2>
+                                                                <h4 className={styles.subTitle_header}>Você viu este miau por ai?</h4>
+                                                            </>
+                                                        }
+                                                    </div>
+                                                    <div className={styles.body_alert_lost}>
+                                                        <div className={styles.area_photo_alert}>
+                                                            <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                        </div>
+                                                        <div className={styles.area_infor}>
+                                                            <ul>
+                                                                <li><h1>{item.name_pet}</h1></li>
+                                                                <li><h4>Raça: {item.breed}</h4></li>
+                                                                <li><h4>Idade:{item.age}</h4></li>
+                                                                <li><h4>Distância: {item.distance} km</h4></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            }
+                                            {item.situation == 4 &&
+                                                <>
+                                                    <div className={styles.header_alert_found}>
+                                                        {item.species == 1 &&
+                                                            <>
+                                                                <h2 className={styles.title_header}>Cão Encontrado!</h2>
+                                                                <h4 className={styles.subTitle_header}>Ei, você conhece o dono deste cão?</h4>
+                                                            </>
+                                                        }
+                                                        {item.species == 2 &&
+                                                            <>
+                                                                <h2 className={styles.title_header}>Gato Encontrado!</h2>
+                                                                <h4 className={styles.subTitle_header}>Ei, você conhece o dono deste gato?</h4>
+                                                            </>
+                                                        }
+                                                    </div>
+                                                    <div className={styles.body_alert_lost}>
+                                                        <div className={styles.area_photo_alert}>
+                                                            <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                        </div>
+                                                        <div className={styles.area_infor}>
+                                                            <ul>
+                                                                <li><h1>{item.name_pet}</h1></li>
+                                                                <li><h4>Raça: {item.breed}</h4></li>
+                                                                <li><h4>Idade:{item.age}</h4></li>
+                                                                <li><h4>Distância: {item.distance} km</h4></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </>
+
+                                            }
+                                            {item.situation == 5 &&
+                                                <>
+                                                    <div className={styles.header_alert_treatment}>
+                                                        {item.species == 1 &&
+                                                            <>
+                                                                <h2 className={styles.title_header}>Cão precisando de ajuda!</h2>
+                                                                <h4 className={styles.subTitle_header}>Este doguinho precisa da sua ajuda!</h4>
+                                                            </>
+                                                        }
+                                                        {item.species == 2 &&
+                                                            <>
+                                                                <h2 className={styles.title_header}>Gato precisando de ajuda!</h2>
+                                                                <h4 className={styles.subTitle_header}>Este miau precisa da sua ajuda!</h4>
+                                                            </>
+                                                        }
+                                                    </div>
+                                                    <div className={styles.body_alert_lost}>
+                                                        <div className={styles.area_photo_alert}>
+                                                            <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                        </div>
+                                                        <div className={styles.area_infor}>
+                                                            <ul>
+                                                                <li><h1>{item.name_pet}</h1></li>
+                                                                <li><h4>Raça: {item.breed}</h4></li>
+                                                                <li><h4>Idade: {item.age}</h4></li>
+                                                                <li><h4>Distância: {item.distance} km</h4></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                </>
+                                            }
+                                        </div>
+                                    </div>
+
+                                ))}
+                            </div>
+
+                        }
+                    </div>
+                }
+                {!loading && posts.length == 0 &&
                     <div>
                         <div className={styles.sem_post}>Faça o seu primeiro post, mostre para a gente o seu Pet</div>
                     </div>

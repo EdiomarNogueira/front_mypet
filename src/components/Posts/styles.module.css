@@ -144,29 +144,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
-
-
-.btn_deletar {
-    border: 2px solid #29303a;
-    font-weight: bold;
-    padding: 10px;
+.btn_deletar img {
+    width: 25px;
+    cursor: pointer;
 }
 
-.btn_deletar:hover {
-    border: 2px solid #2c538a;
-    background-color: #2c538a80;
-    transition: 0.3s;
-    color: #FFF;
-}
-
-.btn_deletar:active {
-    border: 2px solid #2c538a;
-    background-color: #111b29a9;
-    transition: 0.3s;
-    color: #FFF;
-}
 
 .user_alert {
     display: flex;
