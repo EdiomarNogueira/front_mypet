@@ -1,7 +1,7 @@
 import styles from './styles.module.css';
 import { ChangeEvent, useContext, useEffect, useState, FormEvent } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { User } from '../../types/User';
+// import { User } from '../../types/User';
 import { useApi } from "../../hooks/useApi";
 import axios from 'axios';
 import { redirect, useNavigate } from 'react-router-dom';
@@ -14,7 +14,7 @@ export const NewComment = (props: { id: number, parentCommentCallBack: any }) =>
 
     const [addText, setAddText] = useState('');
     const auth = useContext(AuthContext);
-    var [user, setUser] = useState<User | null>(null);
+    // var [user, setUser] = useState<User | null>(null);
     var api = useApi();
 
     var id_post = props.id;
@@ -38,21 +38,21 @@ export const NewComment = (props: { id: number, parentCommentCallBack: any }) =>
     }
 
 
-    const loadUser = async () => {
-        let json = await api.getUserMe();
-        if (json) {
-            setUser(json);
-        }
-    }
+    // const loadUser = async () => {
+    //     let json = await api.getUserMe();
+    //     if (json) {
+    //         setUser(json);
+    //     }
+    // }
 
     const onTrigger = () => {
         props.parentCommentCallBack(1);
     };
 
     
-    useEffect(() => {
-        loadUser();
-    }, []);
+    // useEffect(() => {
+    //     loadUser();
+    // }, []);
 
     return (
         <form className={styles.comment_area} method='POST' onSubmit={handleFormSubmit}>

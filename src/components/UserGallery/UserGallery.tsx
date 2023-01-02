@@ -66,7 +66,7 @@ export const UserGallery = (props: { id: any, isMe: any, posts: Publish[] }) => 
                     <div className={styles.container}>
 
                         {props.posts.map((item, index) => (
-                            <div>
+                            <div  key={index}>
                                 <div className={styles.area_image} onClick={() => handleModal(item.date_register, item.body, item.subtitle)}>
                                     <p className={styles.date}>{item.date_register}</p>
                                     <img className={styles.image} src={item.body} alt="avatar" loading="lazy" />

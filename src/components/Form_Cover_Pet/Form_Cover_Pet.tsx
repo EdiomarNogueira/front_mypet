@@ -1,40 +1,55 @@
 import styles from './styles.module.css';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { User } from '../../types/User';
 import { useApi } from "../../hooks/useApi";
 import { useParams } from 'react-router-dom';
+import { setPet_Cover } from '../../redux/reducers/petReducer';
 
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
+import { useDispatch } from 'react-redux';
 
-// type Props = {
-//     // title?: string; //interrogação deixa a prop não obrigatória 
-// }
 
 export const FormCoverPet = () => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
-    const [image, setImage] = useState(null)
+    const [image, setImage] = useState<File>();
     const auth = useContext(AuthContext);
-    var [pet, setPet] = useState<User | null>(null);
+    const dispatch = useDispatch();
+    const pet = useAppSelector(state => state.pet); 
     const params = useParams();
 
-    var [user, setUser] = useState<User | null>(null);
     var api = useApi();
 
 
-    const loadUser = async () => {
-        let json = await api.getUserMe();
-        if (json) {
-            setUser(json);
+
+    const setDadosPet = async (pet_dados:
+        {
+
+            cover: String;
+        }) => {
+
+        dispatch(setPet_Cover(pet_dados?.cover));
+
+    }
+
+
+    const loadDadosPet = async () => {
+        console.log(params.id_user);
+        console.log(params.id_pet);
+        let json = await api.getPet(params.id_user, params.id_pet);
+        if (json.currentPet[0]) {
+            console.log(json.currentPet[0]);
+            setDadosPet(json.currentPet[0]);
         }
     }
 
-    const loadDadosPet = async () => {
-        let json = await api.getPet(user?.id, params.id_pet);
-        if (json) {
-            setPet(json.currentPet[0]);
+
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) {
+            return;
         }
-    }
+        setImage(e.target.files[0]);
+    };
 
     const handleFormCoverSubmit = async (e: { preventDefault: () => void; currentTarget: HTMLFormElement; }) => {
         e.preventDefault();
@@ -43,7 +58,7 @@ export const FormCoverPet = () => {
         if (file && file.size > 0) {
             let photo = file;
 
-            let json = await api.putNewCoverFilePet(photo, params.id_user);
+            let json = await api.putNewCoverFilePet(photo, params.id_pet);
 
             if (json.success) {
                 setSuccess(json.success);
@@ -56,12 +71,8 @@ export const FormCoverPet = () => {
         }
     }
 
-    useEffect(() => {
-        loadDadosPet();
-    }, [user]);
 
     useEffect(() => {
-        loadUser();
         loadDadosPet();
     }, []);
 
@@ -94,10 +105,8 @@ export const FormCoverPet = () => {
 
                     <div className={styles.Upload_Form}>
 
-                        {/* <input type="file"
-                                name="image"
-                            /> */}
-                        <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
+
+                        <input type="file" name="image" onChange={handleFileChange} /><br /><br />
 
 
                     </div>

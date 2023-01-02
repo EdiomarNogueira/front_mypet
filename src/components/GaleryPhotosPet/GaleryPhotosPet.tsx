@@ -18,6 +18,7 @@ export const GaleryPhotosPet = (props: { posts: Publish[] }) => {
         setDate_register_pet(date_register_pet);
         setSubtitle_pet(subtitle_pet);
     }
+    console.log(props.posts);
     return (
         <>
 
@@ -30,7 +31,7 @@ export const GaleryPhotosPet = (props: { posts: Publish[] }) => {
                     <div className={styles.container}>
 
                         {props.posts.map((item, index) => (
-                            <div>
+                            <div key={index}>
                                 <div className={styles.area_image} onClick={() => handleModal(item.date_register, item.body, item.subtitle)}>
                                     <p className={styles.date}>{item.date_register}</p>
                                     <img className={styles.image} src={item.body} alt="avatar" loading="lazy" />

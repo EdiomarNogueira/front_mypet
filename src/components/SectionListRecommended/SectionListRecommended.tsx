@@ -5,17 +5,14 @@ import { useApi } from "../../hooks/useApi";
 import { Link } from 'react-router-dom';
 import { Pets } from '../../types/Pets';
 import { User } from '../../types/User';
-
-// type Props = {
-//     text?: string; //interrogação deixa a prop não obrigatória 
-// }
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
 
 export const SectionListRecommended = () => {
+    const user = useAppSelector(state => state.user);
 
     const [pets, setPets] = useState<Pets[]>([] || 0);
     const [loading, setLoading] = useState(false);
     const auth = useContext(AuthContext);
-    var [user, setUser] = useState<User | null>(null);
     var [recommended, setRecommended] = useState<User[] | null>(null);
     const [isFollowing, setIsFollowing] = useState(false);
     const [count, setCount] = useState(0);
@@ -30,14 +27,13 @@ export const SectionListRecommended = () => {
         longitude = '-40.8779965,13';
     }
 
-    const loadUsers = async () => {
+    const loadRecommendUsers = async () => {
         setLoading(true);
         let json = await api.getUserNear(latitude, longitude);
         if (json) {
             setLoading(false);
             setRecommended(json.recommended);
         }
-
     }
 
     const handleFollowUnfollow = async (id_user: any) => {
@@ -51,7 +47,7 @@ export const SectionListRecommended = () => {
 
     var api = useApi();
     useEffect(() => {
-        loadUsers();
+        loadRecommendUsers();
     }, [count]);
 
     return (
@@ -63,7 +59,7 @@ export const SectionListRecommended = () => {
                     <div >
                         <div className={styles.area_user} >
                             {recommended.map((item, index) => (
-                                <div className={styles.card_user}>
+                                <div className={styles.card_user} key={index}>
                                     <Link to={'/User/' + item.id}  >
                                         <div className={styles.flex_row}>
                                             <img className={styles.avatar} src={item?.avatar} alt="avatar user" loading="lazy" />
@@ -80,7 +76,7 @@ export const SectionListRecommended = () => {
                         </div>
                     </div>
                 }
-               
+
             </div>
         </>
     )

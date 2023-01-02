@@ -32,3 +32,5 @@ https://www.youtube.com/watch?v=cFaihdXLy5A
 npm i html-to-image -> converter div em imagem
 
 
+npm install redux react-redux @reduxjs/toolkit
+

@@ -1,37 +1,45 @@
 import styles from './styles.module.css';
-import React, { ChangeEvent, useContext, useEffect, useState, FormEvent, Component } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { User } from '../../types/User';
+//import { User } from '../../types/User';
 import { useApi } from "../../hooks/useApi";
-import axios from 'axios';
-import { redirect, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { setPet_Avatar } from '../../redux/reducers/petReducer';
 
-// type Props = {
-//     // title?: string; //interrogação deixa a prop não obrigatória 
-// }
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
+import { useDispatch } from 'react-redux';
 
 export const FormAvatarPet = () => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
-    const [image, setImage] = useState(null)
-    //const [endImg] = useState('./f5a18e6eacec994adfb8e3e25efca632.jpg');
+    const [image, setImage] = useState<File>();
     const auth = useContext(AuthContext);
-    var [user, setUser] = useState<User | null>(null);
-    var [pet, setPet] = useState<User | null>(null);
+    const dispatch = useDispatch();
+
+    const pet = useAppSelector(state => state.pet);
     const params = useParams();
 
     var api = useApi();
 
-    const loadUser = async () => {
-        let json = await api.getUserMe();
-        setUser(json);
+
+
+
+
+    const setDadosPet = async (pet_dados:
+        {
+
+            avatar: String;
+        }) => {
+
+        dispatch(setPet_Avatar(pet_dados?.avatar));
     }
 
+
     const loadDadosPet = async () => {
-        let json = await api.getPet(user?.id, params.id_pet);
-        console.log(json);
-        if (json) {
-            setPet(json.currentPet[0]);
+        let json = await api.getPet(params.id_user, params.id_pet);
+        if (json.currentPet[0]) {
+            console.log(json.currentPet[0]);
+            setDadosPet(json.currentPet[0]);
         }
     }
 
@@ -54,12 +62,15 @@ export const FormAvatarPet = () => {
         }
     }
 
-    useEffect(() => {
-        loadDadosPet();
-    }, [user]);
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) {
+            return;
+        }
+        setImage(e.target.files[0]);
+    };
+
 
     useEffect(() => {
-        loadUser();
         loadDadosPet();
     }, []);
 
@@ -93,7 +104,7 @@ export const FormAvatarPet = () => {
                     <div className={styles.Upload_Form}>
                         <div>
 
-                            <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
+                            <input type="file" name="image" onChange={handleFileChange} /><br /><br />
 
                         </div>
                     </div>

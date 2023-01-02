@@ -1,3 +1,4 @@
+import { Error } from '../types/Error';
 
 export type User = {
     id: number;

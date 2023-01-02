@@ -1,11 +1,10 @@
-import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import { useApi } from '../../hooks/useApi';
 
 export const Likes = (props: { id: number }) => {
     const [like_count, setLikeCount] = useState(0);
     const [liked_post, setLikedPost] = useState(Boolean);
-    // like_count: number, liked: boolean, 
     var api = useApi();
     var id_post = props.id;
 

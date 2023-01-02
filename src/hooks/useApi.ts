@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    // baseURL: "http://127.0.0.1:8000/api",
-    baseURL: "http://187.44.236.16:8000/api",
+    baseURL: "http://127.0.0.1:8000/api",
+    //baseURL: "http://187.44.236.16:8000/api",
 
     //baseURL:process.env.REACT_APP_API
 });
@@ -17,8 +17,6 @@ function refreshConfig() {
 }
 
 export const useApi = () => ({
-
-
 
     refreshToken: async () => {
         var config_headers = refreshConfig();
@@ -44,18 +42,18 @@ export const useApi = () => ({
     putPet: async (
         id: any,
         name: string,
-        species: string,
+        species: Number,
         breed: string,
         birthdate: string,
         biography: string,
         tutor_name: string,
-        castrated: string,
-        genre: string,
+        castrated: Number,
+        genre: Number,
         latitude: string,
         longitude: string,
-        size: string,
-        fur: string,
-        situation: string,
+        size: Number,
+        fur: Number,
+        situation: Number,
     ) => {
         var config_headers = refreshConfig();
         const response = await api.put('/user/pet/' + id, {
@@ -81,12 +79,12 @@ export const useApi = () => ({
         email: string,
         password: string,
         birthdate: string,
-        category: string,
+        category: Number,
         phone: string,
         road: string,
         district: string,
         city: string,
-        genre: string,
+        genre: Number,
         work: string,
         instagram: string,
         facebook: string,
@@ -164,10 +162,10 @@ export const useApi = () => ({
 
     postCreatepet: async (
         name: string,
-        id_user: number,
-        species: string,
+        id_user: Number,
+        species: Number,
         birthdate: string,
-        situation: string,
+        situation: Number,
         latitude: string,
         longitude: string
     ) => {
@@ -303,6 +301,13 @@ export const useApi = () => ({
         return response.data;
     },
 
+    postDeleteAlert: async (id_alert: Number, id_pet: Number, situation: Number, id_user: any) => {
+
+        var config_headers = refreshConfig();
+        const response = await api.post('/alert/delete/', { id_alert, id_pet, situation, id_user }, config_headers);
+        return response.data;
+    },
+
     postDeleteComment: async (id_delete: Number, id_user: any) => {
         var config_headers = refreshConfig();
         const response = await api.post('/feed/comment/delete/', { id_delete, id_user }, config_headers);
@@ -311,11 +316,11 @@ export const useApi = () => ({
 
     postNewAlertPet: async (
         photo: File,
-        id_pet: String,
+        id_pet: Number,
         id_user: Number,
         name: String,
         addText: String,
-        situation: String,
+        situation: Number,
         date_occurrence: String,
         road: String,
         district: String,

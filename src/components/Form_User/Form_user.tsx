@@ -1,72 +1,89 @@
 import styles from './styles.module.css';
-import { ChangeEvent, useContext, useEffect, useState, FormEvent } from 'react';
+import { useDispatch } from 'react-redux';
+import { useContext, useEffect, useState, FormEvent } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { User } from '../../types/User';
 import { useApi } from "../../hooks/useApi";
-import React, { Component } from 'react';
-import axios from 'axios';
-import { Link, redirect, useNavigate } from 'react-router-dom';
 import { useApiLocation } from '../../hooks/useApiGeolocation';
 import { FormAvatarUser } from '../Form_Avatar_User/Form_Avatar_User';
 import InputMask from 'react-input-mask';
 import { FormCoverUser } from '../Form_Cover_User/Form_Cover_User';
-
-// type Props = {
-//     // title?: string; //interrogação deixa a prop não obrigatória 
-// }
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
+import {
+    setUser_Biography,
+    setUser_Birthdate,
+    setUser_Category,
+    setUser_City,
+    setUser_District,
+    setUser_Email,
+    setUser_Facebook,
+    setUser_Genre,
+    setUser_Instagram,
+    setUser_Latitude,
+    setUser_Longitude,
+    setUser_Name,
+    setUser_Password,
+    setUser_Phone,
+    setUser_Road,
+    setUser_Work,
+} from '../../redux/reducers/userReducer';
 
 export const FormUser = () => {
-    var [user, setUser] = useState<User | null>(null);
+    //var [userCurrent, setUserCurrent] = useState<User | null>(null);
 
     const auth = useContext(AuthContext);
-    const navigate = useNavigate();
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState(String);
-    const [birthdate, setBirthdate] = useState('');
-    const [category, setCategory] = useState(String);
-    const [phone, setPhone] = useState('');
-    const [road, setRoad] = useState('');
-    const [district, setDistrict] = useState('');
-    const [city, setCity] = useState('');
-    const [genre, setGenre] = useState('');
-    const [work, setWork] = useState('');
-    const [instagram, setInstagram] = useState('');
-    const [facebook, setFacebook] = useState('');
-    const [biography, setBiography] = useState('');
-    const [latitude, setLatitude] = useState('');
-    const [longitude, setLongitude] = useState('');
+
     const [loading, setLoading] = useState(false);
-
-
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
+    const dispatch = useDispatch();
+    const user = useAppSelector(state => state.user);
 
     var api = useApi();
     var apiLocation = useApiLocation();
 
-    const setDados = async (user: User) => {
-        setName(user?.name);
-        setEmail(user?.email);
-        setPassword(user?.password);
-        setBirthdate(user?.birthdate);
-        setCategory(user?.category);
-        setPhone(user?.phone);
-        setRoad(user?.road);
-        setDistrict(user?.district);
-        setCity(user?.city);
-        setGenre(user?.genre);
-        setWork(user?.work);
-        setInstagram(user?.instagram);
-        setFacebook(user?.facebook);
-        setBiography(user?.biography);
-        setLatitude(user?.latitude);
-        setLongitude(user?.longitude);
+    const setDados = async (user_dados:
+        {
+            name: String;
+            email: String;
+            password: String;
+            birthdate: String;
+            category: Number;
+            phone: String;
+            road: String;
+            district: String;
+            city: String;
+            genre: Number;
+            work: String;
+            instagram: String;
+            facebook: String;
+            biography: String;
+            latitude: String;
+            longitude: String;
+        }) => {
+
+        dispatch(setUser_Name(user_dados?.name));
+        dispatch(setUser_Email(user_dados?.email));
+        dispatch(setUser_Password(user_dados?.password));
+        dispatch(setUser_Birthdate(user_dados?.birthdate));
+        dispatch(setUser_Category(user_dados?.category));
+        dispatch(setUser_Phone(user_dados?.phone));
+        dispatch(setUser_Road(user_dados?.road));
+        dispatch(setUser_District(user_dados?.district));
+        dispatch(setUser_City(user_dados?.city));
+        dispatch(setUser_Genre(user_dados?.genre));
+        dispatch(setUser_Work(user_dados?.work));
+        dispatch(setUser_Instagram(user_dados?.instagram));
+        dispatch(setUser_Facebook(user_dados?.facebook));
+        dispatch(setUser_Biography(user_dados?.biography));
+        dispatch(setUser_Latitude(user_dados?.latitude));
+        dispatch(setUser_Longitude(user_dados?.longitude));
     }
 
     const loadDadosUser = async () => {
         setLoading(true);
         let json = await api.getDadosUser();
         if (json) {
-            setUser(json.user);
+            //setUserCurrent(json.user);
             setDados(json.user);
         }
         setLoading(false);
@@ -75,27 +92,49 @@ export const FormUser = () => {
 
     const loadCidade = async (road: string, city: string, district: string) => {
         let json = await apiLocation.getLocation(road, city, district);
+
         if (json[0].lat && json[0].lon) {
-            setLatitude(json[0].lat);
-            setLongitude(json[0].lon);
+            dispatch(setUser_Latitude(json[0].lat));
+            dispatch(setUser_Longitude(json[0].lon));
         }
     }
 
     const handleRegister = async () => {
-        if (road && city && district) {
+        if (user.road && user.city && user.district) {
             alert("Iremos registrar o seu endereço, com ele poderemos auxiliar caso o seu pet fuja.")
         } else {
             alert("Informe o seu endereço (rua, bairro, cidade), com o cadastro completo poderemos auxiliar caso o seu pet fuja.")
         }
 
-        let json = await api.putUser(name, email, password, birthdate, category, phone, road, district, city, genre, work, instagram, facebook, biography, latitude, longitude);
-
+        let json = await api.putUser(
+            user.name,
+            user.email,
+            user.password,
+            user.birthdate,
+            user.category,
+            user.phone,
+            user.road,
+            user.district,
+            user.city,
+            user.genre,
+            user.work,
+            user.instagram,
+            user.facebook,
+            user.biography,
+            user.latitude,
+            user.longitude);
+        if (json.success) {
+            setSuccess(json.success);
+        } else {
+            setError(json.error);
+        }
     }
 
 
     useEffect(() => {
-        loadCidade(road, city, district);
-    }, [road && city && district]);
+
+        loadCidade(user.road, user.city, user.district);
+    }, [user.road && user.city && user.district]);
 
     useEffect(() => {
         loadDadosUser();
@@ -104,10 +143,24 @@ export const FormUser = () => {
 
     return (
         <>
+
             <div className={styles.container}>
                 <FormCoverUser />
                 <FormAvatarUser />
+                <div className={styles.area_return} >
+                    {success &&
+                        <div className={styles.return_sucess}>
+                            {success}
+                        </div>
+                    }
+                    {error &&
+                        <div className={styles.return_error}>
+                            {error}
+                        </div>
+                    }
+                </div>
                 <div className={styles.page_register}>
+
                     <div className={styles.register_desc}>
                         <h1>Complete o dados do seu perfil</h1>
                         <p>... Cadastrando todos os dados do seu perfil você terá acesso a todas as ferramentas da plataforma.</p>
@@ -119,8 +172,8 @@ export const FormUser = () => {
                             <label htmlFor="name">Name</label>
                             <input
                                 type="text"
-                                value={name}
-                                onChange={(element) => { setName(element.target.value) }}
+                                value={user.name}
+                                onChange={(element) => { dispatch(setUser_Name(element.target.value)) }}
                                 id="name"
                                 required
 
@@ -130,8 +183,8 @@ export const FormUser = () => {
                             <label htmlFor="email">Email</label>
                             <input
                                 type="text"
-                                value={email}
-                                onChange={(element) => { setEmail(element.target.value) }}
+                                value={user.email || ''}
+                                onChange={(element) => { dispatch(setUser_Email(element.target.value)) }}
                                 id="email"
                                 required
                                 placeholder={user?.email}
@@ -141,16 +194,17 @@ export const FormUser = () => {
                             <label htmlFor="password">Senha</label>
                             <input
                                 type="password"
-                                value={password}
+                                value={user.password || ''}
                                 id="password"
                                 required
-                                onChange={(element) => { setPassword(element.target.value) }}
+                                onChange={(element) => { dispatch(setUser_Password(element.target.value)) }}
                                 placeholder="********"
                             />
                         </div>
                         <div className={styles.single_input}>
                             <label htmlFor="category">Categoria</label>
-                            <select name="category" id="category" value={category} required onChange={cat => setCategory(cat.target.value)} >
+                            <select name="category" id="category" value={user.category} required onChange={cat => dispatch(setUser_Category(cat.target.value))} >
+                                <option value="">Selecionar Categoria</option>
                                 <option value="1">Usuário</option>
                                 <option value="2">Ong</option>
                             </select>
@@ -159,8 +213,8 @@ export const FormUser = () => {
                             <label htmlFor="phone">Telefone</label>
                             <InputMask
                                 type="text"
-                                value={phone}
-                                onChange={(element) => { setPhone(element.target.value) }}
+                                value={user.phone}
+                                onChange={(element) => { dispatch(setUser_Phone(element.target.value)) }}
                                 id="phone"
                                 mask="(99)99999-9999"
                                 required
@@ -171,15 +225,16 @@ export const FormUser = () => {
                             <label htmlFor="birthdate">Data Nascimento</label>
                             <input
                                 type="date"
-                                value={user?.birthdate}
-                                onChange={(element) => { setBirthdate(element.target.value) }}
+                                value={user.birthdate}
+                                onChange={(element) => { dispatch(setUser_Birthdate(element.target.value)) }}
                                 id="birthdate"
                                 required
                             />
                         </div>
                         <div className={styles.single_input}>
                             <label htmlFor="genre">Gênero</label>
-                            <select name="genre" id="genre" value={genre} required onChange={gen => setGenre(gen.target.value)} >
+                            <select name="genre" id="genre" value={user.genre} required onChange={gen => dispatch(setUser_Genre(gen.target.value))} >
+                                <option value="">Selecionar Gênero</option>
                                 <option value="1">Masculino</option>
                                 <option value="2">Feminino</option>
                             </select>
@@ -188,8 +243,8 @@ export const FormUser = () => {
                             <label htmlFor="road">Rua/Avenida</label>
                             <input
                                 type="road"
-                                value={road}
-                                onChange={(element) => { setRoad(element.target.value) }}
+                                value={user.road}
+                                onChange={(element) => { dispatch(setUser_Road(element.target.value)) }}
                                 id="road"
                                 required
                                 placeholder="Informe a rua de seu endereço"
@@ -199,8 +254,8 @@ export const FormUser = () => {
                             <label htmlFor="work">Profissão</label>
                             <input
                                 type="work"
-                                value={work}
-                                onChange={(element) => { setWork(element.target.value) }}
+                                value={user.work}
+                                onChange={(element) => { dispatch(setUser_Work(element.target.value)) }}
                                 id="work"
                                 required
                                 placeholder={user?.work}
@@ -210,8 +265,8 @@ export const FormUser = () => {
                             <label htmlFor="city">Cidade</label>
                             <input
                                 type="city"
-                                value={city}
-                                onChange={(element) => { setCity(element.target.value) }}
+                                value={user.city}
+                                onChange={(element) => { dispatch(setUser_City(element.target.value)) }}
                                 id="city"
                                 required
                                 placeholder={user?.city}
@@ -221,8 +276,8 @@ export const FormUser = () => {
                             <label htmlFor="district">Bairro</label>
                             <input
                                 type="district"
-                                value={district}
-                                onChange={(element) => { setDistrict(element.target.value) }}
+                                value={user.district}
+                                onChange={(element) => { dispatch(setUser_District(element.target.value)) }}
                                 id="district"
                                 required
                                 placeholder="Bairro"
@@ -232,8 +287,8 @@ export const FormUser = () => {
                             <label htmlFor="biography">Biografia</label>
                             <input
                                 type="biography"
-                                value={biography}
-                                onChange={(element) => { setBiography(element.target.value) }}
+                                value={user.biography}
+                                onChange={(element) => { dispatch(setUser_Biography(element.target.value)) }}
                                 id="biography"
                                 required
                                 maxLength={48}
@@ -244,8 +299,8 @@ export const FormUser = () => {
                             <label htmlFor="instagram">Instagram</label>
                             <input
                                 type="instagram"
-                                value={instagram}
-                                onChange={(element) => { setInstagram(element.target.value) }}
+                                value={user.instagram}
+                                onChange={(element) => { dispatch(setUser_Instagram(element.target.value)) }}
                                 id="instagram"
                                 required
                                 placeholder="@instagram"
@@ -255,8 +310,8 @@ export const FormUser = () => {
                             <label htmlFor="facebook">Facebook</label>
                             <input
                                 type="facebook"
-                                value={facebook}
-                                onChange={(element) => { setFacebook(element.target.value) }}
+                                value={user.facebook}
+                                onChange={(element) => { dispatch(setUser_Facebook(element.target.value)) }}
                                 id="facebook"
                                 required
                                 placeholder="Facebook"

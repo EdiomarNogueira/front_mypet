@@ -1,58 +1,160 @@
+import { useParams } from 'react-router-dom';
 import styles from './styles.module.css';
 import React, { ChangeEvent, useContext, useEffect, useState, FormEvent, Component } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { User } from '../../types/User';
 import { useApi } from "../../hooks/useApi";
-import axios from 'axios';
-import { redirect, useNavigate, useParams } from 'react-router-dom';
 import { useApiLocation } from '../../hooks/useApiGeolocation';
 import InputMask from 'react-input-mask';
-
-// type Props = {
-//     // title?: string; //interrogação deixa a prop não obrigatória 
-// }
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
+import { useDispatch } from 'react-redux';
+import {
+    setPet_Age,
+    setPet_Avatar,
+    setPet_Biography,
+    setPet_Birthdate,
+    setPet_Breed,
+    setPet_Castrated,
+    setPet_Fur,
+    setPet_Genre,
+    setPet_Id_User,
+    setPet_Latitude,
+    setPet_Longitude,
+    setPet_Name,
+    setPet_Situation,
+    setPet_Size,
+    setPet_Species,
+    setPet_Status,
+    setPet_Tutor_Name
+} from '../../redux/reducers/petReducer';
+import {
+    setUser_Biography,
+    setUser_Birthdate,
+    setUser_Category,
+    setUser_City,
+    setUser_District,
+    setUser_Email,
+    setUser_Facebook,
+    setUser_Genre,
+    setUser_Instagram,
+    setUser_Latitude,
+    setUser_Longitude,
+    setUser_Name,
+    setUser_Password,
+    setUser_Phone,
+    setUser_Road,
+    setUser_Work
+} from '../../redux/reducers/userReducer';
 
 export const FormAlertPet = () => {
-    const navigate = useNavigate();
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
-    const [image, setImage] = useState(null)
+    const [image, setImage] = useState<File>();
     const [addText, setAddText] = useState('');
     const [date_occurrence, setDate_Occurrence] = useState('');
-    const [road, setRoad] = useState('');
-    const [district, setDistrict] = useState('');
-    const [city, setCity] = useState('');
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [category, setCategory] = useState(String);
-    const [phone, setPhone] = useState('');
-    const [situation, setSituation] = useState(''); //DEFAULT 1 - NORMAL/2 - Perdido / 3 - Encontrado / 4 - Em tratamento
-    const [instagram, setInstagram] = useState('');
-    const [facebook, setFacebook] = useState('');
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     const [loading, setLoading] = useState(false);
     const auth = useContext(AuthContext);
-    
+    const dispatch = useDispatch();
+    const user = useAppSelector(state => state.user);
+    const pet = useAppSelector(state => state.pet);
     const params = useParams();
-    var [user, setUser] = useState<User | null>(null);
-    var [pet, setPet] = useState<User | null>(null);
+
+    // var [user, setUser] = useState<User | null>(null);
+    // var [pet, setPet] = useState<User | null>(null);
     var api = useApi();
     var apiLocation = useApiLocation();
 
-    const loadUser = async () => {
-        let json = await api.getUserMe();
-        setUser(json);
-    }
+    // const loadUser = async () => {
+    //     let json = await api.getUserMe();
+    //     // setUser(json);
+    //     setDadosUser(json.user);
+    // }
 
     const loadDadosPet = async () => {
-        let json = await api.getPet(user?.id, params.id_pet);
-        console.log(json);
+        let json = await api.getPet(params.id_user, params.id_pet);
         if (json) {
-            setPet(json.currentPet[0]);
+            setDadosPet(json.currentPet[0]);
+            // setPet(json.currentPet[0]);
         }
     }
 
+    const setDadosPet = async (pet_dados:
+        {
+            name: String;
+            id_user: Number;
+            species: Number;
+            breed: String;
+            birthdate: String;
+            biography: String;
+            age: Number;
+            tutor_name: String;
+            castrated: Number;
+            genre: Number;
+            latitude: String;
+            longitude: String;
+            size: Number;
+            fur: Number;
+            situation: Number;
+            status: Number;
+            avatar: String;
+        }) => {
+        dispatch(setPet_Name(pet_dados?.name));
+        dispatch(setPet_Id_User(pet_dados?.id_user));
+        dispatch(setPet_Species(pet_dados?.species));
+        dispatch(setPet_Breed(pet_dados?.breed));
+        dispatch(setPet_Birthdate(pet_dados?.birthdate));
+        dispatch(setPet_Biography(pet_dados?.biography));
+        dispatch(setPet_Age(pet_dados?.age));
+        dispatch(setPet_Tutor_Name(pet_dados?.tutor_name));
+        dispatch(setPet_Castrated(pet_dados?.castrated));
+        dispatch(setPet_Genre(pet_dados?.genre));
+        dispatch(setPet_Latitude(pet_dados?.latitude));
+        dispatch(setPet_Longitude(pet_dados?.longitude));
+        dispatch(setPet_Size(pet_dados?.size));
+        dispatch(setPet_Fur(pet_dados?.fur));
+        dispatch(setPet_Situation(pet_dados?.situation));
+        dispatch(setPet_Status(pet_dados?.status));
+        dispatch(setPet_Avatar(pet_dados?.avatar));
+    }
+
+    const setDadosUser = async (user_dados:
+        {
+            name: String;
+            email: String;
+            password: String;
+            birthdate: String;
+            category: Number;
+            phone: String;
+            road: String;
+            district: String;
+            city: String;
+            genre: Number;
+            work: String;
+            instagram: String;
+            facebook: String;
+            biography: String;
+            latitude: String;
+            longitude: String;
+        }) => {
+
+        dispatch(setUser_Name(user_dados?.name));
+        dispatch(setUser_Email(user_dados?.email));
+        dispatch(setUser_Password(user_dados?.password));
+        dispatch(setUser_Birthdate(user_dados?.birthdate));
+        dispatch(setUser_Category(user_dados?.category));
+        dispatch(setUser_Phone(user_dados?.phone));
+        dispatch(setUser_Road(user_dados?.road));
+        dispatch(setUser_District(user_dados?.district));
+        dispatch(setUser_City(user_dados?.city));
+        dispatch(setUser_Genre(user_dados?.genre));
+        dispatch(setUser_Work(user_dados?.work));
+        dispatch(setUser_Instagram(user_dados?.instagram));
+        dispatch(setUser_Facebook(user_dados?.facebook));
+        dispatch(setUser_Biography(user_dados?.biography));
+        dispatch(setUser_Latitude(user_dados?.latitude));
+        dispatch(setUser_Longitude(user_dados?.longitude));
+    }
 
     const handleAddTextChange = async (e: ChangeEvent<HTMLInputElement>) => {
         setAddText(e.target.value);
@@ -61,21 +163,24 @@ export const FormAlertPet = () => {
     const handleDate_OccurrenceInput = (event: ChangeEvent<HTMLInputElement>) => {
         setDate_Occurrence(event.target.value);
     }
-    const handlePhoneInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setPhone(event.target.value);
-    }
+    // const handlePhoneInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     dispatch(setUser_Phone(event.target.value));
+    // }
 
     const handleFormAlertSubmit = async (e: { preventDefault: () => void; currentTarget: HTMLFormElement; }) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const file = formData.get('image') as File;
-       
 
-        if (params.id_pet && user?.id && file && file.size > 0 && name && addText && situation && date_occurrence && road && district && city && email && phone && latitude && longitude) {
+        if (!user.latitude || !user.longitude) {
+            alert('O seu cadastro de perfil está incompleto, complete seu endereço para gerar alertas!');
+        }
+
+        if (params.id_pet && params.id_user && file && file.size > 0 && pet.name && addText && pet.situation && date_occurrence && user.road && user.district && user.city && user.email && user.phone && latitude && longitude) {
             let photo = file;
-            let id_user = user?.id;
-            let id_pet = params.id_pet;
-            let json = await api.postNewAlertPet(photo, id_pet, id_user, name, addText, situation, date_occurrence, road, district, city, email, phone, latitude, longitude); //CRIAR INSERÇÃO DE ALERTA
+            let id_user = parseInt(params.id_user);
+            let id_pet = parseInt(params.id_pet);
+            let json = await api.postNewAlertPet(photo, id_pet, id_user, pet.name, addText, pet.situation, date_occurrence, user.road, user.district, user.city, user.email, user.phone, latitude, longitude); //CRIAR INSERÇÃO DE ALERTA
             if (json.success) {
                 setSuccess(json.success);
             } else {
@@ -91,49 +196,43 @@ export const FormAlertPet = () => {
         setLoading(true);
         let json = await api.getDadosUser();
         if (json) {
-            setUser(json.user);
-            setDados(json.user);
+            //setUser(json.user);
+            //setDados(json.user);
+            setDadosUser(json.user);
         }
         setLoading(false);
     }
 
     const loadCidade = async (road: string, city: string, district: string) => {
         let json = await apiLocation.getLocation(road, city, district);
-        if (json[0].lat && json[0].lon) {
-            setLatitude(json[0].lat);
-            setLongitude(json[0].lon);
+        console.log('json', json);
+        if (json[0]) {
+            if (json[0].lat && json[0].lon) {
+                setLatitude(json[0].lat);
+                setLongitude(json[0].lon);
+            }
         }
     }
 
-    const setDados = async (user: User) => {
-        setName(user?.name);
-        setEmail(user?.email);
-        setCategory(user?.category);
-        setPhone(user?.phone);
-        setRoad(user?.road);
-        setDistrict(user?.district);
-        setCity(user?.city);
-        setInstagram(user?.instagram);
-        setFacebook(user?.facebook);
-        setLatitude(user?.latitude);
-        setLongitude(user?.longitude);
-    }
+
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) {
+            return;
+        }
+        setImage(e.target.files[0]);
+    };
 
     useEffect(() => {
-        loadCidade(road, city, district);
-    }, [road && city && district]);
-
-    useEffect(() => {
-        loadDadosUser();
-
-    }, []);
+        loadCidade(user?.road, user?.city, user?.district);
+    }, [user?.road && user?.city && user?.district]);
 
     useEffect(() => {
         loadDadosPet();
     }, [user]);
 
     useEffect(() => {
-        loadUser();
+        //loadUser();
+        loadDadosUser();
         loadDadosPet();
     }, []);
 
@@ -157,13 +256,13 @@ export const FormAlertPet = () => {
                 <div className={styles.flex_column}>
                     <h3>Foto de Divulgação:</h3>
                     <p>Escolha uma foto recente para facilitar a identificação do seu Pet</p>
-                    {image ? <img className={styles.avatar} src={URL.createObjectURL(image)} alt="Imagem" loading="lazy" /> : <img className={styles.avatar} src={pet?.avatar} alt="Imagem" width="150" height="150" loading="lazy" />}<br /><br />
+                    {image ? <img className={styles.avatar} src={URL.createObjectURL(image)} alt="Imagem" loading="lazy" /> : <img className={styles.avatar} src="\src\media\images\adicionar_imagem.jpg" alt="Imagem" width="150" height="150" loading="lazy" />}<br /><br />
                 </div>
 
                 <form method='POST' onSubmit={handleFormAlertSubmit}>
                     <div className={styles.Upload_Form}>
                         <div>
-                            <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
+                            <input type="file" name="image" onChange={handleFileChange} /><br /><br />
                         </div>
                     </div>
 
@@ -181,14 +280,14 @@ export const FormAlertPet = () => {
                     </div>
                     <div className={styles.single_input_situation}>
                         <label htmlFor="situation">Situação</label>
-                        <select name="situation" id="situation" value={situation} required onChange={situation => setSituation(situation.target.value)} >
+                        <select name="situation" id="situation" value={pet.situation} required onChange={situation => dispatch(setPet_Situation(situation.target.value))} >
                             {/* <option value="1">Meu Pet</option> */}
                             <option value="">Selecione uma situação</option>
                             <option value="2">Pet Para Adoção</option>
                             <option value="3">Meu Pet Fugiu</option>
                             <option value="4">Encontrei Este Pet</option>
-                            {user?.category == '2' &&
-                                <option value="5">Em tratamento</option>
+                            {user?.category == 2 &&
+                                <option value="6">Em tratamento</option>
                             }
                         </select>
                     </div>
@@ -205,10 +304,10 @@ export const FormAlertPet = () => {
                         />
                     </div>
                     <br />
-                    {user?.category == '1' &&
+                    {user?.category == 1 &&
                         <h4>Tutor: {user?.name}</h4>
                     }
-                    {user?.category == '2' &&
+                    {user?.category == 2 &&
                         <h4>ONG: {user?.name}</h4>
                     }
 
@@ -216,8 +315,8 @@ export const FormAlertPet = () => {
                         <label htmlFor="phone">Telefone: </label>
                         <InputMask
                             type="text"
-                            value={phone}
-                            onChange={handlePhoneInput}
+                            value={user?.phone}
+                            onChange={(element) => { dispatch(setUser_Phone(element.target.value)) }}
                             id="phone"
                             mask="(99)99999-9999"
                             required
@@ -231,8 +330,8 @@ export const FormAlertPet = () => {
                             <label htmlFor="city">Cidade</label>
                             <input
                                 type="city"
-                                value={city}
-                                onChange={(element) => { setCity(element.target.value) }}
+                                value={user?.city}
+                                onChange={(element) => { dispatch(setUser_City(element.target.value)) }}
                                 id="city"
                                 required
                                 placeholder={user?.city}
@@ -242,8 +341,8 @@ export const FormAlertPet = () => {
                             <label htmlFor="district">Bairro</label>
                             <input
                                 type="district"
-                                value={district}
-                                onChange={(element) => { setDistrict(element.target.value) }}
+                                value={user?.district}
+                                onChange={(element) => { dispatch(setUser_District(element.target.value)) }}
                                 id="district"
                                 required
                                 placeholder="Bairro"
@@ -253,8 +352,8 @@ export const FormAlertPet = () => {
                             <label htmlFor="road">Rua/Avenida</label>
                             <input
                                 type="road"
-                                value={road}
-                                onChange={(element) => { setRoad(element.target.value) }}
+                                value={user?.road}
+                                onChange={(element) => { dispatch(setUser_Road(element.target.value)) }}
                                 id="road"
                                 required
                                 placeholder="Informe a rua de seu endereço"

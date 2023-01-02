@@ -40,9 +40,17 @@ export const SectionConnectionsUser = () => {
         setLoading(false);
     }
 
+    const handleVerificFollow = async (id_user: any) => {
+        let json = await api.getVerificFollow(id_user);
+        if(json) {
+            console.log(json);
+        }
+    }
+
     const handleFollowUnfollow = async (id_user: any) => { //<div onClick={() => handleFollowUnfollow(item?.id)}>
         let json = await api.postFollowUnfollow(id_user);
         if (json) {
+            console.log(json.relation);
             setIsFollowing(json.relation);
             setCount(count + 1);
         }
@@ -95,6 +103,7 @@ export const SectionConnectionsUser = () => {
 
     }
 
+
     useEffect(() => {
         loadRelations();
     }, [count]);
@@ -107,7 +116,7 @@ export const SectionConnectionsUser = () => {
         setCurrentPerPageFriends((currentPerPageFriendsInsideState) => currentPerPageFriendsInsideState + 10);
     }
 
- 
+
     return (
         <>
             <div className={styles.area_section_connections}>
@@ -133,6 +142,7 @@ export const SectionConnectionsUser = () => {
                         <div className={styles.list_relations}>
                             {/* <List_Relations relations={friends} /> */}
                             {friends.map((item, index) => (
+
                                 <div className={styles.area_user}>
                                     <div className={styles.flex_row}>
                                         <Link to={'/User/' + item.id} >

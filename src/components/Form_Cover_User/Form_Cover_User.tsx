@@ -3,18 +3,11 @@ import React, { ChangeEvent, useContext, useEffect, useState, FormEvent, Compone
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { User } from '../../types/User';
 import { useApi } from "../../hooks/useApi";
-import axios from 'axios';
-import { redirect, useNavigate } from 'react-router-dom';
-
-// type Props = {
-//     // title?: string; //interrogação deixa a prop não obrigatória 
-// }
 
 export const FormCoverUser = () => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
-    const [image, setImage] = useState(null)
-    //const [endImg] = useState('./f5a18e6eacec994adfb8e3e25efca632.jpg');
+    const [image, setImage] = useState<File>();
     const auth = useContext(AuthContext);
     var [user, setUser] = useState<User | null>(null);
     var api = useApi();
@@ -47,6 +40,13 @@ export const FormCoverUser = () => {
         }
     }
 
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) {
+            return;
+        }
+        setImage(e.target.files[0]);
+
+    };
 
     useEffect(() => {
         loadUser();
@@ -83,7 +83,7 @@ export const FormCoverUser = () => {
                         {/* <input type="file"
                                 name="image"
                             /> */}
-                        <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
+                        <input type="file" name="image" onChange={handleFileChange} /><br /><br />
 
 
                     </div>

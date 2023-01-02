@@ -1,17 +1,57 @@
 import { useState, useEffect, useContext } from 'react';
 import styles from './styles.module.css';
 import { useApi } from '../../hooks/useApi';
-import { Pets } from '../../types/Pets';
+//import { Pets } from '../../types/Pets';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { User } from '../../types/User';
+//import { User } from '../../types/User';
 import { Link } from 'react-router-dom';
 import { GaleryPhotosPet } from '../GaleryPhotosPet/GaleryPhotosPet';
 import { Publish } from '../../types/Publish';
 import { RGA } from '../RGA/RGA';
 import { VaccineCard } from '../VaccineCard/VaccineCard';
+import {
+    setPet_Age,
+    setPet_Biography,
+    setPet_Birthdate,
+    setPet_Breed,
+    setPet_Castrated,
+    setPet_Fur,
+    setPet_Genre,
+    setPet_Id_User,
+    setPet_Latitude,
+    setPet_Longitude,
+    setPet_Name,
+    setPet_Situation,
+    setPet_Size,
+    setPet_Species,
+    setPet_Status,
+    setPet_Tutor_Name
+} from '../../redux/reducers/petReducer';
 
-export const SectionToolsPet = (props: { id_user: Number, idpet: Number, me: Boolean, pet: Pets }) => {
-    let pet = props.pet
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
+import { useDispatch } from 'react-redux';
+
+export const SectionToolsPet = (props: {
+    id_user: Number, idpet: Number, me: Boolean, dados_pet: {
+        name: String;
+        id_user: Number;
+        species: Number;
+        breed: String;
+        birthdate: String;
+        biography: String;
+        age: Number;
+        tutor_name: String;
+        castrated: Number;
+        genre: Number;
+        latitude: String;
+        longitude: String;
+        size: Number;
+        fur: Number;
+        situation: Number;
+        status: Number;
+    }
+}) => {
+    //let pet = props.dados_pet;
     let id_pet = props.idpet;
     let id_user = props.id_user;
     const [viewGaleria, setViewGaleria] = useState(true);
@@ -20,7 +60,48 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number, me: Boo
     const [currentPerPage, setCurrentPerPage] = useState(0);
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState<Publish[]>([]);
+    const pet = useAppSelector(state => state.pet);
+    const dispatch = useDispatch();
     var api = useApi();
+
+
+    const setDadosPet = async (pet_dados:
+        {
+            name: String;
+            id_user: Number;
+            species: Number;
+            breed: String;
+            birthdate: String;
+            biography: String;
+            age: Number;
+            tutor_name: String;
+            castrated: Number;
+            genre: Number;
+            latitude: String;
+            longitude: String;
+            size: Number;
+            fur: Number;
+            situation: Number;
+            status: Number;
+        }) => {
+        dispatch(setPet_Name(pet_dados?.name));
+        dispatch(setPet_Id_User(pet_dados?.id_user));
+        dispatch(setPet_Species(pet_dados?.species));
+        dispatch(setPet_Breed(pet_dados?.breed));
+        dispatch(setPet_Birthdate(pet_dados?.birthdate));
+        dispatch(setPet_Biography(pet_dados?.biography));
+        dispatch(setPet_Age(pet_dados?.age));
+        dispatch(setPet_Tutor_Name(pet_dados?.tutor_name));
+        dispatch(setPet_Castrated(pet_dados?.castrated));
+        dispatch(setPet_Genre(pet_dados?.genre));
+        dispatch(setPet_Latitude(pet_dados?.latitude));
+        dispatch(setPet_Longitude(pet_dados?.longitude));
+        dispatch(setPet_Size(pet_dados?.size));
+        dispatch(setPet_Fur(pet_dados?.fur));
+        dispatch(setPet_Situation(pet_dados?.situation));
+        dispatch(setPet_Status(pet_dados?.status));
+    }
+
 
     const handleGaleria = async () => {
         setViewGaleria(true);
@@ -45,8 +126,13 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number, me: Boo
     const loadPhotos = async () => {
         setLoading(true);
         let json = await api.getPetPhotos(id_user, id_pet, currentPerPage);
+        console.log(id_user);
+        console.log(id_pet);
+
+        if (json) {
+            setPosts(json.posts);
+        }
         setLoading(false);
-        setPosts(json.posts);
     }
 
 
@@ -66,6 +152,7 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number, me: Boo
 
     useEffect(() => {
         loadPhotos();
+        setDadosPet(props.dados_pet);
     }, [currentPerPage]);
 
     return (
@@ -99,12 +186,12 @@ export const SectionToolsPet = (props: { id_user: Number, idpet: Number, me: Boo
                 }
                 {viewRGA == true &&
                     <div className={styles.area_rga}>
-                        <RGA pet={pet} />
+                        <RGA dados_pet={pet} />
                     </div>
                 }
                 {viewCartaoVacina == true &&
                     <div>
-                        <VaccineCard pet={pet} />
+                        <VaccineCard dados_pet={pet} />
                     </div>
                 }
 

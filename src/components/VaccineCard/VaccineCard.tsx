@@ -1,22 +1,55 @@
 import styles from './styles.module.css';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { useApi } from "../../hooks/useApi";
-import { Link, useParams } from 'react-router-dom';
-import { Pets } from '../../types/Pets';
-import { User } from '../../types/User';
-import sample from '../../media/images/sample.png';
+import { useEffect, useRef } from 'react';
+
+// import { Pets } from '../../types/Pets';
+// import { User } from '../../types/User';
 import * as htmlToImage from 'html-to-image';
-import QRCode from 'react-qr-code';
+import {
+    setPet_Age,
+    setPet_Biography,
+    setPet_Birthdate,
+    setPet_Breed,
+    setPet_Castrated,
+    setPet_Fur,
+    setPet_Genre,
+    setPet_Id_User,
+    setPet_Latitude,
+    setPet_Longitude,
+    setPet_Name,
+    setPet_Situation,
+    setPet_Size,
+    setPet_Species,
+    setPet_Status,
+    setPet_Tutor_Name
+} from '../../redux/reducers/petReducer';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
+
 // type Props = {
 //     text?: string; //interrogação deixa a prop não obrigatória 
 // }
 
-export const VaccineCard = (props: { pet: Pets }) => {
+export const VaccineCard = (props: { dados_pet: { name: String; species: Number; genre: Number } }) => {
     const domEl = useRef(null);
-    let pet = props.pet;
+    const dispatch = useDispatch();
+    const pet = useAppSelector(state => state.pet);
+
+    //let pet = props.pet;
+
+    const setDadosPet = async (pet_dados:
+        {
+            name: String;
+            species: Number;
+            genre: Number;
+        }) => {
+        dispatch(setPet_Name(pet_dados?.name));
+        dispatch(setPet_Species(pet_dados?.species));
+        dispatch(setPet_Genre(pet_dados?.genre));
+
+    }
+
     const downloadImage = async () => {
-        const dataUrl = await htmlToImage.toPng(domEl.current);
+        const dataUrl = await htmlToImage.toPng(domEl.current!);
 
         // download image
         const link = document.createElement('a');
@@ -26,21 +59,24 @@ export const VaccineCard = (props: { pet: Pets }) => {
     }
 
     let species = '';
-    if (pet.species = '1') {
+    if (pet.species == 1) {
         species = 'Cachorro';
-    } else if (pet.species = '2') {
+    } else if (pet.species == 2) {
         species = 'Gato';
     } else {
         species = '- '
     }
 
     let sexo = '';
-    if (pet.genre == '1') {
+    if (pet.genre == 1) {
         sexo = 'Macho'
-    } else if (pet.genre == '2') {
+    } else if (pet.genre == 2) {
         sexo = 'Femea'
     }
 
+    useEffect(() => {
+        setDadosPet(props.dados_pet);
+    }, []);
     return (
         <div className={styles.vaccine_pet} >
             <button className={styles.btn_download} onClick={downloadImage}>Download Modelo Cartão de Vacinas</button>

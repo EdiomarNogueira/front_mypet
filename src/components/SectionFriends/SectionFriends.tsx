@@ -96,7 +96,7 @@ export const SectionFriends = () => {
                     <div >
                         <div className={styles.area_user} >
                             {friends.map((item, index) => (
-                                <div className={styles.card_user} >
+                                <div className={styles.card_user} key={index}>
                                     <Link to={'/User/' + item.id} >
                                         <div className={styles.flex_row}>
                                             <img className={styles.avatar} src={item?.avatar} alt="avatar user" loading="lazy" />

@@ -1,10 +1,34 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import { useApi } from '../../hooks/useApi';
-import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { User } from '../../types/User';
 import { Link, useParams } from 'react-router-dom';
-import { Publish } from '../../types/Publish';
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
+import {
+    setUser_Age,
+    setUser_Avatar,
+    setUser_Biography,
+    setUser_Birthdate,
+    setUser_Category,
+    setUser_City,
+    setUser_Cover,
+    setUser_Date_Register,
+    setUser_District,
+    setUser_Email,
+    setUser_Facebook,
+    setUser_Followers,
+    setUser_Following,
+    setUser_Genre,
+    setUser_Instagram,
+    setUser_IsFollowing,
+    setUser_Latitude,
+    setUser_Longitude,
+    setUser_Name,
+    setUser_Password,
+    setUser_Phone,
+    setUser_Road,
+    setUser_Work,
+} from '../../redux/reducers/userReducer';
+import { useDispatch } from 'react-redux';
 
 export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
 
@@ -13,20 +37,75 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
 
     const [viewGaleria, setViewGaleria] = useState(true);
     const [currentPerPage, setCurrentPerPage] = useState(0);
-    var [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(false);
     const [isFollowing, setIsFollowing] = useState(false);
-
+    const user = useAppSelector(state => state.user);
     const params = useParams();
+    const dispatch = useDispatch();
+
     var api = useApi();
+
+
+    const setDadosUser = async (user_dados:
+        {
+            name: String;
+            email: String;
+            password: String;
+            birthdate: String;
+            category: Number;
+            phone: String;
+            road: String;
+            age: Number;
+            district: String;
+            date_register: String;
+            city: String;
+            isFollowing: Number;
+            followers: Number;
+            following: Number;
+            genre: Number;
+            work: String;
+            instagram: String;
+            facebook: String;
+            biography: String;
+            latitude: String;
+            longitude: String;
+            avatar: String;
+            cover: String;
+        }) => {
+
+        dispatch(setUser_Name(user_dados?.name));
+        dispatch(setUser_Email(user_dados?.email));
+        dispatch(setUser_Password(user_dados?.password));
+        dispatch(setUser_Birthdate(user_dados?.birthdate));
+        dispatch(setUser_Category(user_dados?.category));
+        dispatch(setUser_Phone(user_dados?.phone));
+        dispatch(setUser_Road(user_dados?.road));
+        dispatch(setUser_District(user_dados?.district));
+        dispatch(setUser_City(user_dados?.city));
+        dispatch(setUser_Age(user_dados?.age));
+        dispatch(setUser_Genre(user_dados?.genre));
+        dispatch(setUser_Work(user_dados?.work));
+        dispatch(setUser_Date_Register(user_dados?.date_register));
+        dispatch(setUser_IsFollowing(user_dados?.isFollowing));
+        dispatch(setUser_Followers(user_dados?.followers));
+        dispatch(setUser_Following(user_dados?.following));
+        dispatch(setUser_Genre(user_dados?.genre));
+        dispatch(setUser_Instagram(user_dados?.instagram));
+        dispatch(setUser_Facebook(user_dados?.facebook));
+        dispatch(setUser_Biography(user_dados?.biography));
+        dispatch(setUser_Latitude(user_dados?.latitude));
+        dispatch(setUser_Longitude(user_dados?.longitude));
+        dispatch(setUser_Avatar(user_dados?.avatar));
+        dispatch(setUser_Cover(user_dados?.cover));
+    }
 
     const loadDadosUser = async () => {
         let $cont = 0;
         setLoading(true);
         let json = await api.getDadosUserPerfil(id_user);
         if (json) {
-
-            setUser(json.user);
+            // setUser(json.user);
+            setDadosUser(json.user);
         }
         setLoading(false);
     }
@@ -47,38 +126,30 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
         }
     }
 
-
     let name = ' -';
     let email = ' -';
     let facebook = ' -';
     let instagram = ' -';
     let telefone = ' -';
-
     let trabalho = ' -';
-
     let seguidores = user?.followers;
     let seguindo = user?.following;
     let amigos = user?.friends;
-    let idade = ' -';
+    let idade = null;
     let biografia = ' -';
     let data_nascimento = ' -';
     let genero = ' -';
-
     let cidade = ' -';
     let bairro = ' -';
     let rua = ' -';
-
     let categoria = ' -';
     let data_registro = ' -';
     let rastreio = '';
     let msg_rastreio = null;
     let latitude = ' -';
     let longitude = ' -';
-
     let photoCount = ' -';
-
     let status = ' -';
-
 
     if (user?.birthdate) {
         data_nascimento = user?.birthdate;
@@ -105,11 +176,17 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
         trabalho = user?.work;
     }
 
+    if (user?.genre == 1) {
+        genero = 'Homem';
+    } else if (user?.genre == 2) {
+        genero = 'Mulher';
+    } else {
+        genero = 'Não Informado';
+    }
 
-
-    if (user?.category == '1') {
+    if (user?.category == 1) {
         categoria = "Usuário";
-    } else if (user?.category == '2') {
+    } else if (user?.category == 2) {
         categoria = "ONG";
     }
     if (user?.latitude && user?.longitude) {
@@ -142,7 +219,6 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     if (user?.biography) {
         biografia = user?.biography;
     }
-
 
     useEffect(() => {
         handleVerificFollow();

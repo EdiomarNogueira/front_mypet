@@ -1,33 +1,94 @@
 import { useState, useEffect, useContext } from 'react';
 import styles from './styles.module.css';
 import { useApi } from '../../hooks/useApi';
-import { Pets } from '../../types/Pets';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { User } from '../../types/User';
 import { Link, useParams } from 'react-router-dom';
 import { SectionToolsPet } from '../SectionToolsPet/SectionToolsPet';
-import Modal from '@mui/material/Modal';
-import { Box, DialogTitle } from '@mui/material';
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
+
+import {
+    setPet_Age,
+    setPet_Avatar,
+    setPet_Biography,
+    setPet_Birthdate,
+    setPet_Breed,
+    setPet_Castrated,
+    setPet_Cover,
+    setPet_Fur,
+    setPet_Genre,
+    setPet_Id_User,
+    setPet_Latitude,
+    setPet_Longitude,
+    setPet_Name,
+    setPet_Situation,
+    setPet_Size,
+    setPet_Species,
+    setPet_Status,
+    setPet_Tutor_Name
+} from '../../redux/reducers/petReducer';
+import { useDispatch } from 'react-redux';
 
 export const SectionPerfilPet = (props: { idpet: any }) => {
-    const [pet, setPet] = useState<Pets>(Object);
     const [loading, setLoading] = useState(false);
     const auth = useContext(AuthContext);
     const [me, setMe] = useState(false);
-
-    var [user, setUser] = useState<User | null>(null);
+    const dispatch = useDispatch();
     const params = useParams();
+    const pet = useAppSelector(state => state.pet);
     let id_pet = props.idpet;
     var api = useApi();
 
 
     const loadDadosPet = async () => {
-        setLoading(true);
         let json = await api.getPet(params.id_user, id_pet);
         if (json) {
-            setPet(json.currentPet[0]);
+            console.log(params.id_user);
+            console.log(id_pet);
+
+            setDadosPet(json.currentPet[0]);
+            // setPet(json.currentPet[0]);
         }
-        setLoading(false);
+    }
+
+    const setDadosPet = async (pet_dados:
+        {
+            name: String;
+            id_user: Number;
+            species: Number;
+            breed: String;
+            birthdate: String;
+            biography: String;
+            age: Number;
+            tutor_name: String;
+            castrated: Number;
+            genre: Number;
+            latitude: String;
+            longitude: String;
+            size: Number;
+            fur: Number;
+            situation: Number;
+            status: Number;
+            avatar: String;
+            cover: String;
+        }) => {
+        dispatch(setPet_Name(pet_dados?.name));
+        dispatch(setPet_Id_User(pet_dados?.id_user));
+        dispatch(setPet_Species(pet_dados?.species));
+        dispatch(setPet_Breed(pet_dados?.breed));
+        dispatch(setPet_Birthdate(pet_dados?.birthdate));
+        dispatch(setPet_Biography(pet_dados?.biography));
+        dispatch(setPet_Age(pet_dados?.age));
+        dispatch(setPet_Tutor_Name(pet_dados?.tutor_name));
+        dispatch(setPet_Castrated(pet_dados?.castrated));
+        dispatch(setPet_Genre(pet_dados?.genre));
+        dispatch(setPet_Latitude(pet_dados?.latitude));
+        dispatch(setPet_Longitude(pet_dados?.longitude));
+        dispatch(setPet_Size(pet_dados?.size));
+        dispatch(setPet_Fur(pet_dados?.fur));
+        dispatch(setPet_Situation(pet_dados?.situation));
+        dispatch(setPet_Status(pet_dados?.status));
+        dispatch(setPet_Avatar(pet_dados?.avatar));
+        dispatch(setPet_Cover(pet_dados?.cover));
 
     }
 
@@ -44,7 +105,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
 
     let porte = '';
     let biography = '';
-    let idade = '';
+    let idade = null;
     let infor_cadastro = '';
     let situation = '';
     let pelo = '';
@@ -82,7 +143,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
             break;
     }
 
-    if (pet.genre == '1') {
+    if (pet.genre == 1) {
         genero = "Macho";
     } else {
         genero = "Fêmea";
@@ -112,10 +173,10 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
         biography = ' -';
     }
 
-    if (pet.castrated == '1') {
-        castrado = 'Não Castrado';
-    } else if (pet.castrated == '2') {
+    if (pet.castrated == 1) {
         castrado = 'Castrado';
+    } else if (pet.castrated == 2) {
+        castrado = 'Não Castrado';
     } else {
         castrado = ' -';
     }
@@ -153,11 +214,6 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
             pelo = ' -'
             break;
     }
-
-
-
-
-
 
 
     return (
@@ -200,7 +256,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
                         {me &&
                             <div className={styles.acoes}>
                                 {/* <Link to={+'/mypet/'+pet.id+'/config'}> */}
-                                <Link to={'/user/' + pet.id + '/mypet/' + pet.id + '/config'}>
+                                <Link to={'/user/' + pet.id_user + '/mypet/' + id_pet + '/config'}>
                                     <div className={styles.btn_config}>
                                         <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" loading="lazy" />
                                         <p>Configurar</p>
@@ -212,7 +268,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
                                         <p>Configurar</p>
                                     </div>
                                 </Link> */}
-                                <Link className={styles.btn_alert} to={'/user/' + pet.id + '/mypet/' + pet.id + '/addAlert'}>Gerar Alerta!</Link>
+                                <Link className={styles.btn_alert} to={'/user/' + pet.id_user + '/mypet/' + id_pet + '/addAlert'}>Gerar Alerta!</Link>
 
 
                             </div>
@@ -221,7 +277,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
                     </div>
                 </div>
                 <div className={styles.container}>
-                    <SectionToolsPet id_user={pet.id_user} idpet={pet.id} me={me} pet={pet} />
+                    <SectionToolsPet id_user={pet.id_user} idpet={id_pet} me={me} dados_pet={pet} />
                 </div>
             </div>
         </>

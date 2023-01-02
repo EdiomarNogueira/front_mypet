@@ -5,7 +5,7 @@ import { Publish } from '../../types/Publish';
 import { FormPost } from '../Form_Post/FormPost';
 import { Likes } from '../Like/Like';
 import { NewComment } from '../NewComment/Comment';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Comments } from '../Comments/Comments';
 import { Alerts } from '../../types/Alerts';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
@@ -25,6 +25,7 @@ export const Posts = () => { //{ title }: Props
     const [posts, setPosts] = useState<Publish[]>([]);
     const [alerts, setAlerts] = useState<Alerts[]>([]);
     const auth = useContext(AuthContext);
+    const navigate = useNavigate();
 
     var api = useApi();
 
@@ -32,20 +33,17 @@ export const Posts = () => { //{ title }: Props
         let json = await api.getPosts(currentPerPage);
         //setLoading(true);
 
-        console.log(json);
         if (json) {
             if (posts != json) {
                 setPosts(json);
             }
         }
         setLoading(false);
-
     }
 
     const loadAlerts = async () => {
         //setLoading(true);
         let json = await api.getAlerts(currentPerPageAlerts);
-        console.log(json);
 
         if (json) {
             if (alerts != json.alerts) {
@@ -92,6 +90,15 @@ export const Posts = () => { //{ title }: Props
         loadPosts();
     }
 
+    const handleDeleteAlert = async (id_alert: Number, id_pet: Number, situation: Number) => {
+        let json = await api.postDeleteAlert(id_alert, id_pet, situation, auth.user?.id);
+        if (json) {
+            alert('Atualize seus dados com a nova situação.');
+            navigate('/user/' + auth.user?.id + '/mypet/' + id_pet + '/config');
+        }
+
+    }
+
     useEffect(() => {
         loadAlerts();
     }, [currentPerPageAlerts]);
@@ -128,7 +135,7 @@ export const Posts = () => { //{ title }: Props
                             {viewPostsFriends == true &&
                                 <div className={styles.container_justify_content}>
                                     {posts.map((item, index) => (
-                                        <div className={styles.post}>
+                                        <div className={styles.post} key={index}>
                                             <div className={styles.user_post}>
                                                 <div>
                                                     <img className={styles.avatar} src={item.user.avatar} alt="avatar" loading="lazy" />
@@ -161,7 +168,7 @@ export const Posts = () => { //{ title }: Props
                                                 <div className={styles.area_marked_pets}>
                                                     <h4>Pets Marcados:</h4>
                                                     {item.marked_pets.map((pets_marked, index) => (
-                                                        <div className={styles.marked_pets}>
+                                                        <div className={styles.marked_pets} key={index}>
                                                             <Link className={styles.mark} to={'/user/' + item.id_user + '/mypet/' + item.id}>{pets_marked}</Link>
 
                                                             {/* <p>{pets_marked}</p> */}
@@ -187,7 +194,7 @@ export const Posts = () => { //{ title }: Props
                                                 <div className={styles.area_comments}>
 
                                                     {item.comments.map((comment_post, index) => (
-                                                        <div>
+                                                        <div key={index}>
                                                             <Comments comments={comment_post} parentCommentCallBack={handleCommentCallback} />
                                                         </div>
                                                     ))}
@@ -206,13 +213,21 @@ export const Posts = () => { //{ title }: Props
                         {viewAlerts == true &&
                             <div className={styles.container_alert}>
                                 {alerts.map((item, index) => (
-                                    <div className={styles.area_alert}>
+                                    <div className={styles.area_alert} key={index}>
+
                                         <div className={styles.user_alert}>
-                                            <img className={styles.avatar} src={item.avatar_tutor} alt="avatar" loading="lazy" />
-                                            <div className={styles.name_data}>
-                                                <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>{item.tutor_name}</Link>
-                                                <p className={styles.data_post}>{item.date_register}</p>
+                                            <div className={styles.flex_row}>
+                                                <img className={styles.avatar} src={item.avatar_tutor} alt="avatar" loading="lazy" />
+                                                <div className={styles.name_data}>
+                                                    <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>{item.tutor_name}</Link>
+                                                    <p className={styles.data_post}>{item.date_register}</p>
+                                                </div>
                                             </div>
+                                            {auth.user?.id == item.id_user &&
+                                                <div className={styles.area_btn_deletar}>
+                                                    <p onClick={() => handleDeleteAlert(item.id, item.id_pet, item.situation)} className={styles.btn_deletar}><img src="src\media\icons\trash.png" alt="deletar alert" /></p>
+                                                </div>
+                                            }
                                         </div>
                                         <div className={styles.area_cartaz_alert}>
                                             {item.situation == 2 &&
@@ -238,9 +253,36 @@ export const Posts = () => { //{ title }: Props
                                                         <div className={styles.area_infor}>
                                                             <ul>
                                                                 <li><h1>{item.name_pet}</h1></li>
-                                                                <li><h4>Raça: {item.breed}</h4></li>
-                                                                <li><h4>Idade:{item.age}</h4></li>
-                                                                <li><h4>Distância: {item.distance} km</h4></li>
+                                                                <li><h5>Raça: {item.breed}</h5></li>
+                                                                {item.size == 1 &&
+                                                                    <li><h5>Porte: Pequeno</h5></li>
+                                                                }
+                                                                {item.size == 2 &&
+                                                                    <li><h5>Porte: Medio</h5></li>
+                                                                }
+                                                                {item.size == 3 &&
+                                                                    <li><h5>Porte: Grande</h5></li>
+                                                                }
+                                                                {item.fur == 1 &&
+                                                                    <li><h5>Pelagem: Curta</h5></li>
+                                                                }
+                                                                {item.fur == 2 &&
+                                                                    <li><h5>Pelagem: Média</h5></li>
+                                                                }
+                                                                {item.fur == 3 &&
+                                                                    <li><h5>Pelagem: Longa</h5></li>
+                                                                }
+                                                                <li><h5>Idade: {item.age}</h5></li>
+                                                                <li><h5>Distância: {item.distance} km</h5></li>
+                                                                <li><h5>Data Ocorrência: {item.date_occurrence} </h5></li>
+                                                            </ul> <br />
+                                                            <ul>
+                                                                <li><h5>... {item.description} </h5></li>
+                                                            </ul><br />
+                                                            <ul>
+                                                                <h3>Meios de Contato:</h3>
+                                                                <li><h4>Email: {item.email} </h4></li>
+                                                                <li><h2>Telefone: {item.phone} </h2></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -271,9 +313,36 @@ export const Posts = () => { //{ title }: Props
                                                         <div className={styles.area_infor}>
                                                             <ul>
                                                                 <li><h1>{item.name_pet}</h1></li>
-                                                                <li><h4>Raça: {item.breed}</h4></li>
-                                                                <li><h4>Idade:{item.age}</h4></li>
-                                                                <li><h4>Distância: {item.distance} km</h4></li>
+                                                                <li><h5>Raça: {item.breed}</h5></li>
+                                                                {item.size == 1 &&
+                                                                    <li><h5>Porte: Pequeno</h5></li>
+                                                                }
+                                                                {item.size == 2 &&
+                                                                    <li><h5>Porte: Medio</h5></li>
+                                                                }
+                                                                {item.size == 3 &&
+                                                                    <li><h5>Porte: Grande</h5></li>
+                                                                }
+                                                                {item.fur == 1 &&
+                                                                    <li><h5>Pelagem: Curta</h5></li>
+                                                                }
+                                                                {item.fur == 2 &&
+                                                                    <li><h5>Pelagem: Média</h5></li>
+                                                                }
+                                                                {item.fur == 3 &&
+                                                                    <li><h5>Pelagem: Longa</h5></li>
+                                                                }
+                                                                <li><h5>Idade: {item.age}</h5></li>
+                                                                <li><h5>Distância: {item.distance} km</h5></li>
+                                                                <li><h5>Data Ocorrência: {item.date_occurrence} </h5></li>
+                                                            </ul> <br />
+                                                            <ul>
+                                                                <li><h5>... {item.description} </h5></li>
+                                                            </ul><br />
+                                                            <ul>
+                                                                <h3>Meios de Contato:</h3>
+                                                                <li><h4>Email: {item.email} </h4></li>
+                                                                <li><h2>Telefone: {item.phone} </h2></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -302,16 +371,43 @@ export const Posts = () => { //{ title }: Props
                                                         <div className={styles.area_infor}>
                                                             <ul>
                                                                 <li><h1>{item.name_pet}</h1></li>
-                                                                <li><h4>Raça: {item.breed}</h4></li>
-                                                                <li><h4>Idade:{item.age}</h4></li>
-                                                                <li><h4>Distância: {item.distance} km</h4></li>
+                                                                <li><h5>Raça: {item.breed}</h5></li>
+                                                                {item.size == 1 &&
+                                                                    <li><h5>Porte: Pequeno</h5></li>
+                                                                }
+                                                                {item.size == 2 &&
+                                                                    <li><h5>Porte: Medio</h5></li>
+                                                                }
+                                                                {item.size == 3 &&
+                                                                    <li><h5>Porte: Grande</h5></li>
+                                                                }
+                                                                {item.fur == 1 &&
+                                                                    <li><h5>Pelagem: Curta</h5></li>
+                                                                }
+                                                                {item.fur == 2 &&
+                                                                    <li><h5>Pelagem: Média</h5></li>
+                                                                }
+                                                                {item.fur == 3 &&
+                                                                    <li><h5>Pelagem: Longa</h5></li>
+                                                                }
+                                                                <li><h5>Idade estimada: {item.age}</h5></li>
+                                                                <li><h5>Distância: {item.distance} km</h5></li>
+                                                                <li><h5>Data Ocorrência: {item.date_occurrence} </h5></li>
+                                                            </ul> <br />
+                                                            <ul>
+                                                                <li><h5>... {item.description} </h5></li>
+                                                            </ul><br />
+                                                            <ul>
+                                                                <h3>Meios de Contato:</h3>
+                                                                <li><h4>Email: {item.email} </h4></li>
+                                                                <li><h2>Telefone: {item.phone} </h2></li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </>
 
                                             }
-                                            {item.situation == 5 &&
+                                            {item.situation == 6 &&
                                                 <>
                                                     <div className={styles.header_alert_treatment}>
                                                         {item.species == 1 &&
@@ -334,9 +430,36 @@ export const Posts = () => { //{ title }: Props
                                                         <div className={styles.area_infor}>
                                                             <ul>
                                                                 <li><h1>{item.name_pet}</h1></li>
-                                                                <li><h4>Raça: {item.breed}</h4></li>
-                                                                <li><h4>Idade: {item.age}</h4></li>
-                                                                <li><h4>Distância: {item.distance} km</h4></li>
+                                                                <li><h5>Raça: {item.breed}</h5></li>
+                                                                {item.size == 1 &&
+                                                                    <li><h5>Porte: Pequeno</h5></li>
+                                                                }
+                                                                {item.size == 2 &&
+                                                                    <li><h5>Porte: Medio</h5></li>
+                                                                }
+                                                                {item.size == 3 &&
+                                                                    <li><h5>Porte: Grande</h5></li>
+                                                                }
+                                                                {item.fur == 1 &&
+                                                                    <li><h5>Pelagem: Curta</h5></li>
+                                                                }
+                                                                {item.fur == 2 &&
+                                                                    <li><h5>Pelagem: Média</h5></li>
+                                                                }
+                                                                {item.fur == 3 &&
+                                                                    <li><h5>Pelagem: Longa</h5></li>
+                                                                }
+                                                                <li><h5>Idade: {item.age}</h5></li>
+                                                                <li><h5>Distância: {item.distance} km</h5></li>
+                                                                <li><h5>Data Ocorrência: {item.date_occurrence} </h5></li>
+                                                            </ul> <br />
+                                                            <ul>
+                                                                <li><h5>... {item.description} </h5></li>
+                                                            </ul><br />
+                                                            <ul>
+                                                                <h3>Meios de Contato:</h3>
+                                                                <li><h4>Email: {item.email} </h4></li>
+                                                                <li><h2>Telefone: {item.phone} </h2></li>
                                                             </ul>
                                                         </div>
                                                     </div>
