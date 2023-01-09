@@ -44,7 +44,6 @@ export const Posts = () => { //{ title }: Props
     const loadAlerts = async () => {
         //setLoading(true);
         let json = await api.getAlerts(currentPerPageAlerts);
-
         if (json) {
             if (alerts != json.alerts) {
                 setAlerts(json.alerts);
@@ -219,7 +218,7 @@ export const Posts = () => { //{ title }: Props
                                             <div className={styles.flex_row}>
                                                 <img className={styles.avatar} src={item.avatar_tutor} alt="avatar" loading="lazy" />
                                                 <div className={styles.name_data}>
-                                                    <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>{item.tutor_name}</Link>
+                                                    <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>{item.name_tutor}</Link>
                                                     <p className={styles.data_post}>{item.date_register}</p>
                                                 </div>
                                             </div>

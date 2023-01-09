@@ -5,6 +5,7 @@ import { User } from './User';
 import { Comment } from './Comment';
 
 export type Alerts = {
+    name_tutor: string;
     error: Error,
     id: number,
     id_pet: number,
