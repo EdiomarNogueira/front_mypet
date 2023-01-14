@@ -1,13 +1,15 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../contexts/Auth/AuthContext';
+import { AuthContext } from '../../../../contexts/Auth/AuthContext';
+import { SectionFriends } from '../../../../components/SectionFriends/SectionFriends';
+import { SectionListRecommended } from '../../../../components/SectionListRecommended/SectionListRecommended';
 import styles from './styles.module.css';
 
 type Props = {
     title?: string; //interrogação deixa a prop não obrigatória 
 }
 
-export const Headers = ({ title }: Props) => {
+export const Header = ({ title }: Props) => {
     const auth = useContext(AuthContext);
     const [isActive, setIsActive] = useState(false);
     const navigate = useNavigate();
@@ -46,7 +48,7 @@ export const Headers = ({ title }: Props) => {
             <nav className={`${styles['nav_tablet']} ${!isActive && styles.inactive}`}>
 
                 <ul className={`${styles['menu_tablet']} ${!isActive && styles.inactive}`}>
-                    <Link to="/Home"><h1 className={styles.title_nav_tablet}>{title}</h1></Link>
+                <Link to="/Home"><h1 className={styles.title_nav_tablet}>{title}</h1></Link>
 
                     <div className={styles.sidebar_area}>
                         <div className={styles.divisao_menu}>
@@ -62,7 +64,9 @@ export const Headers = ({ title }: Props) => {
                                 <li><Link to={'/user/' + id_user + '/gallery'}>Galeria de Fotos</Link></li>
                             </ul>
                         </div>
-
+                        <div className={styles.divisao_menu}>
+                            {/* <SectionFriends /> */}
+                        </div>
                     </div>
 
                 </ul>

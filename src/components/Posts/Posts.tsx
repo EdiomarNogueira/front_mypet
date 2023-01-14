@@ -14,6 +14,7 @@ type Props = {
     // title?: string; //interrogação deixa a prop não obrigatória 
 }
 
+
 export const Posts = () => { //{ title }: Props
     const [loading, setLoading] = useState(true);
     const [comment_post, setCommentPost] = useState(1);
@@ -22,6 +23,8 @@ export const Posts = () => { //{ title }: Props
     const [countPosts, setCountPosts] = useState(1);
     const [viewPostsFriends, setPostsFriends] = useState(true);
     const [viewAlerts, setViewAlerts] = useState(false);
+    const [deletedAlert, setDeletedAlert] = useState(null);
+
     const [posts, setPosts] = useState<Publish[]>([]);
     const [alerts, setAlerts] = useState<Alerts[]>([]);
     const auth = useContext(AuthContext);
@@ -31,8 +34,7 @@ export const Posts = () => { //{ title }: Props
 
     const loadPosts = async () => {
         let json = await api.getPosts(currentPerPage);
-        //setLoading(true);
-
+        setLoading(true);
         if (json) {
             if (posts != json) {
                 setPosts(json);
@@ -42,7 +44,7 @@ export const Posts = () => { //{ title }: Props
     }
 
     const loadAlerts = async () => {
-        //setLoading(true);
+        setLoading(true);
         let json = await api.getAlerts(currentPerPageAlerts);
         if (json) {
             if (alerts != json.alerts) {
@@ -89,14 +91,20 @@ export const Posts = () => { //{ title }: Props
         loadPosts();
     }
 
-    const handleDeleteAlert = async (id_alert: Number, id_pet: Number, situation: Number) => {
+    const handleDeleteAlert = async (id_alert: Number, id_pet: any, situation: Number) => {
         let json = await api.postDeleteAlert(id_alert, id_pet, situation, auth.user?.id);
         if (json) {
             alert('Atualize seus dados com a nova situação.');
-            navigate('/user/' + auth.user?.id + '/mypet/' + id_pet + '/config');
+            setDeletedAlert(id_pet);
         }
 
     }
+
+    useEffect(() => {
+        if (deletedAlert) {
+            navigate('/user/' + auth.user?.id + '/mypet/' + deletedAlert + '/config');
+        }
+    }, [])
 
     useEffect(() => {
         loadAlerts();

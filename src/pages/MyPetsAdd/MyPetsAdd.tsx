@@ -6,8 +6,7 @@ import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { useContext } from 'react';
 import { Sidebar } from '../../components/SideBar/Sidebar';
 import styles from './styles.module.css';
-import { SectionMyPets } from '../../components/SectionMyPets/SectionMyPets';
-import { Form_Add_Pet } from '../../components/Form_Add_Pet/Form_Add_Pet';
+import { Form_Add_Pet } from './components/Form_Add_Pet/Form_Add_Pet';
 
 
 export const MyPetsAdd = () => {

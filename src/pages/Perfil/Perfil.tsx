@@ -1,13 +1,12 @@
 import { useParams } from 'react-router-dom';
-import { Header } from '../../components/Header/Header';
 import { Footer } from '../../components/Footer/Footer';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
-import { SidebarPerfilUser } from '../../components/Sidebar_Perfil_User/Sidebar_Perfil_User';
-import { SectionPerfilUser } from '../../components/SectionPerfilUser/SectionPerfilUser';
-import { SidebarPerfilContact } from '../../components/Sidebar_Perfil_Contact/Sidebar_Perfil_Contact';
-import { HeaderPerfilUser } from '../../components/HeaderPerfilUser/HeaderPerfilUser';
+import { SidebarPerfilUser } from './components/Sidebar_Perfil_User/Sidebar_Perfil_User';
+import { SectionPerfilUser } from './components/SectionPerfilUser/SectionPerfilUser';
+import { SidebarPerfilContact } from './components/Sidebar_Perfil_Contact/Sidebar_Perfil_Contact';
+import { Header } from './components/Header/Header';
 
 
 export const Perfil = () => {
@@ -25,7 +24,7 @@ export const Perfil = () => {
 
     return (
         <div className={styles.home}>
-            <HeaderPerfilUser title="Um Novo Amigo" />
+            <Header title="Um Novo Amigo" />
             <div className={styles.area_body}>
                 <div className={styles.area_sidebar}>
                     {me &&

@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
 import { Sidebar } from '../../components/SideBar/Sidebar';
-import { SectionConnectionsUser } from '../../components/SectionConnectionsUser/SectionConnectionsUser';
+import { SectionConnectionsUser } from './components/SectionConnectionsUser/SectionConnectionsUser';
 
 export const ConnectionsUser = () => {
     const auth = useContext(AuthContext);

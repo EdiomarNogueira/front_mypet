@@ -5,8 +5,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
 import { Sidebar } from '../../components/SideBar/Sidebar';
-import { FormUser } from '../../components/Form_User/Form_user';
-import { FormPet } from '../../components/Form_Pet/Form_Pet';
+import { FormPet } from './components/Form_Pet/Form_Pet';
 
 export const ConfigPet = () => {
     const auth = useContext(AuthContext);

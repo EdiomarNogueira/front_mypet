@@ -83,6 +83,8 @@ export const FormPost = (props: { parentNewPostCallBack: any }) => {
                 setAddText("");
             }
             onTrigger();
+
+
         } else {
             alert("Post vazio!");
         }

@@ -5,7 +5,7 @@ import { Sidebar } from '../../components/SideBar/Sidebar';
 import styles from './styles.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import { UserGallery } from '../../components/UserGallery/UserGallery';
+import { UserGallery } from './components/UserGallery/UserGallery';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { Publish } from '../../types/Publish';
 import { useApi } from '../../hooks/useApi';

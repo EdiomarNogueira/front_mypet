@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
 import { Sidebar } from '../../components/SideBar/Sidebar';
-import { FormUser } from '../../components/Form_User/Form_user';
+import { FormUser } from './components/Form_User/Form_user';
 
 export const ConfigUser = () => {
     const auth = useContext(AuthContext);

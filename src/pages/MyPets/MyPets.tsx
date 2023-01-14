@@ -6,7 +6,7 @@ import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { useContext } from 'react';
 import { Sidebar } from '../../components/SideBar/Sidebar';
 import styles from './styles.module.css';
-import { SectionMyPets } from '../../components/SectionMyPets/SectionMyPets';
+import { SectionMyPets } from './components/SectionMyPets/SectionMyPets';
 
 
 export const MyPets = () => {
