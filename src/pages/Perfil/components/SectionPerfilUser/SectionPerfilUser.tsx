@@ -17,6 +17,7 @@ import {
     setUser_Facebook,
     setUser_Followers,
     setUser_Following,
+    setUser_Friends,
     setUser_Genre,
     setUser_Instagram,
     setUser_IsFollowing,
@@ -62,6 +63,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
             isFollowing: Number;
             followers: Number;
             following: Number;
+            friends: Number;
             genre: Number;
             work: String;
             instagram: String;
@@ -89,6 +91,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
         dispatch(setUser_IsFollowing(user_dados?.isFollowing));
         dispatch(setUser_Followers(user_dados?.followers));
         dispatch(setUser_Following(user_dados?.following));
+        dispatch(setUser_Friends(user_dados?.friends));
         dispatch(setUser_Genre(user_dados?.genre));
         dispatch(setUser_Instagram(user_dados?.instagram));
         dispatch(setUser_Facebook(user_dados?.facebook));
@@ -232,7 +235,6 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     useEffect(() => {
         loadDadosUser();
         handleVerificFollow();
-
     }, []);
 
     useEffect(() => {

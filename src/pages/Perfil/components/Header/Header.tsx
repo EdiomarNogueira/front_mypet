@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../contexts/Auth/AuthContext';
-import { SectionFriends } from '../../../../components/SectionFriends/SectionFriends';
-import { SectionListRecommended } from '../../../../components/SectionListRecommended/SectionListRecommended';
 import styles from './styles.module.css';
 
 type Props = {
@@ -64,9 +62,7 @@ export const Header = ({ title }: Props) => {
                                 <li><Link to={'/user/' + id_user + '/gallery'}>Galeria de Fotos</Link></li>
                             </ul>
                         </div>
-                        <div className={styles.divisao_menu}>
-                            {/* <SectionFriends /> */}
-                        </div>
+
                     </div>
 
                 </ul>

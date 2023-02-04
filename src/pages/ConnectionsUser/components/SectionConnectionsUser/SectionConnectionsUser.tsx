@@ -42,7 +42,7 @@ export const SectionConnectionsUser = () => {
 
     const handleVerificFollow = async (id_user: any) => {
         let json = await api.getVerificFollow(id_user);
-        if(json) {
+        if (json) {
             console.log(json);
         }
     }
@@ -53,22 +53,26 @@ export const SectionConnectionsUser = () => {
             console.log(json.relation);
             setIsFollowing(json.relation);
             setCount(count + 1);
+            window.location.reload();
         }
     }
 
     const handleFriends = async () => {
+        loadRelations();
         setViewFriends(true);
         setViewFollowers(false);
         setViewFollowing(false);
     }
 
     const handleFollowers = async () => {
+        loadRelations();
         setViewFriends(false);
         setViewFollowers(true);
         setViewFollowing(false);
     }
 
     const handleFollowing = async () => {
+        loadRelations();
         setViewFriends(false);
         setViewFollowers(false);
         setViewFollowing(true);
@@ -185,6 +189,7 @@ export const SectionConnectionsUser = () => {
                                         <div onClick={() => handleFollowUnfollow(item.id)} className={styles.follow_unfollow}>
                                             {!item.isFollowing && item.id != auth.user?.id &&
                                                 <p className={styles.follow}>Seguir</p>
+
                                             }
                                             {item.isFollowing && item.id != auth.user?.id &&
                                                 <p className={styles.unfollow}>Não seguir</p>

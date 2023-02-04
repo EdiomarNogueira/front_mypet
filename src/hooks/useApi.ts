@@ -3,7 +3,7 @@ import axios from "axios";
 const api = axios.create({
     baseURL: "http://127.0.0.1:8000/api",
     //baseURL: "http://187.44.236.16:8000/api",
-
+    //baseURL: "http://127.0.0.1:5173/api",
     //baseURL:process.env.REACT_APP_API
 });
 
@@ -35,6 +35,7 @@ export const useApi = () => ({
         password: string) => {
         var config_headers = refreshConfig();
         const response = await api.post('/auth/login', { email, password });
+        console.log(response);
         return response.data;
     },
 
@@ -200,6 +201,18 @@ export const useApi = () => ({
             }
         };
         const response = await api.get('/user/' + id_user + '/connections/' + latitude + '/' + longitude + '?perPage=' + currentPerPage, config);
+        return response.data;
+    },
+
+    getUpdateFeed: async () => {
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken'),
+            }
+        };
+
+        const response = await api.get('/feed/updates', config);
         return response.data;
     },
 

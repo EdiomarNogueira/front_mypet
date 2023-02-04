@@ -10,9 +10,8 @@ var config = {
         'Content-Type': 'application/json',
     }
 };
+
 export const useApiLocation = () => ({
-
-
 
     getLocation: async (r: string, city: string, bairro: string) => {
         let rua = '';
@@ -29,7 +28,7 @@ export const useApiLocation = () => ({
             bairro_br = bairro.replace(" ", "+");
         }
         const response = await api.get(rua + '+' + bairro_br + '+' + cidade + '&format=jsonv2');
-        return response.data;
+        return response.data[0];
     },
 
 });

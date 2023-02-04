@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Comments } from '../Comments/Comments';
 import { Alerts } from '../../types/Alerts';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
+import { isEmpty } from 'lodash';
 
 type Props = {
     // title?: string; //interrogação deixa a prop não obrigatória 
@@ -20,28 +21,37 @@ export const Posts = () => { //{ title }: Props
     const [comment_post, setCommentPost] = useState(1);
     const [currentPerPage, setCurrentPerPage] = useState(2);
     const [currentPerPageAlerts, setCurrentPerPageAlerts] = useState(2);
-    const [countPosts, setCountPosts] = useState(1);
+    const [createPost, setCreatePost] = useState(1);
     const [viewPostsFriends, setPostsFriends] = useState(true);
     const [viewAlerts, setViewAlerts] = useState(false);
-    const [deletedAlert, setDeletedAlert] = useState(null);
-
+    const [deletedAlert, setDeletedAlert] = useState('');
     const [posts, setPosts] = useState<Publish[]>([]);
     const [alerts, setAlerts] = useState<Alerts[]>([]);
+    const [existUpdates, setExistUpdates] = useState(false);
+    const [countPosts, setCountPosts] = useState(0);
+    const [countLoop, setCountLoop] = useState(0);
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
-
     var api = useApi();
+    let myNewPost = 0;
 
     const loadPosts = async () => {
         let json = await api.getPosts(currentPerPage);
         setLoading(true);
         if (json) {
-            if (posts != json) {
-                setPosts(json);
+            if (posts != json.posts) {
+                setPosts(json.posts);
+                setCountPosts(json.count_posts.count);
+                //console.log('setCountPosts', countPosts);
+                //console.log('setCountPosts', json.count_posts.count);
             }
         }
+        myNewPost = 0;
+        setCountLoop(countLoop + 1);
+        setExistUpdates(false);
         setLoading(false);
     }
+
 
     const loadAlerts = async () => {
         setLoading(true);
@@ -65,8 +75,10 @@ export const Posts = () => { //{ title }: Props
     }
 
     const handleNewPostCallback = (newPost: any) => {
+        //setExistUpdates(false);
+        setCreatePost(createPost + newPost);
 
-        setCountPosts(countPosts + newPost);
+        myNewPost = createPost + newPost;
     }
 
     const handleCommentCallback = (newComment: any) => {
@@ -81,6 +93,7 @@ export const Posts = () => { //{ title }: Props
     }
 
     const handleAlerts = async () => {
+        setExistUpdates(false);
         loadAlerts();
         setPostsFriends(false);
         setViewAlerts(true);
@@ -97,8 +110,58 @@ export const Posts = () => { //{ title }: Props
             alert('Atualize seus dados com a nova situação.');
             setDeletedAlert(id_pet);
         }
+    }
+
+    // const handleStartCount = async () => {
+    //     let json = await api.getUpdateFeed();
+    //     if (json) {
+    //         setCountPosts(json.count_posts);
+    //     }
+    // }
+
+    // const handlePostsUpdate = async () => {
+    //     console.log("ponto 1");
+    //     if (existUpdates == false) {
+    //         console.log("ponto 2");
+    //         //countPosts = 0;
+    //         const loop = setTimeout(async function () {
+    //             //update_cont();
+    //         }, 15000);
+
+    //         //clearTimeout(loop);
+    //     }
+    // }
+
+    const update_cont = async () => {
+
+        let json = await api.getUpdateFeed();
+        console.log('cont atual', json.count);
+        console.log('countPosts', countPosts);
+        console.log('myNewPost', myNewPost);
+        if (json.count != countPosts && countPosts > 0) {
+            var updates = json.count - countPosts;
+            if (updates > 0 && myNewPost == 0) {
+                setExistUpdates(true);
+                console.log('updates pendentes', updates);
+                setCountLoop(countLoop + 1);
+
+            } else {
+                setExistUpdates(false);
+                setCountLoop(countLoop + 1);
+            }
+        }
+        setCountLoop(countLoop + 1);
+
+        // else {
+        //     setCountLoop(countLoop + 1);
+        // }
+        //setCountPosts(json.count);
 
     }
+    //handlePostsUpdate();
+
+
+
 
     useEffect(() => {
         if (deletedAlert) {
@@ -106,19 +169,40 @@ export const Posts = () => { //{ title }: Props
         }
     }, [])
 
+
+    useEffect(() => {
+        //CRIAR O LOOP AQUI 
+        if (existUpdates == false) {
+            console.log("chamada inicial");
+            //countPosts = 0;
+            const loop = setTimeout(function () {
+                console.log("inicio do loop");
+                update_cont();
+            }, 60000);
+
+            //clearTimeout(loop);
+        }
+        //handlePostsUpdate();
+    }, [countLoop]);
+
+
     useEffect(() => {
         loadAlerts();
     }, [currentPerPageAlerts]);
 
     useEffect(() => {
         loadPosts();
-    }, [comment_post, currentPerPage, countPosts]);
+        // handleStartCount();
+    }, [comment_post, currentPerPage, createPost]);
 
     return (
         <>
             <div className={styles.area_post}>
+
                 <FormPost parentNewPostCallBack={handleNewPostCallback} />
+
                 <div className={styles.area_nav_feeds}>
+
                     {viewPostsFriends &&
                         <button className={styles.btn_amigos_active} onClick={handlePostsFriends}>Feed</button>
                     }
@@ -132,6 +216,11 @@ export const Posts = () => { //{ title }: Props
                         <button className={styles.btn_alertas} onClick={handleAlerts}>Ver Alertas</button>
                     }
                 </div>
+                {existUpdates == true &&
+                    <div className={styles.atualizer_posts}>
+                        <p onClick={loadPosts}>Atualizar Feed</p>
+                    </div>
+                }
                 {loading &&
                     <div className={styles.area_loading}>Carregando...</div>
                 }

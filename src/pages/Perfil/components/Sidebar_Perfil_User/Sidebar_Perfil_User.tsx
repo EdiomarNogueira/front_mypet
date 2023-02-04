@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../../../contexts/Auth/AuthContext';
 import { Link } from 'react-router-dom';
 import { SectionListRecommended } from '../../../../components/SectionListRecommended/SectionListRecommended';
-import { SectionFriends } from '../../../../components/SectionFriends/SectionFriends';
+import { SectionFriends } from '../SectionFriends/SectionFriends';
 type Props = {
     text?: string; //interrogação deixa a prop não obrigatória 
 }

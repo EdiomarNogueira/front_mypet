@@ -172,6 +172,30 @@
     margin-bottom: 20px;
 }
 
+.atualizer_posts {
+    width: 80%;
+    text-align: center;
+    border: 2px solid #29303a;
+    margin-bottom: 5px;
+    background-color: #5B7499;
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.atualizer_posts:hover {
+    background-color: #3f4957;
+
+}
+
+.atualizer_posts p {
+    margin: 0;
+    padding: 0;
+}
+
 .avatar {
     height: 60px;
     width: 80px;

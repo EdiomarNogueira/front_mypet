@@ -63,7 +63,7 @@ export const SectionMyPets = () => {
                                         <div className={styles.section_meus_pets}>
 
                                             {pets.map((item, index) => (
-                                                <div>
+                                                <div key={index}>
                                                     {item.situation == '1' &&
                                                         <div className={styles.list_pet}>
                                                             <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
@@ -88,7 +88,7 @@ export const SectionMyPets = () => {
                                         <div className={styles.section_meus_pets}>
 
                                             {pets.map((item, index) => (
-                                                <div>
+                                                <div key={index}>
                                                     {item.situation == '2' &&
                                                         <div className={styles.list_pet}>
                                                             <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
@@ -114,7 +114,7 @@ export const SectionMyPets = () => {
                                         <div className={styles.section_meus_pets}>
 
                                             {pets.map((item, index) => (
-                                                <div>
+                                                <div key={index}>
                                                     {item.situation == '3' &&
                                                         <div className={styles.list_pet}>
                                                             <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
@@ -139,7 +139,7 @@ export const SectionMyPets = () => {
                                         <div className={styles.section_meus_pets}>
 
                                             {pets.map((item, index) => (
-                                                <div>
+                                                <div key={index}>
                                                     {item.situation == '4' &&
                                                         <div className={styles.list_pet}>
                                                             <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
@@ -166,7 +166,7 @@ export const SectionMyPets = () => {
                                             <div className={styles.section_meus_pets}>
 
                                                 {pets.map((item, index) => (
-                                                    <div>
+                                                    <div key={index}>
                                                         {item.situation == '5' &&
                                                             <div className={styles.list_pet}>
                                                                 <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >

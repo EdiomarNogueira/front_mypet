@@ -215,6 +215,13 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
             break;
     }
 
+    if (pet?.latitude && pet?.longitude) {
+        rastreio = "Disponível";
+        msg_rastreio = null;
+    } else {
+        rastreio = "Indisponível";
+        msg_rastreio = "*Complete o seu cadastro informando sua localização para ativação das funções de rastreio de pet."
+    }
 
     return (
         <>

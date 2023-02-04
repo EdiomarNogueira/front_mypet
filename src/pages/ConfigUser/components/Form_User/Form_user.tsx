@@ -1,6 +1,6 @@
 import styles from './styles.module.css';
 import { useDispatch } from 'react-redux';
-import { useContext, useEffect, useState, FormEvent } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../../contexts/Auth/AuthContext';
 import { useApi } from "../../../../hooks/useApi";
 import { useApiLocation } from '../../../../hooks/useApiGeolocation';
@@ -26,6 +26,7 @@ import {
     setUser_Road,
     setUser_Work,
 } from '../../../../redux/reducers/userReducer';
+
 
 export const FormUser = () => {
     //var [userCurrent, setUserCurrent] = useState<User | null>(null);
@@ -81,7 +82,7 @@ export const FormUser = () => {
 
     const loadDadosUser = async () => {
         setLoading(true);
-        let json = await api.getDadosUser();
+        var json = await api.getDadosUser();
         if (json) {
             //setUserCurrent(json.user);
             setDados(json.user);
@@ -91,11 +92,15 @@ export const FormUser = () => {
 
 
     const loadCidade = async (road: string, city: string, district: string) => {
-        let json = await apiLocation.getLocation(road, city, district);
-
-        if (json[0].lat && json[0].lon) {
-            dispatch(setUser_Latitude(json[0].lat));
-            dispatch(setUser_Longitude(json[0].lon));
+        console.log(road, city, district)
+        if (road && city && district) {
+            var json = await apiLocation.getLocation(road, city, district);
+            if (json.lat && json.lon) {
+                dispatch(setUser_Latitude(json.lat));
+                dispatch(setUser_Longitude(json.lon));
+                console.log('lat', json.lat);
+                console.log('lon', json.lon);
+            }
         }
     }
 
@@ -106,7 +111,7 @@ export const FormUser = () => {
             alert("Informe o seu endereço (rua, bairro, cidade), com o cadastro completo poderemos auxiliar caso o seu pet fuja.")
         }
 
-        let json = await api.putUser(
+        var json = await api.putUser(
             user.name,
             user.email,
             user.password,
@@ -132,13 +137,13 @@ export const FormUser = () => {
 
 
     useEffect(() => {
-
-        loadCidade(user.road, user.city, user.district);
+        if (user.road && user.city && user.district) {
+            loadCidade(user.road, user.city, user.district);
+        }
     }, [user.road && user.city && user.district]);
 
     useEffect(() => {
         loadDadosUser();
-
     }, []);
 
     return (

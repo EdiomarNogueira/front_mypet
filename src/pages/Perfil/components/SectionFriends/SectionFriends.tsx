@@ -1,10 +1,10 @@
 import styles from './styles.module.css';
 import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { useApi } from "../../hooks/useApi";
+import { AuthContext } from '../../../../contexts/Auth/AuthContext';
+import { useApi } from "../../../../hooks/useApi";
 import { Link, useParams } from 'react-router-dom';
-import { Pets } from '../../types/Pets';
-import { User } from '../../types/User';
+import { Pets } from '../../../../types/Pets';
+import { User } from '../../../../types/User';
 
 // type Props = {
 //     text?: string; //interrogação deixa a prop não obrigatória 

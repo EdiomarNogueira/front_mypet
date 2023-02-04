@@ -41,6 +41,7 @@ export const Form_Add_Pet = () => {
     const loadUser = async () => {
         let json = await api.getUserMe();
         if (json) {
+            console.log('dados user', json);
             setDadosUser(json);
         }
     }
@@ -49,7 +50,7 @@ export const Form_Add_Pet = () => {
 
     const handleRegister = async () => {
         if (pet.name && pet.species && pet.situation) {
-            let json = await api.postCreatepet(pet.name, pet.id_user, pet.species, pet.birthdate, pet.situation, pet.latitude, pet.longitude);
+            let json = await api.postCreatepet(pet.name, pet.id_user, pet.species, pet.birthdate, pet.situation, user.latitude, user.longitude);
             if (json.success) {
                 setSuccess(json.success);
             } else {

@@ -2,8 +2,6 @@ import styles from './styles.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../../contexts/Auth/AuthContext';
 import { Link, useParams } from 'react-router-dom';
-import { SectionListRecommended } from '../../../../components/SectionListRecommended/SectionListRecommended';
-import { SectionFriends } from '../../../../components/SectionFriends/SectionFriends';
 type Props = {
     text?: string; //interrogação deixa a prop não obrigatória 
 }
