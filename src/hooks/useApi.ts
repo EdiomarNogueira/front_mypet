@@ -1,12 +1,9 @@
 import axios from "axios";
-
 const api = axios.create({
     baseURL: "http://127.0.0.1:8000/api",
     //baseURL: "http://187.44.236.16:8000/api",
     //baseURL: "http://127.0.0.1:5173/api",
-    //baseURL:process.env.REACT_APP_API
 });
-
 
 
 function refreshConfig() {

@@ -1,7 +1,5 @@
 import styles from './styles.module.css';
-import { useDispatch } from 'react-redux';
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../../../contexts/Auth/AuthContext';
+import { useEffect, useState } from 'react';
 import { useApi } from "../../../../hooks/useApi";
 import { useApiLocation } from '../../../../hooks/useApiGeolocation';
 import { FormAvatarUser } from '../Form_Avatar_User/Form_Avatar_User';
@@ -27,18 +25,19 @@ import {
     setUser_Work,
 } from '../../../../redux/reducers/userReducer';
 
+import { useDispatch } from 'react-redux';
 
 export const FormUser = () => {
-    //var [userCurrent, setUserCurrent] = useState<User | null>(null);
-
-    const auth = useContext(AuthContext);
-
-    const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState('');
-    const [error, setError] = useState('');
+    const [success, setSuccess] = useState("");
+    const [error, setError] = useState("");
     const dispatch = useDispatch();
+
     const user = useAppSelector(state => state.user);
 
+
+
+    //const auth = useContext(AuthContext);
+    //const [loading, setLoading] = useState(false);
     var api = useApi();
     var apiLocation = useApiLocation();
 
@@ -81,25 +80,22 @@ export const FormUser = () => {
     }
 
     const loadDadosUser = async () => {
-        setLoading(true);
+        //setLoading(true);
         var json = await api.getDadosUser();
         if (json) {
             //setUserCurrent(json.user);
             setDados(json.user);
         }
-        setLoading(false);
+        //setLoading(false);
     }
 
 
     const loadCidade = async (road: string, city: string, district: string) => {
-        console.log(road, city, district)
         if (road && city && district) {
             var json = await apiLocation.getLocation(road, city, district);
             if (json.lat && json.lon) {
                 dispatch(setUser_Latitude(json.lat));
                 dispatch(setUser_Longitude(json.lon));
-                console.log('lat', json.lat);
-                console.log('lon', json.lon);
             }
         }
     }

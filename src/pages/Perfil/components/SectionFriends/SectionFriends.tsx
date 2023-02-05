@@ -5,7 +5,6 @@ import { useApi } from "../../../../hooks/useApi";
 import { Link, useParams } from 'react-router-dom';
 import { Pets } from '../../../../types/Pets';
 import { User } from '../../../../types/User';
-
 // type Props = {
 //     text?: string; //interrogação deixa a prop não obrigatória 
 // }
@@ -30,6 +29,7 @@ export const SectionFriends = () => {
         let $cont = 0;
         setLoading(true);
         let json = await api.getDadosUserPerfil(params.id_user);
+        console.log('teste', params.id_user);
         if (json) {
             setUser(json.user);
         }
@@ -82,11 +82,12 @@ export const SectionFriends = () => {
 
     useEffect(() => {
         loadRelations();
-    }, [count]);
+        loadDadosUser();
+    }, [params]);
 
     useEffect(() => {
         loadRelations();
-    }, [currentPerPage]);
+    }, [currentPerPage, count]);
 
     return (
         <>
@@ -97,11 +98,18 @@ export const SectionFriends = () => {
                         <div className={styles.area_user} >
                             {friends.map((item, index) => (
                                 <div className={styles.card_user} key={index}>
-                                    <Link to={'/User/' + item.id} >
+                                    {/* <Link to={'/User/' + item.id + '/connections'}>
                                         <div className={styles.flex_row}>
                                             <img className={styles.avatar} src={item?.avatar} alt="avatar user" loading="lazy" />
                                             <p>{item.name}</p>
                                         </div>
+                                    </Link> */}
+                                    <Link to={'/User/' + item.id}>
+                                        <div className={styles.flex_row}>
+                                            <img className={styles.avatar} src={item?.avatar} alt="avatar user" loading="lazy" />
+                                            <p>{item.name}</p>
+                                        </div>
+
                                     </Link>
                                     <div className={styles.area_follow}>
 

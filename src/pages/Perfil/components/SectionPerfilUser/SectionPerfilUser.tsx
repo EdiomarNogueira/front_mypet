@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import styles from './styles.module.css';
 import { useApi } from '../../../../hooks/useApi';
 import { Link, useParams } from 'react-router-dom';
@@ -30,11 +30,11 @@ import {
     setUser_Work,
 } from '../../../../redux/reducers/userReducer';
 import { useDispatch } from 'react-redux';
+import { AuthContext } from '../../../../contexts/Auth/AuthContext';
 
-export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
+export const SectionPerfilUser = (props: { id_user: any}) => {
 
     let id_user = props.id_user;
-    let me = props.isMe;
 
     const [viewGaleria, setViewGaleria] = useState(true);
     const [currentPerPage, setCurrentPerPage] = useState(0);
@@ -42,6 +42,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     const [isFollowing, setIsFollowing] = useState(false);
     const user = useAppSelector(state => state.user);
     const params = useParams();
+    const auth = useContext(AuthContext);
     const dispatch = useDispatch();
 
     var api = useApi();
@@ -49,6 +50,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
 
     const setDadosUser = async (user_dados:
         {
+            id: Number;
             name: String;
             email: String;
             password: String;
@@ -74,7 +76,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
             avatar: String;
             cover: String;
         }) => {
-
+        dispatch(setUser_Name(user_dados?.id));
         dispatch(setUser_Name(user_dados?.name));
         dispatch(setUser_Email(user_dados?.email));
         dispatch(setUser_Password(user_dados?.password));
@@ -153,6 +155,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     let longitude = ' -';
     let photoCount = ' -';
     let status = ' -';
+
 
     if (user?.birthdate) {
         data_nascimento = user?.birthdate;
@@ -235,7 +238,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
     useEffect(() => {
         loadDadosUser();
         handleVerificFollow();
-    }, []);
+    }, [params]);
 
     useEffect(() => {
         const intersectionObserver = new IntersectionObserver((entries) => {
@@ -259,8 +262,9 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                     </div>
                     <div className={styles.flex_row}>
                         <h2>{user?.name}</h2>
-                        {me &&
-                            <div className={styles.area_config}>
+
+                        {auth.user?.id == id_user &&
+                            < div className={styles.area_config}>
                                 <Link to={'/user/config'}>
                                     <div className={styles.btn_config}>
                                         <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" loading="lazy" />
@@ -301,7 +305,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
 
                     </div>
                     <div className={styles.area_follow}>
-                        {!me &&
+                        {auth.user?.id != id_user &&
                             <div onClick={handleFollowUnfollow} className={styles.follow_unfollow}>
                                 {!isFollowing &&
                                     <p className={styles.follow}>Seguir</p>
@@ -316,7 +320,7 @@ export const SectionPerfilUser = (props: { id_user: any, isMe: any }) => {
                         <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Seguidores: {seguidores}</Link>
                     </div>
                     <div className={styles.infors_section}>
-                        {!me &&
+                        {auth.user?.id != id_user &&
                             <div className={styles.area_action_user}>
                                 <Link className={styles.btn_action} to={'/user/' + id_user + '/mypets'}>Ver Pets</Link>
                                 <Link className={styles.btn_action} to={'/user/' + id_user + '/gallery'}>Galeria de Fotos</Link>

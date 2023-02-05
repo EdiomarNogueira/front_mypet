@@ -14,7 +14,7 @@ export const Perfil = () => {
     const auth = useContext(AuthContext);
     let id_user = auth.user?.id;
     const params = useParams();
-
+    const [userPage, setUserPage] = useState('');
 
     useEffect(() => {
         if (id_user == params.id_user) {
@@ -22,20 +22,27 @@ export const Perfil = () => {
         }
     }, []);
 
+    useEffect(() => {
+
+    }, [params.id_user]);
+
     return (
         <div className={styles.home}>
             <Header title="Um Novo Amigo" />
             <div className={styles.area_body}>
                 <div className={styles.area_sidebar}>
-                    {me &&
+                    <SidebarPerfilUser />
+                    {/* <SidebarPerfilContact /> */}
+
+                    {/* {me &&
                         <SidebarPerfilUser />
                     }
-                    {!me &&
+                    {me == false &&
                         <SidebarPerfilContact />
-                    }
+                    } */}
                 </div>
                 <div className={styles.area_posts}>
-                    <SectionPerfilUser id_user={params.id_user} isMe={me} />
+                    <SectionPerfilUser id_user={params.id_user} />
                 </div>
                 <div className={styles.area_3}>
                     AREA 3

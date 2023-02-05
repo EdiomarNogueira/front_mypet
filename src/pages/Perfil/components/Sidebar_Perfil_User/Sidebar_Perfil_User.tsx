@@ -21,8 +21,8 @@ export const SidebarPerfilUser = () => {
             </div>
             <div className={styles.divisao_menu}>
                 <ul>
-                    <li><Link to={'/user/' + id_user + '/mypets'}>Pets</Link></li>
-                    <li><Link to={'/user/' + id_user + '/gallery'}>Galeria de Fotos</Link></li>
+                    <li><Link to={'/user/' + id_user + '/mypets'}>Meus Pets</Link></li>
+                    <li><Link to={'/user/' + id_user + '/gallery'}>Minhas Fotos</Link></li>
                 </ul>
             </div>
             <div className={styles.divisao_menu}>
