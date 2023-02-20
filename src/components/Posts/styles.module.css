@@ -354,6 +354,17 @@
     padding: 10px;
 }
 
+.interacoes_alert {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-top: 1px solid #5b74994b;
+    border-bottom: 1px solid #5b74994b;
+    margin-top: 5;
+    padding: 10px;
+}
+
+
 .interacao_like {
     flex: 1;
 }

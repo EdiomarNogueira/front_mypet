@@ -38,9 +38,8 @@ export const Login = () => {
             <div className={styles.container}>
                 <div className={styles.login_desc}>
                     <h1>Seja Bem Vindo</h1>
-                    <p>O Um Novo Amigo é uma rede social pensada para amantes de Pets e ONGs voltadas para com cuidado aos nossos amigos de quatro patas.</p>
+                    <p>MeuPetAqui é uma rede social pensada para amantes de Pets e ONGs voltadas para com cuidado aos nossos amigos de quatro patas.</p>
                     <h2><Link to="/auth/user_register">Efetuar Cadastro</Link></h2>
-
                 </div>
 
 

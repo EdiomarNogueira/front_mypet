@@ -102,7 +102,7 @@ export const FormUser = () => {
 
     const handleRegister = async () => {
         if (user.road && user.city && user.district) {
-            alert("Iremos registrar o seu endereço, com ele poderemos auxiliar caso o seu pet fuja.")
+            alert("Iremos registrar o seu endereço, com isso poderemos auxiliar na localização do seu pet.")
         } else {
             alert("Informe o seu endereço (rua, bairro, cidade), com o cadastro completo poderemos auxiliar caso o seu pet fuja.")
         }
@@ -192,6 +192,18 @@ export const FormUser = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
+                            <label htmlFor="phone">Telefone</label>
+                            <InputMask
+                                type="text"
+                                value={user.phone}
+                                onChange={(element) => { dispatch(setUser_Phone(element.target.value)) }}
+                                id="phone"
+                                mask="(99)99999-9999"
+                                required
+                                placeholder={user?.phone}
+                            />
+                        </div>
+                        <div className={styles.single_input}>
                             <label htmlFor="password">Senha</label>
                             <input
                                 type="password"
@@ -210,20 +222,9 @@ export const FormUser = () => {
                                 <option value="2">Ong</option>
                             </select>
                         </div>
+
                         <div className={styles.single_input}>
-                            <label htmlFor="phone">Telefone</label>
-                            <InputMask
-                                type="text"
-                                value={user.phone}
-                                onChange={(element) => { dispatch(setUser_Phone(element.target.value)) }}
-                                id="phone"
-                                mask="(99)99999-9999"
-                                required
-                                placeholder={user?.phone}
-                            />
-                        </div>
-                        <div className={styles.single_input}>
-                            <label htmlFor="birthdate">Data Nascimento</label>
+                            <label htmlFor="birthdate">Nascimento</label>
                             <input
                                 type="date"
                                 value={user.birthdate}
@@ -240,17 +241,7 @@ export const FormUser = () => {
                                 <option value="2">Feminino</option>
                             </select>
                         </div>
-                        <div className={styles.single_input}>
-                            <label htmlFor="road">Rua/Avenida</label>
-                            <input
-                                type="road"
-                                value={user.road}
-                                onChange={(element) => { dispatch(setUser_Road(element.target.value)) }}
-                                id="road"
-                                required
-                                placeholder="Informe a rua de seu endereço"
-                            />
-                        </div>
+
                         <div className={styles.single_input}>
                             <label htmlFor="work">Profissão</label>
                             <input
@@ -262,28 +253,7 @@ export const FormUser = () => {
                                 placeholder={user?.work}
                             />
                         </div>
-                        <div className={styles.single_input}>
-                            <label htmlFor="city">Cidade</label>
-                            <input
-                                type="city"
-                                value={user.city}
-                                onChange={(element) => { dispatch(setUser_City(element.target.value)) }}
-                                id="city"
-                                required
-                                placeholder={user?.city}
-                            />
-                        </div>
-                        <div className={styles.single_input}>
-                            <label htmlFor="district">Bairro</label>
-                            <input
-                                type="district"
-                                value={user.district}
-                                onChange={(element) => { dispatch(setUser_District(element.target.value)) }}
-                                id="district"
-                                required
-                                placeholder="Bairro"
-                            />
-                        </div>
+
                         <div className={styles.single_input}>
                             <label htmlFor="biography">Biografia</label>
                             <input
@@ -318,6 +288,47 @@ export const FormUser = () => {
                                 placeholder="Facebook"
                             />
                         </div>
+
+
+                        <div className={styles.inputs_location}>
+                            <div className={styles.input_note}>
+                                <p>Informe a sua localização para encontrar os usuários próximos à você e para que possamos se necessário, ajudar a localizar o seu pet.</p>
+                            </div>
+                            <div className={styles.single_input}>
+                                <label htmlFor="city">Cidade</label>
+                                <input
+                                    type="city"
+                                    value={user.city}
+                                    onChange={(element) => { dispatch(setUser_City(element.target.value)) }}
+                                    id="city"
+                                    required
+                                    placeholder={user?.city}
+                                />
+                            </div>
+                            <div className={styles.single_input}>
+                                <label htmlFor="district">Bairro</label>
+                                <input
+                                    type="district"
+                                    value={user.district}
+                                    onChange={(element) => { dispatch(setUser_District(element.target.value)) }}
+                                    id="district"
+                                    required
+                                    placeholder="Bairro"
+                                />
+                            </div>
+                            <div className={styles.single_input}>
+                                <label htmlFor="road">Rua/Avenida</label>
+                                <input
+                                    type="road"
+                                    value={user.road}
+                                    onChange={(element) => { dispatch(setUser_Road(element.target.value)) }}
+                                    id="road"
+                                    required
+                                    placeholder="Informe a rua de seu endereço"
+                                />
+                            </div>
+                        </div>
+
                         <div className={styles.area_btn}>
                             <button className={styles.btn_register} onClick={handleRegister}>Atualizar Dados</button>
                         </div>

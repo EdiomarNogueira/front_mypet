@@ -5,6 +5,7 @@ import { Publish } from '../../types/Publish';
 import { FormPost } from '../Form_Post/FormPost';
 import { Likes } from '../Like/Like';
 import { NewComment } from '../NewComment/Comment';
+import { NewCommentAlert } from '../NewCommentAlert/CommentAlert';
 import { Link, useNavigate } from 'react-router-dom';
 import { Comments } from '../Comments/Comments';
 import { Alerts } from '../../types/Alerts';
@@ -19,6 +20,7 @@ type Props = {
 export const Posts = () => { //{ title }: Props
     const [loading, setLoading] = useState(true);
     const [comment_post, setCommentPost] = useState(1);
+    const [comment_alert, setCommentAlert] = useState(1);
     const [currentPerPage, setCurrentPerPage] = useState(2);
     const [currentPerPageAlerts, setCurrentPerPageAlerts] = useState(2);
     const [createPost, setCreatePost] = useState(1);
@@ -64,15 +66,19 @@ export const Posts = () => { //{ title }: Props
         setLoading(false);
     }
 
-
-    window.onscroll = function () {
-        if (
-            window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
-        ) {
-            setCurrentPerPageAlerts((currentPerPageAlertsInsideState) => currentPerPageAlertsInsideState + 5);
-            setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 5);
-        }
+    const handleMorePosts = async () => {
+        setCurrentPerPageAlerts((currentPerPageAlertsInsideState) => currentPerPageAlertsInsideState + 5);
+        setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 5);
     }
+
+    // window.onscroll = function () {
+    //     if (
+    //         window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
+    //     ) {
+    //         setCurrentPerPageAlerts((currentPerPageAlertsInsideState) => currentPerPageAlertsInsideState + 5);
+    //         setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 5);
+    //     }
+    // }
 
     const handleNewPostCallback = (newPost: any) => {
         //setExistUpdates(false);
@@ -86,6 +92,10 @@ export const Posts = () => { //{ title }: Props
         setCommentPost(comment_post + newComment);
     }
 
+    const handleCommentAlertCallback = (newCommentAlert: any) => {
+
+        setCommentAlert(comment_alert + newCommentAlert);
+    }
     const handlePostsFriends = async () => {
         loadPosts();
         setPostsFriends(true);
@@ -107,9 +117,11 @@ export const Posts = () => { //{ title }: Props
     const handleDeleteAlert = async (id_alert: Number, id_pet: any, situation: Number) => {
         let json = await api.postDeleteAlert(id_alert, id_pet, situation, auth.user?.id);
         if (json) {
-            alert('Atualize seus dados com a nova situação.');
+            alert('Atualize a situação do pet caso tenha sido encontrado.');
             setDeletedAlert(id_pet);
+            navigate('/user/' + auth.user?.id + '/mypet/' + id_pet + '/config/');
         }
+
     }
 
     // const handleStartCount = async () => {
@@ -226,7 +238,6 @@ export const Posts = () => { //{ title }: Props
                 }
                 {!loading && posts.length > 0 &&
                     <>
-
                         <div className={styles.container}>
                             {viewPostsFriends == true &&
                                 <div className={styles.container_justify_content}>
@@ -281,8 +292,7 @@ export const Posts = () => { //{ title }: Props
                                                     <NewComment id={item.id} parentCommentCallBack={handleCommentCallback} />
                                                 </div>
                                             </div>
-                                            <div>
-                                            </div>
+
                                             <details>
                                                 <summary>
                                                     Comentários
@@ -298,14 +308,19 @@ export const Posts = () => { //{ title }: Props
                                             </details>
                                         </div>
                                     ))}
+
                                 </div>
+
                             }
 
                         </div>
+
                     </>
+
                 }
+
                 {!loading && alerts.length > 0 &&
-                    <div>
+                    <div className={styles.container}>
                         {viewAlerts == true &&
                             <div className={styles.container_alert}>
                                 {alerts.map((item, index) => (
@@ -315,13 +330,14 @@ export const Posts = () => { //{ title }: Props
                                             <div className={styles.flex_row}>
                                                 <img className={styles.avatar} src={item.avatar_tutor} alt="avatar" loading="lazy" />
                                                 <div className={styles.name_data}>
-                                                    <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>{item.name_tutor}</Link>
+                                                    <p className={styles.user_name}></p><Link className={styles.link_name} to={'/user/' + item.id_user}>{item.name_tutor}</Link>
                                                     <p className={styles.data_post}>{item.date_register}</p>
                                                 </div>
                                             </div>
                                             {auth.user?.id == item.id_user &&
                                                 <div className={styles.area_btn_deletar}>
                                                     <p onClick={() => handleDeleteAlert(item.id, item.id_pet, item.situation)} className={styles.btn_deletar}><img src="src\media\icons\trash.png" alt="deletar alert" /></p>
+
                                                 </div>
                                             }
                                         </div>
@@ -344,11 +360,19 @@ export const Posts = () => { //{ title }: Props
                                                     </div>
                                                     <div className={styles.body_alert_lost}>
                                                         <div className={styles.area_photo_alert}>
-                                                            <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                            <Link to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>
+
+                                                                <img className={styles.photo_alert} src={item.photo} alt="imagem pet para adoção" />
+
+                                                            </Link>
                                                         </div>
                                                         <div className={styles.area_infor}>
                                                             <ul>
-                                                                <li><h1>{item.name_pet}</h1></li>
+                                                                <li>
+                                                                    <Link to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>
+                                                                        <h1>{item.name_pet}</h1>
+                                                                    </Link>
+                                                                </li>
                                                                 <li><h5>Raça: {item.breed}</h5></li>
                                                                 {item.size == 1 &&
                                                                     <li><h5>Porte: Pequeno</h5></li>
@@ -404,11 +428,17 @@ export const Posts = () => { //{ title }: Props
                                                     </div>
                                                     <div className={styles.body_alert_lost}>
                                                         <div className={styles.area_photo_alert}>
-                                                            <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                            <Link to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>
+                                                                <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                            </Link>
                                                         </div>
                                                         <div className={styles.area_infor}>
                                                             <ul>
-                                                                <li><h1>{item.name_pet}</h1></li>
+                                                                <li>
+                                                                    <Link to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>
+                                                                        <h1>{item.name_pet}</h1>
+                                                                    </Link>
+                                                                </li>
                                                                 <li><h5>Raça: {item.breed}</h5></li>
                                                                 {item.size == 1 &&
                                                                     <li><h5>Porte: Pequeno</h5></li>
@@ -441,6 +471,29 @@ export const Posts = () => { //{ title }: Props
                                                                 <li><h2>Telefone: {item.phone} </h2></li>
                                                             </ul>
                                                         </div>
+                                                        < div className={styles.interacoes_alert} >
+                                                            <p>Você viu este pet?</p>
+                                                            <details>
+                                                                <summary>Onde ele foi visto?</summary>
+                                                                <div className={styles.interacao_comment}>
+                                                                    <NewCommentAlert id={item.id} parentCommentAlertCallBack={handleCommentAlertCallback} />
+                                                                </div>
+                                                            </details>
+
+                                                        </div>
+                                                        {/* <details>
+                                                            <summary>
+                                                                Comentários
+                                                            </summary>
+                                                            <div className={styles.area_comments}>
+
+                                                                {item.comments.map((comment_post, index) => (
+                                                                    <div key={index}>
+                                                                        <Comments comments={comment_post} parentCommentCallBack={handleCommentCallback} />
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        </details> */}
                                                     </div>
                                                 </>
                                             }
@@ -462,11 +515,19 @@ export const Posts = () => { //{ title }: Props
                                                     </div>
                                                     <div className={styles.body_alert_lost}>
                                                         <div className={styles.area_photo_alert}>
-                                                            <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                            <Link to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>
+
+                                                                <img className={styles.photo_alert} src={item.photo} alt="imagem pet encontrado" />
+
+                                                            </Link>
                                                         </div>
                                                         <div className={styles.area_infor}>
                                                             <ul>
-                                                                <li><h1>{item.name_pet}</h1></li>
+                                                                <li>
+                                                                    <Link to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>
+                                                                        <h1>{item.name_pet}</h1>
+                                                                    </Link>
+                                                                </li>
                                                                 <li><h5>Raça: {item.breed}</h5></li>
                                                                 {item.size == 1 &&
                                                                     <li><h5>Porte: Pequeno</h5></li>
@@ -521,11 +582,19 @@ export const Posts = () => { //{ title }: Props
                                                     </div>
                                                     <div className={styles.body_alert_lost}>
                                                         <div className={styles.area_photo_alert}>
-                                                            <img className={styles.photo_alert} src={item.photo} alt="imagem pet perdido" />
+                                                            <Link to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>
+
+                                                                <img className={styles.photo_alert} src={item.photo} alt="imagem pet em tratamento" />
+
+                                                            </Link>
                                                         </div>
                                                         <div className={styles.area_infor}>
                                                             <ul>
-                                                                <li><h1>{item.name_pet}</h1></li>
+                                                                <li>
+                                                                    <Link to={'/user/' + item.id_user + '/mypet/' + item.id_pet}>
+                                                                        <h1>{item.name_pet}</h1>
+                                                                    </Link>
+                                                                </li>
                                                                 <li><h5>Raça: {item.breed}</h5></li>
                                                                 {item.size == 1 &&
                                                                     <li><h5>Porte: Pequeno</h5></li>
@@ -566,12 +635,21 @@ export const Posts = () => { //{ title }: Props
                                     </div>
 
                                 ))}
+
                             </div>
 
                         }
+
+
                     </div>
                 }
-                {!loading && posts.length == 0 &&
+
+                {!loading && posts.length > 0 && viewPostsFriends == true &&
+                    <div onClick={() => handleMorePosts()}>
+                        <h4>veja mais</h4>
+                    </div>
+                }
+                {!loading && posts.length == 0 && viewPostsFriends == true &&
                     <div>
                         <div className={styles.sem_post}>Faça o seu primeiro post, mostre para a gente o seu Pet</div>
                     </div>

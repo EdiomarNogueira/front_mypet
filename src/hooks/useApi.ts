@@ -274,7 +274,6 @@ export const useApi = () => ({
         return response.data;
     },
 
-
     getVerificFollow: async (id_user: any) => {
         var config = {
             headers: {
@@ -321,6 +320,30 @@ export const useApi = () => ({
     postDeleteComment: async (id_delete: Number, id_user: any) => {
         var config_headers = refreshConfig();
         const response = await api.post('/feed/comment/delete/', { id_delete, id_user }, config_headers);
+        return response.data;
+    },
+
+    newCommentAlert: async (
+        id_alert: Number,
+        id_user: any,
+        addText: String,
+        date_found: String,
+        latitude: String,
+        longitude: String,
+        road: String,
+        city: String,
+        district: String,
+        photo: File
+    ) => {
+        var config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                'Authorization': "Bearer " + localStorage.getItem('authToken')
+            },
+        };
+        const response = await api.post('/alert/' + id_alert + '/comment/', {
+            id_alert, id_user, addText, date_found, latitude, longitude, road, city, district, photo
+        }, config);
         return response.data;
     },
 

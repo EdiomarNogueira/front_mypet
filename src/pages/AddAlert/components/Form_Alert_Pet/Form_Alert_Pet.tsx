@@ -176,17 +176,19 @@ export const FormAlertPet = () => {
             alert('O seu cadastro de perfil está incompleto, complete seu endereço para gerar alertas!');
         }
 
-        if (params.id_pet && params.id_user && file && file.size > 0 && pet.name && addText && pet.situation && date_occurrence && user.road && user.district && user.city && user.email && user.phone && latitude && longitude) {
+        if (params.id_pet && params.id_user && file && file.size > 0 && pet.name && addText && pet.situation && date_occurrence && user.road && user.district && user.city && user.email && user.phone && user.latitude && user.longitude) {
             let photo = file;
             let id_user = parseInt(params.id_user);
             let id_pet = parseInt(params.id_pet);
-            let json = await api.postNewAlertPet(photo, id_pet, id_user, pet.name, addText, pet.situation, date_occurrence, user.road, user.district, user.city, user.email, user.phone, latitude, longitude); //CRIAR INSERÇÃO DE ALERTA
+            let json = await api.postNewAlertPet(photo, id_pet, id_user, pet.name, addText, pet.situation, date_occurrence, user.road, user.district, user.city, user.email, user.phone, user.latitude, user.longitude); //CRIAR INSERÇÃO DE ALERTA
+            console.log(json);
             if (json.success) {
                 setSuccess(json.success);
+                console.log("enviou alerta");
             } else {
                 setError(json.error);
+                console.log(" não enviou alerta");
             }
-
         } else {
             alert("Preencha todos os campos!");
         }
@@ -214,7 +216,6 @@ export const FormAlertPet = () => {
         }
     }
 
-
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) {
             return;
@@ -236,7 +237,8 @@ export const FormAlertPet = () => {
         loadDadosPet();
     }, []);
 
-
+    //https://react-leaflet.js.org/
+    //LINK PARA MAPA
     return (
         <>
             <div className={styles.area_return} >

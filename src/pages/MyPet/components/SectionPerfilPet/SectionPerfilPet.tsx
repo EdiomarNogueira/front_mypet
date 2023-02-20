@@ -252,7 +252,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
                                 </div>
                             </div>
                             <div>
-                                <p>{infor_cadastro}</p>
+                                <Link to={'/user/' + pet.id_user}><p>{infor_cadastro}</p></Link>
                             </div>
                             {msg_rastreio &&
                                 <p className={styles.msg_rastreio}>{msg_rastreio}</p>

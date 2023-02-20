@@ -12,7 +12,7 @@ export const ConfigPet = () => {
 
     return (
         <div className={styles.home}>
-            <Header title="Um Novo Amigo" />
+            <Header title="MeuPetAqui" />
             <div className={styles.area_body}>
                 <div className={styles.area_sidebar}>
                     <Sidebar />

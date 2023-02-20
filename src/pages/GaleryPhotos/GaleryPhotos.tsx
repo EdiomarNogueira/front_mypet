@@ -92,7 +92,7 @@ export const Gallery = () => {
     return (
         <div className={styles.home}>
             <div>
-                <Header title="Um Novo Amigo" />
+                <Header title="MeuPetAqui" />
             </div>
             <div className={styles.area_body}>
                 <div className={styles.area_sidebar}>

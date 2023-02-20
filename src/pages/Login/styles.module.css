@@ -83,7 +83,7 @@
 .btn_login:hover {
     color: #FFF;
     font-weight: bold;
-    margin-top: 38px;
+    
     background-color: #3661b1;
     box-shadow: 4px 2px 4px 1px rgb(95, 95, 95);
 }

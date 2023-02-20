@@ -154,7 +154,7 @@ export const RGA = (props: {
                     </div>
                     <div className={styles.area_rga_verso}>
                         <div className={styles.rga_verso}>
-                            <p className={styles.horientacao_horizontal}>O RGAPET do Um Novo Amigo é um documento fake, a sua função é facilitar o reconhecimento do tutor do pet, mas não possui valor legal.</p>
+                            <p className={styles.horientacao_horizontal}>O RGAPET do MeuPetAqui é um documento fake, a sua função é facilitar o reconhecimento do tutor do pet, mas não possui valor legal.</p>
 
                             <QRCode size={180} value={"http://187.44.236.16:3000/user/" + pet.id_user + "/mypet/" + pet.id} />
                             <p className={styles.horientacao_horizontal}>QRCode Dados Pet</p>
