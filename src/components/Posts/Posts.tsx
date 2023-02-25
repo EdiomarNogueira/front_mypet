@@ -11,6 +11,7 @@ import { Comments } from '../Comments/Comments';
 import { Alerts } from '../../types/Alerts';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { isEmpty } from 'lodash';
+import { MapPetAlert } from '../MapPetAlert/MapPetAlert';
 
 type Props = {
     // title?: string; //interrogação deixa a prop não obrigatória 
@@ -475,10 +476,19 @@ export const Posts = () => { //{ title }: Props
                                                             <p>Você viu este pet?</p>
                                                             <details>
                                                                 <summary>Onde ele foi visto?</summary>
+                                                                <br></br>
                                                                 <div className={styles.interacao_comment}>
                                                                     <NewCommentAlert id={item.id} parentCommentAlertCallBack={handleCommentAlertCallback} />
                                                                 </div>
+
                                                             </details>
+                                                            <details>
+                                                                <summary>Registros:</summary>
+                                                                <div>
+                                                                    <MapPetAlert id_alert={item.id} id_pet={item.id_pet} />
+                                                                </div>
+                                                            </details>
+
 
                                                         </div>
                                                         {/* <details>
@@ -645,6 +655,11 @@ export const Posts = () => { //{ title }: Props
                 }
 
                 {!loading && posts.length > 0 && viewPostsFriends == true &&
+                    <div onClick={() => handleMorePosts()}>
+                        <h4>veja mais</h4>
+                    </div>
+                }
+                {!loading && alerts.length > 0 && viewAlerts == true &&
                     <div onClick={() => handleMorePosts()}>
                         <h4>veja mais</h4>
                     </div>

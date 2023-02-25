@@ -248,6 +248,17 @@ export const useApi = () => ({
         return response.data;
     },
 
+    getPositionsAlert: async (id_alert: Number, id_pet: Number) => {
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken'),
+            },
+        };
+        const response = await api.get('/alert/' + id_alert + '/pet/' + id_pet + '/positions', config);
+        return response.data;
+    },
+
     getUserMe: async () => {
         var config_headers = refreshConfig();
         const response = await api.get('/auth/me', config_headers);

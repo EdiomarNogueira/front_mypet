@@ -34,3 +34,6 @@ npm i html-to-image -> converter div em imagem
 
 npm install redux react-redux @reduxjs/toolkit
 
+MAPA 
+npm install react react-dom leaflet
+https://react-leaflet.js.org/docs/start-installation/

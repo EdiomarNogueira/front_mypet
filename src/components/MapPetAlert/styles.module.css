@@ -1,0 +1,11 @@
+/* required styles */
+
+.area_map {
+    height: 480px;
+}
+
+.photo_pet_location {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
