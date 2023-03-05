@@ -12,7 +12,7 @@ import { Alerts } from '../../types/Alerts';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { isEmpty } from 'lodash';
 import { MapPetAlert } from '../MapPetAlert/MapPetAlert';
-
+import Checkbox from '../Checkbox/checkbox';
 type Props = {
     // title?: string; //interrogação deixa a prop não obrigatória 
 }
@@ -33,6 +33,16 @@ export const Posts = () => { //{ title }: Props
     const [existUpdates, setExistUpdates] = useState(false);
     const [countPosts, setCountPosts] = useState(0);
     const [countLoop, setCountLoop] = useState(0);
+    const [isCheckedEncontrado, setIsCheckedEncontrado] = useState(false);
+
+    const [isCheckedPerdido, setIsCheckedPerdido] = useState(false);
+    const handleChangeEncontrado = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsCheckedEncontrado(e.target.checked);
+    };
+
+    const handleChangePerdido = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsCheckedPerdido(e.target.checked);
+    };
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
     var api = useApi();
@@ -324,6 +334,36 @@ export const Posts = () => { //{ title }: Props
                     <div className={styles.container}>
                         {viewAlerts == true &&
                             <div className={styles.container_alert}>
+                                <div>
+                                    <div>
+                                        <Checkbox
+                                            handleChange={handleChangeEncontrado}
+                                            isChecked={isCheckedEncontrado}
+                                            label="Encontrados"
+                                        />
+                                    </div>
+                                    <div>
+                                        <Checkbox
+                                            handleChange={handleChangePerdido}
+                                            isChecked={isCheckedPerdido}
+                                            label="Perdidos"
+                                        />
+                                    </div>
+                                    <div>
+                                        <Checkbox
+                                            handleChange={handleChangePerdido}
+                                            isChecked={isCheckedPerdido}
+                                            label="Para Adoção"
+                                        />
+                                    </div>
+                                    <div>
+                                        <Checkbox
+                                            handleChange={handleChangePerdido}
+                                            isChecked={isCheckedPerdido}
+                                            label="Em Tratamento"
+                                        />
+                                    </div>
+                                </div>
                                 {alerts.map((item, index) => (
                                     <div className={styles.area_alert} key={index}>
 

@@ -52,10 +52,9 @@ export const MapPetAlert = (props: { id_alert: number, id_pet: number }) => {
                         {item.latitude && item.longitude && item.longitude != '' && item.longitude != '' &&
                             <>
                                 {index == 0 ?
-                                    <Circle pathOptions={circle_color_red} center={[parseFloat(item.latitude), parseFloat(item.longitude)]} radius={150} >
+                                    <Circle pathOptions={circle_color_red} center={[parseFloat(item.latitude), parseFloat(item.longitude)]} radius={200} >
                                         <Popup>
                                             <div>
-                                                <p>{index}</p>
                                                 <p>Obs:{item.body}</p>
                                                 <p>Em:{item.date_found}</p>
                                                 {item.photo &&
