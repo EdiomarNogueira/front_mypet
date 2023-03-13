@@ -147,7 +147,7 @@ export const SectionConnectionsUser = () => {
                             {/* <List_Relations relations={friends} /> */}
                             {friends.map((item, index) => (
 
-                                <div className={styles.area_user}>
+                                <div className={styles.area_user} key={index}>
                                     <div className={styles.flex_row}>
                                         <Link to={'/User/' + item.id} >
                                             <div className={styles.flex_row}>
@@ -177,7 +177,7 @@ export const SectionConnectionsUser = () => {
                         <div className={styles.list_relations}>
                             {/* <List_Relations relations={followers} /> */}
                             {followers.map((item, index) => (
-                                <div className={styles.area_user}>
+                                <div className={styles.area_user} key={index}>
                                     <div className={styles.flex_row}>
                                         <Link to={'/User/' + item.id} >
                                             <div className={styles.flex_row}>
@@ -207,7 +207,7 @@ export const SectionConnectionsUser = () => {
                         <div className={styles.list_relations}>
                             {/* <List_Relations relations={followings} /> */}
                             {followings.map((item, index) => (
-                                <div className={styles.area_user}>
+                                <div className={styles.area_user} key={index}>
                                     <div className={styles.flex_row}>
                                         <Link to={'/User/' + item.id} >
                                             <div className={styles.flex_row}>

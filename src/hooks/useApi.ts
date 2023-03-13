@@ -226,14 +226,19 @@ export const useApi = () => ({
     },
 
 
-    getAlerts: async (currentPerPageAlerts: any) => {
+    getAlerts: async (
+        currentPerPageAlerts: Number,
+        isCheckedEncontrado: Boolean,
+        isCheckedPerdido: Boolean,
+        isCheckedAdocao: Boolean,
+        isCheckedTratamento: Boolean) => {
         var config = {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "Bearer " + localStorage.getItem('authToken'),
             }
         };
-        const response = await api.get('/user/alert/?perPage=' + currentPerPageAlerts, config);
+        const response = await api.get('/user/alert/' + isCheckedEncontrado + '/' + isCheckedPerdido + '/' + isCheckedAdocao + '/' + isCheckedTratamento+'?perPage=' + currentPerPageAlerts, config);
         return response.data;
     },
 

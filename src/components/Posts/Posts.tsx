@@ -34,8 +34,10 @@ export const Posts = () => { //{ title }: Props
     const [countPosts, setCountPosts] = useState(0);
     const [countLoop, setCountLoop] = useState(0);
     const [isCheckedEncontrado, setIsCheckedEncontrado] = useState(false);
-
     const [isCheckedPerdido, setIsCheckedPerdido] = useState(false);
+    const [isCheckedAdocao, setIsCheckedAdocao] = useState(false);
+    const [isCheckedTratamento, setIsCheckedTratamento] = useState(false);
+
     const handleChangeEncontrado = (e: React.ChangeEvent<HTMLInputElement>) => {
         setIsCheckedEncontrado(e.target.checked);
     };
@@ -43,6 +45,15 @@ export const Posts = () => { //{ title }: Props
     const handleChangePerdido = (e: React.ChangeEvent<HTMLInputElement>) => {
         setIsCheckedPerdido(e.target.checked);
     };
+
+    const handleChangeAdocao = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsCheckedAdocao(e.target.checked);
+    };
+
+    const handleChangeTratamento = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsCheckedTratamento(e.target.checked);
+    };
+
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
     var api = useApi();
@@ -68,8 +79,9 @@ export const Posts = () => { //{ title }: Props
 
     const loadAlerts = async () => {
         setLoading(true);
-        let json = await api.getAlerts(currentPerPageAlerts);
+        let json = await api.getAlerts(currentPerPageAlerts, isCheckedEncontrado, isCheckedPerdido, isCheckedAdocao, isCheckedTratamento);
         if (json) {
+            console.log(json);
             if (alerts != json.alerts) {
                 setAlerts(json.alerts);
             }
@@ -211,7 +223,7 @@ export const Posts = () => { //{ title }: Props
 
     useEffect(() => {
         loadAlerts();
-    }, [currentPerPageAlerts]);
+    }, [currentPerPageAlerts, isCheckedEncontrado, isCheckedPerdido, isCheckedAdocao, isCheckedTratamento]);
 
     useEffect(() => {
         loadPosts();
@@ -334,7 +346,7 @@ export const Posts = () => { //{ title }: Props
                     <div className={styles.container}>
                         {viewAlerts == true &&
                             <div className={styles.container_alert}>
-                                <div>
+                                <div className={styles.area_filtro_alert}>
                                     <div>
                                         <Checkbox
                                             handleChange={handleChangeEncontrado}
@@ -351,15 +363,15 @@ export const Posts = () => { //{ title }: Props
                                     </div>
                                     <div>
                                         <Checkbox
-                                            handleChange={handleChangePerdido}
-                                            isChecked={isCheckedPerdido}
+                                            handleChange={handleChangeAdocao}
+                                            isChecked={isCheckedAdocao}
                                             label="Para Adoção"
                                         />
                                     </div>
                                     <div>
                                         <Checkbox
-                                            handleChange={handleChangePerdido}
-                                            isChecked={isCheckedPerdido}
+                                            handleChange={handleChangeTratamento}
+                                            isChecked={isCheckedTratamento}
                                             label="Em Tratamento"
                                         />
                                     </div>
@@ -707,6 +719,38 @@ export const Posts = () => { //{ title }: Props
                 {!loading && posts.length == 0 && viewPostsFriends == true &&
                     <div>
                         <div className={styles.sem_post}>Faça o seu primeiro post, mostre para a gente o seu Pet</div>
+                    </div>
+                }
+                {!loading && alerts.length == 0 && viewAlerts == true &&
+                    <div className={styles.area_filtro_alert}>
+                        <div>
+                            <Checkbox
+                                handleChange={handleChangeEncontrado}
+                                isChecked={isCheckedEncontrado}
+                                label="Encontrados"
+                            />
+                        </div>
+                        <div>
+                            <Checkbox
+                                handleChange={handleChangePerdido}
+                                isChecked={isCheckedPerdido}
+                                label="Perdidos"
+                            />
+                        </div>
+                        <div>
+                            <Checkbox
+                                handleChange={handleChangeAdocao}
+                                isChecked={isCheckedAdocao}
+                                label="Para Adoção"
+                            />
+                        </div>
+                        <div>
+                            <Checkbox
+                                handleChange={handleChangeTratamento}
+                                isChecked={isCheckedTratamento}
+                                label="Em Tratamento"
+                            />
+                        </div>
                     </div>
                 }
             </div >

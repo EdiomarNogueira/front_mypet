@@ -384,6 +384,26 @@
     background-color: red;
 }
 
+.area_filtro_alert {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 10px;
+    border-bottom: 2px solid rgba(87, 88, 92, 0.082);
+    border-top: 2px solid rgba(87, 88, 92, 0.082);
+    width: 100%;
+}
+
+.area_filtro_alert div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.area_filtro_alert div label {
+    margin-right: 5px;
+}
 
 .area_marked_pets {
     padding: 10px;
