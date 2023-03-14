@@ -22,9 +22,9 @@
     justify-content: center;
 }
 
-.area_3 {
+.area_sidebar_ong {
     flex: 1;
-    height: 100%;
+    min-height: 100%;
     display: flex;
     justify-content: center;
 }
@@ -32,7 +32,7 @@
 
 @media (max-width: 1080px) {
 
-    .area_3 {
+    .area_sidebar_ong {
         display: none;
     }
 }

@@ -5,7 +5,7 @@ import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
 import { Sidebar } from '../../components/SideBar/Sidebar';
 import { FormAlertPet } from './components/Form_Alert_Pet/Form_Alert_Pet';
-
+import { SidebarOngs } from '../../components/SidebarOngs/SidebarOngs';
 export const AddAlert = () => {
     const auth = useContext(AuthContext);
 
@@ -19,8 +19,8 @@ export const AddAlert = () => {
                 <div className={styles.area_posts}>
                     <FormAlertPet />
                 </div>
-                <div className={styles.area_3}>
-                    AREA 3
+                <div className={styles.area_sidebar_ong}>
+                    <SidebarOngs />
                 </div>
             </div>
             <Footer text="Todos os direitos reservados"></Footer>

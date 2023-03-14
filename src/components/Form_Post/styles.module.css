@@ -95,9 +95,14 @@
     padding: 10px;
 }
 
+.area_sidebar_ong {
+    flex: 1;
+    min-height: 100%;
+}
+
 @media (max-width: 1080px) {
 
-    .area_3 {
+    .area_sidebar_ong {
         display: none;
     }
 }

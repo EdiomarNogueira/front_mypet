@@ -22,9 +22,9 @@
     flex: 2;
 }
 
-.area_3 {
+.area_sidebar_ong {
     flex: 1;
-    height: 100%;
+    min-height: 100%;
 }
 
 .avatar {
@@ -88,11 +88,15 @@
     background-color: #1d2a448c;
 }
 
+.area_sidebar_ong {
+    flex: 1;
+    min-height: 100%;
+}
 
 
 @media (max-width: 1080px) {
 
-    .area_3 {
+    .area_sidebar_ong {
         display: none;
     }
 }

@@ -1,0 +1,57 @@
+
+
+.sidebar_area {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    background-color: #cdd0d6;
+}
+
+.sidebar_area_ongs {
+
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.divisao_menu {
+    width: 240px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    background-color: #FFF;
+    border-radius: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.divisao_menu ul li {
+    margin: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    list-style-type: none;
+    color: rgb(68, 96, 119);
+}
+
+.divisao_menu:hover {
+    background-color: #404452;
+    text-decoration: none;
+}
+
+.divisao_menu:hover ul li a {
+    color: #FFF !important;
+
+}
+
+.sidebar_area_ongs_titulo {
+    padding: 10px;
+}
+
+/* link que foi visitado */
+a:visited {
+    color: rgb(68, 96, 119);
+}
+
+a:hover {
+    color: #27272b !important;
+}

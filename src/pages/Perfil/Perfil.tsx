@@ -7,6 +7,7 @@ import { SidebarPerfilUser } from './components/Sidebar_Perfil_User/Sidebar_Perf
 import { SectionPerfilUser } from './components/SectionPerfilUser/SectionPerfilUser';
 import { SidebarPerfilContact } from './components/Sidebar_Perfil_Contact/Sidebar_Perfil_Contact';
 import { Header } from './components/Header/Header';
+import { SidebarOngs } from '../../components/SidebarOngs/SidebarOngs';
 
 
 export const Perfil = () => {
@@ -44,8 +45,8 @@ export const Perfil = () => {
                 <div className={styles.area_posts}>
                     <SectionPerfilUser id_user={params.id_user} />
                 </div>
-                <div className={styles.area_3}>
-                    AREA 3
+                <div className={styles.area_sidebar_ong}>
+                    <SidebarOngs />
                 </div>
             </div>
 

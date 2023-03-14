@@ -5,6 +5,7 @@ import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
 import { Sidebar } from '../../components/SideBar/Sidebar';
 import { FormUser } from './components/Form_User/Form_user';
+import { SidebarOngs } from '../../components/SidebarOngs/SidebarOngs';
 
 export const ConfigUser = () => {
     const auth = useContext(AuthContext);
@@ -19,8 +20,8 @@ export const ConfigUser = () => {
                 <div className={styles.area_posts}>
                     <FormUser />
                 </div>
-                <div className={styles.area_3}>
-                    AREA 3
+                <div className={styles.area_sidebar_ong}>
+                    <SidebarOngs />
                 </div>
             </div>
 

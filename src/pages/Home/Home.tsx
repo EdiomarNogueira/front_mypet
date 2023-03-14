@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
 import { Sidebar } from '../../components/SideBar/Sidebar';
+import { SidebarOngs } from '../../components/SidebarOngs/SidebarOngs';
 
 export const Home = () => {
     const auth = useContext(AuthContext);
@@ -20,8 +21,8 @@ export const Home = () => {
                 <div className={styles.area_posts}>
                     <Posts />
                 </div>
-                <div className={styles.area_3}>
-                    AREA 3
+                <div className={styles.area_ongs}>
+                    <SidebarOngs />
                 </div>
             </div>
 

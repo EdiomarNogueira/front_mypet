@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { Sidebar } from '../../components/SideBar/Sidebar';
 import styles from './styles.module.css';
 import { SectionMyPets } from './components/SectionMyPets/SectionMyPets';
+import { SidebarOngs } from '../../components/SidebarOngs/SidebarOngs';
 
 
 export const MyPets = () => {
@@ -33,8 +34,8 @@ export const MyPets = () => {
                 <div className={styles.area_posts}>
                     <SectionMyPets />
                 </div>
-                <div className={styles.area_3}>
-                    AREA 3
+                <div className={styles.area_sidebar_ong}>
+                    <SidebarOngs />
                 </div>
             </div>
 

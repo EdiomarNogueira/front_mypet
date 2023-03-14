@@ -11,6 +11,7 @@ import { Publish } from '../../types/Publish';
 import { useApi } from '../../hooks/useApi';
 import { FormPost } from '../../components/Form_Post/FormPost';
 import { User } from '../../types/User';
+import { SidebarOngs } from '../../components/SidebarOngs/SidebarOngs';
 
 
 export const Gallery = () => {
@@ -108,7 +109,7 @@ export const Gallery = () => {
                         <div className={styles.area_user_galeria}>
                             <div className={styles.area_flex}>
                                 <div className={styles.user_ident}>
-                                    <img className={styles.avatar} src={user?.avatar} alt="Avatar usuário" loading="lazy"/>
+                                    <img className={styles.avatar} src={user?.avatar} alt="Avatar usuário" loading="lazy" />
                                     <h3>{user?.name}</h3>
                                 </div>
                                 <div className={styles.area_btn_voltar}>
@@ -119,13 +120,13 @@ export const Gallery = () => {
                         </div>
 
                     }
-              
+
                     <UserGallery id={params.id_user} isMe={me} posts={posts} />
                     <div className={styles.sentinela} id='sentinela' />
 
                 </div>
-                <div className={styles.area_3}>
-                    AREA 3
+                <div className={styles.area_sidebar_ong}>
+                    <SidebarOngs />
                 </div>
             </div>
             <Footer text="Todos os direitos reservados"></Footer>

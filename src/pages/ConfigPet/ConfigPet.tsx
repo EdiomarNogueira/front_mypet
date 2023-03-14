@@ -6,6 +6,7 @@ import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
 import { Sidebar } from '../../components/SideBar/Sidebar';
 import { FormPet } from './components/Form_Pet/Form_Pet';
+import { SidebarOngs } from '../../components/SidebarOngs/SidebarOngs';
 
 export const ConfigPet = () => {
     const auth = useContext(AuthContext);
@@ -20,8 +21,8 @@ export const ConfigPet = () => {
                 <div className={styles.area_posts}>
                     <FormPet />
                 </div>
-                <div className={styles.area_3}>
-                    AREA 3
+                <div className={styles.area_sidebar_ong}>
+                    <SidebarOngs />
                 </div>
             </div>
 

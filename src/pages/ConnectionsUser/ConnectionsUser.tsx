@@ -7,6 +7,7 @@ import { AuthContext } from '../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
 import { Sidebar } from '../../components/SideBar/Sidebar';
 import { SectionConnectionsUser } from './components/SectionConnectionsUser/SectionConnectionsUser';
+import { SidebarOngs } from '../../components/SidebarOngs/SidebarOngs';
 
 export const ConnectionsUser = () => {
     const auth = useContext(AuthContext);
@@ -21,8 +22,8 @@ export const ConnectionsUser = () => {
                 <div className={styles.area_posts}>
                     <SectionConnectionsUser />
                 </div>
-                <div className={styles.area_3}>
-                    AREA 3
+                <div className={styles.area_sidebar_ong}>
+                    <SidebarOngs />
                 </div>
             </div>
 
