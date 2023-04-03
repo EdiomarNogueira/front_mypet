@@ -18,22 +18,22 @@ export const SidebarOngs = () => {
                 </div>
                 <div className={styles.divisao_menu}>
                     <ul>
-                        <li><Link to="/">Para Adoção</Link></li>
+                        <li><Link to="/ongs/pets/adocao">Para Adoção</Link></li>
                     </ul>
                 </div>
                 <div className={styles.divisao_menu}>
                     <ul>
-                        <li><Link to="/">Ajude o Tratamento</Link></li>
+                        <li><Link to="/ongs/pets/tratamento">Ajude o Tratamento</Link></li>
                     </ul>
                 </div>
                 <div className={styles.divisao_menu}>
                     <ul>
-                        <li><Link to="/">Perdidos</Link></li>
+                        <li><Link to="/ongs/pets/perdidos">Perdidos</Link></li>
                     </ul>
                 </div>
                 <div className={styles.divisao_menu}>
                     <ul>
-                        <li><Link to="/">Encontrados</Link></li>
+                        <li><Link to="/ongs/pets/encontrados">Encontrados</Link></li>
                     </ul>
                 </div>
 

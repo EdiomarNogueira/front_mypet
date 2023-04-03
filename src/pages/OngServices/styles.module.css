@@ -1,13 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .home {
     width: 100%;
-    min-height: 100vh;
 }
 
 .area_body {
     display: flex;
     justify-content: center;
     margin-top: 70px;
-
 }
 
 .area_sidebar {
@@ -17,22 +21,24 @@
     justify-content: center;
 }
 
-
 .area_posts {
     flex: 2;
 }
 
-.area_sidebar_ong {
+.area_ongs {
     flex: 1;
     min-height: 100%;
 }
 
+
 @media (max-width: 1080px) {
 
-    .area_sidebar_ong {
+    .area_ongs {
         display: none;
     }
 }
+
+
 
 @media (max-width: 860px) {
 

@@ -238,7 +238,7 @@ export const useApi = () => ({
                 'Authorization': "Bearer " + localStorage.getItem('authToken'),
             }
         };
-        const response = await api.get('/user/alert/' + isCheckedEncontrado + '/' + isCheckedPerdido + '/' + isCheckedAdocao + '/' + isCheckedTratamento+'?perPage=' + currentPerPageAlerts, config);
+        const response = await api.get('/user/alert/' + isCheckedEncontrado + '/' + isCheckedPerdido + '/' + isCheckedAdocao + '/' + isCheckedTratamento + '?perPage=' + currentPerPageAlerts, config);
         return response.data;
     },
 
@@ -488,6 +488,13 @@ export const useApi = () => ({
         var config_headers = refreshConfig();
 
         const response = await api.get('/user/' + id_user + '/pet', config_headers);
+        return response.data;
+    },
+
+    gePetsOngs: async (situation: Number) => {
+        var config_headers = refreshConfig();
+
+        const response = await api.get('ong/pets/' + situation, config_headers);
         return response.data;
     },
 

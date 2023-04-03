@@ -15,6 +15,7 @@ import { UserRegister } from '../pages/UserRegister';
 import { ConnectionsUser } from '../pages/ConnectionsUser/ConnectionsUser';
 import { ConfigPet } from '../pages/ConfigPet/ConfigPet';
 import { AddAlert } from '../pages/AddAlert/AddAlert';
+import { OngService } from '../pages/OngServices/OngService';
 
 export const MainRoutes = () => {
   //ROTAS ATRAVÉS DE OBJETOS (useRoutes)
@@ -35,6 +36,7 @@ export const MainRoutes = () => {
     { path: '/user/:id_user/mypets', element: <RequireAuth><MyPets /></RequireAuth> },
     { path: '/user/:id_user/add/mypet', element: <RequireAuth><MyPetsAdd /></RequireAuth> },
     { path: '/user/:id_user/mypet/:slug', element: <RequireAuth><MyPet /></RequireAuth> },
+    { path: '/ongs/pets/:slug', element: <RequireAuth><OngService/></RequireAuth>},
     { path: '*', element: <NotFound /> }
   ]
 

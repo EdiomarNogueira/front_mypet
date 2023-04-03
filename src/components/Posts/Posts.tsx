@@ -626,7 +626,7 @@ export const Posts = () => { //{ title }: Props
                                                 </>
 
                                             }
-                                            {item.situation == 6 &&
+                                            {item.situation == 5 &&
                                                 <>
                                                     <div className={styles.header_alert_treatment}>
                                                         {item.species == 1 &&
