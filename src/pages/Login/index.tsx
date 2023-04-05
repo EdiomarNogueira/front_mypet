@@ -37,14 +37,16 @@ export const Login = () => {
 
             <div className={styles.container}>
                 <div className={styles.login_desc}>
-                    <h1>Seja Bem Vindo</h1>
-                    <p>MeuPetAqui é uma rede social pensada para amantes de Pets e ONGs voltadas para com cuidado aos nossos amigos de quatro patas.</p>
+                <div className={styles.login_desc_background}></div>
+
+                    <h1>Criar Conta</h1>
+                    <p>Bem-vindo ao MeuPetAqui, a rede social dedicada aos amantes de pets e ONGs que se preocupam com o cuidado dos nossos amigos de quatro patas.</p>
                     <h2><Link to="/auth/user_register">Efetuar Cadastro</Link></h2>
                 </div>
 
 
                 <div className={styles.login_inputs} onSubmit={handleLogin}>
-                   
+
                     <div className={styles.text_login}>
                         <h1>Olá! <br />Seja bem vindo novamente.</h1>
                         <h3>Faça o seu login...</h3>
@@ -72,7 +74,7 @@ export const Login = () => {
                         />
                     </div>
                     <div className={styles.area_btn}>
-                        <button className={styles.btn_login} onClick={handleLogin}>Logar</button>
+                        <button className={styles.btn_login} onClick={handleLogin}>Entrar</button>
                     </div>
                 </div>
             </div>

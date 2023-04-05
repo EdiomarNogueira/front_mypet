@@ -38,7 +38,7 @@
     text-decoration: none;
 }
 
-.divisao_menu:hover ul li a {
+.divisao_menu:hover ul li {
     color: #FFF !important;
 
 }

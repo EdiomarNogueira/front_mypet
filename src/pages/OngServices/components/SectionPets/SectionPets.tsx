@@ -68,10 +68,15 @@ export const SectionPets = () => {
                                                     <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy" />
                                                 </div>
                                             </div>
-                                            <div>
-                                                <p>Idade aproximada:{item.age}</p>
-                                                <p></p>
-                                            </div>
+                                            {/* <ul className={styles.dados_pet}>
+                                                <li>Espécie: {item.species}</li>
+                                                <li>Idade: {item.age}</li>
+                                                <li>Raça: {item.breed}</li>
+                                                <li>Porte: {item.size}</li>
+                                                <li>Castração: {item.castrated}</li>
+                                                <li>Genêro: {item.genre}</li>
+                                                <li>Pelagem: {item.fur}</li>
+                                            </ul> */}
                                         </div>
                                         </Link>
                                     </div>
