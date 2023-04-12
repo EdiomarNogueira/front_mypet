@@ -12,9 +12,7 @@
 
 .area_sidebar {
     flex: 1;
-    height: 100%;
-    display: flex;
-    justify-content: center;
+    background-color: rgb(175, 183, 206);
 }
 
 .area_posts {

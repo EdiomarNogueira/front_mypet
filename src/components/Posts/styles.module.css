@@ -310,7 +310,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    padding: 5px;
 }
 
 .post_text {
@@ -339,9 +339,7 @@
 .subtitle {
     width: 100%;
     padding: 5px 10px;
-
-    border: 2px solid #3f495736;
-    background-color: #f0f2f5;
+    border: 1px solid #3f495736;
 }
 
 .interacoes {

@@ -11,10 +11,14 @@ export const UserRegister = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    // const [password, setPassword] = useState('');
     const [birthdate, setBirthdate] = useState('');
     const [category, setCategory] = useState("1");
     const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [passwordStrength, setPasswordStrength] = useState<string>('');
+    const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
 
     const handleNameInput = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
@@ -22,9 +26,9 @@ export const UserRegister = () => {
     const handleEmailInput = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     }
-    const handlePasswordInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
-    }
+    // const handlePasswordInput = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setPassword(event.target.value);
+    // }
     const handleBirthdateInput = (event: ChangeEvent<HTMLInputElement>) => {
         setBirthdate(event.target.value);
     }
@@ -37,10 +41,70 @@ export const UserRegister = () => {
 
     var api = useApi();
 
-    const handleRegister = async () => {
-        if (name && email && password && category && phone && birthdate ) {
+    const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        if (name === 'password') {
+            setPassword(value);
+            setPasswordMatch(value === confirmPassword);
+            const strength = checkPasswordStrength(value);
+            setPasswordStrength(strength);
+        } else {
+            setConfirmPassword(value);
+            setPasswordMatch(value === password);
+        }
+    };
 
-            let json = await api.postCreateuser(name, email, password, birthdate, category, phone,  );
+    const checkPasswordStrength = (password: string): string => {
+        let strength = '';
+        const lowercaseRegex = /(?=.*[a-z])/;
+        const uppercaseRegex = /(?=.*[A-Z])/;
+        const numberRegex = /(?=.*\d)/;
+        const specialCharRegex = /(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/;
+
+        if (password.length < 4) {
+            strength = 'Muito fraca';
+        } else if (password.length < 6) {
+            if (
+                lowercaseRegex.test(password) ||
+                uppercaseRegex.test(password) ||
+                numberRegex.test(password) ||
+                specialCharRegex.test(password)
+            ) {
+                strength = 'Fraca';
+            } else {
+                strength = 'Média';
+            }
+        } else if (password.length < 8) {
+            if (
+                lowercaseRegex.test(password) &&
+                uppercaseRegex.test(password) &&
+                numberRegex.test(password) &&
+                specialCharRegex.test(password)
+            ) {
+                strength = 'Forte';
+            } else {
+                strength = 'Média';
+            }
+        } else {
+            if (
+                lowercaseRegex.test(password) &&
+                uppercaseRegex.test(password) &&
+                numberRegex.test(password) &&
+                specialCharRegex.test(password)
+            ) {
+                strength = 'Muito forte';
+            } else {
+                strength = 'Forte';
+            }
+        }
+
+        return strength;
+    };
+
+    const handleRegister = async () => {
+        if (name && email && password && category && phone && birthdate && passwordMatch && (passwordStrength === 'Forte' || passwordStrength === 'Muito forte')) {
+
+            let json = await api.postCreateuser(name, email, password, birthdate, category, phone,);
 
             if (json.status) {
                 const isLogged = await auth.signin(email, password);
@@ -52,7 +116,13 @@ export const UserRegister = () => {
             }
 
         } else {
-            alert("Preencha todos os dados!");
+            if (!passwordMatch) {
+                alert("A senha deve coincidir com a senha de confirmação!");
+            } else if (passwordStrength === 'Muito fraca' || passwordStrength == 'Fraca' || passwordStrength == 'Media') {
+                alert("A senha informada tem segurança insuficiente! Senha " + passwordStrength);
+            } else {
+                alert("Preencha todos os dados!");
+            }
         }
     }
 
@@ -68,28 +138,30 @@ export const UserRegister = () => {
                 <div className={styles.register_inputs} onSubmit={handleRegister}>
 
                     <div className={styles.single_input}>
-                        <label htmlFor="name">Nome: </label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={handleNameInput}
-                            id="name"
-                            required
-                            placeholder="Digite seu nome"
-                        />
+                        <label htmlFor="name">Nome:
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={handleNameInput}
+                                id="name"
+                                required
+                                placeholder="Digite seu nome"
+                            />
+                        </label>
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="email">Email: </label>
-                        <input
-                            type="text"
-                            value={email}
-                            onChange={handleEmailInput}
-                            id="email"
-                            required
-                            placeholder="Digite seu e-mail"
-                        />
+                        <label htmlFor="email">Email:
+                            <input
+                                type="text"
+                                value={email}
+                                onChange={handleEmailInput}
+                                id="email"
+                                required
+                                placeholder="Digite seu e-mail"
+                            />
+                        </label>
                     </div>
-                    <div className={styles.single_input}>
+                    {/* <div className={styles.single_input}>
                         <label htmlFor="password">Senha: </label>
                         <input
                             type="password"
@@ -99,17 +171,50 @@ export const UserRegister = () => {
                             onChange={handlePasswordInput}
                             placeholder="Digite sua senha"
                         />
+                    </div> */}
+                    <div className={styles.single_input}>
+                        <label htmlFor="password">
+                            Senha:
+                            <input
+                                type="password"
+                                name="password"
+                                value={password}
+                                required
+                                onChange={handlePasswordInput}
+                            />
+                        </label>
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="category">Categoria: </label>
-                        <select name="category" id="category" value={category} required onChange={cat => setCategory(cat.target.value)} >
-                            <option value="1">Usuário</option>
-                            <option value="2">Ong</option>
-                        </select>
+                        <label htmlFor="confirmPassword">
+                            Confirmar Senha:
+                            <input
+                                type="password"
+                                name="confirmPassword"
+                                value={confirmPassword}
+                                onChange={handlePasswordInput}
+                            />
+                        </label>
+
+                    </div>
+                    <div className={styles.info_password}>
+                        {!passwordMatch && (
+                            <p style={{ color: 'red' }}>As senhas não correspondem.</p>
+                        )}
+                        {passwordMatch && (
+                            <p>Força da senha: {passwordStrength}</p>
+                        )}
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="phone">Telefone: </label>
-                        <InputMask 
+                        <label htmlFor="category">Categoria:
+                            <select name="category" id="category" value={category} required onChange={cat => setCategory(cat.target.value)} >
+                                <option value="1">Usuário</option>
+                                <option value="2">Ong</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div className={styles.single_input}>
+                        <label htmlFor="phone">Telefone:
+                            <InputMask
                                 type="text"
                                 value={phone}
                                 onChange={handlePhoneInput}
@@ -118,17 +223,19 @@ export const UserRegister = () => {
                                 required
                                 placeholder="Digite seu nº de telefone"
                             />
+                        </label>
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="birthdate">Data Nascimento: </label>
-                        <input
-                            type="date"
-                            value={birthdate}
-                            onChange={handleBirthdateInput}
-                            id="birthdate"
-                            required
-                            placeholder="Digite sua data de nascimento"
-                        />
+                        <label htmlFor="birthdate">Data Nascimento:
+                            <input
+                                type="date"
+                                value={birthdate}
+                                onChange={handleBirthdateInput}
+                                id="birthdate"
+                                required
+                                placeholder="Digite sua data de nascimento"
+                            />
+                        </label>
                     </div>
                     <div className={styles.area_btn}>
                         <button className={styles.btn_register} onClick={handleRegister}>Registrar-se</button>

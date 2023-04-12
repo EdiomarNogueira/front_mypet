@@ -4,7 +4,7 @@
     height: 100vh;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(120.6deg, #c0f3f3 40%, #83acfa 99.05%);
+    background: rgb(60, 192, 159);
 }
 
 .container {
@@ -17,12 +17,14 @@
 }
 
 .register_desc {
-    width: 360px;
+    min-width: 260px;
 }
 
 .register_desc h1 {
     margin-bottom: 10px;
     text-align: center;
+    color: rgb(60, 192, 159);
+    font-weight: 800;
 }
 
 .register_desc p {
@@ -32,11 +34,11 @@
 }
 
 .register_inputs {
-    border: 2px solid rgba(97, 94, 94, 0.226);
+    border: 1px solid rgba(97, 94, 94, 0.226);
     border-radius: 6px;
     margin-top: 20px;
-    width: 360px;
-    padding: 5px;
+    width: 80%;
+    padding: 10px;
 }
 
 .single_input {
@@ -46,10 +48,21 @@
     margin-top: 15px;
 }
 
+.single_input input {
+    width: 60%;
+    height: 40px;
+    border: none;
+    border-bottom: 1px solid rgb(60, 192, 159);
+    margin-left: 10px;
+}
+
 .single_input label {
     flex: 1;
     font-weight: bold;
     color: #2a3852;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .single_input input {
@@ -58,15 +71,43 @@
 }
 
 .single_input select {
-    height: 30px;
+    height: 40px;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgb(60, 192, 159);
 }
 
+.info_password {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
 
-.btn_register {
+/* .btn_register {
     width: 110px;
     height: 40px;
     margin-top: 40px;
-    float: right;
+    
     background-color: #ffffff;
     cursor: pointer;
+} */
+
+.btn_register {
+
+    margin-top: 40px;
+    font-size: larger;
+    font-weight: 600;
+    cursor: pointer;
+    float: right;
+    border: 2px solid rgb(60, 192, 159);
+    background-color: rgb(60, 192, 159);
+    color: #FFF;
+    padding: 10px 30px 15px 30px;
+    border-radius: 30px;
+}
+
+.btn_register:hover {
+    font-weight: bold;
+    color: rgb(60, 192, 159);
+    background-color: #FFF;
 }

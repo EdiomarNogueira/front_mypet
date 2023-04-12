@@ -24,7 +24,7 @@
 }
 
 .container {
-    background-color: rgb(255, 255, 255);
+    background-color: #E5E9F2;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -43,7 +43,7 @@
 }
 
 .login_desc {
-    background-color: rgb(60, 192, 159);
+    background-color:  rgb(91, 45, 145);
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -67,10 +67,11 @@
 
 .login_desc h2 {
     margin-top: 40px;
+    z-index: 10;
 }
 
 .login_desc h2 a {
-    color: rgb(60, 192, 159);
+    color:  rgb(91, 45, 145);
     text-decoration: none;
     border: 2px solid #FFF;
     background-color: #FFF;
@@ -81,7 +82,7 @@
 .login_desc h2 a:hover {
     margin-top: 40px;
     color: #FFF !important;
-    background-color: rgb(60, 192, 159);
+    background-color: rgb(91, 45, 145);
 
 }
 
@@ -98,8 +99,8 @@
     font-size: larger;
     font-weight: 600;
     cursor: pointer;
-    border: 2px solid rgb(60, 192, 159);
-    background-color: rgb(60, 192, 159);
+    border: 2px solid  rgb(91, 45, 145);
+    background-color:  rgb(91, 45, 145);
     color: #FFF;
 
     padding: 10px 30px 15px 30px;
@@ -108,7 +109,7 @@
 
 .btn_login:hover {
     font-weight: bold;
-    color: rgb(60, 192, 159);
+    color:  rgb(91, 45, 145);
     background-color: #FFF;
 }
 
@@ -125,7 +126,7 @@
     max-width: 420px;
     height: 40px;
     border: none;
-    border-bottom: 1px solid rgb(60, 192, 159);
+    border-bottom: 1px solid  rgb(91, 45, 145);
     margin-left: 10px;
 }
 
@@ -138,7 +139,7 @@
 }
 
 .text_login h1 {
-    color: rgb(60, 192, 159);
+    color:  rgb(91, 45, 145);
     font-weight: 800;
     margin-bottom: 30px;
 }

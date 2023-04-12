@@ -20,6 +20,12 @@
     background-color: #FFF;
 }
 
+.container_pets div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
 .container_pets h2 {
     margin-bottom: 10px;
     margin-right: 20px;

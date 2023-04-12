@@ -53,7 +53,7 @@ export const Header = ({ title }: Props) => {
                             <ul>
                                 <li><Link to="/Home">Home</Link></li>
                                 <li><Link to={'/User/' + id_user}>Meu Perfil</Link></li>
-                                <li><Link to="/User/config">Meus Dados</Link></li>
+                                {/* <li><Link to="/User/config">Meus Dados</Link></li> */}
                             </ul>
                         </div>
                         <div className={styles.divisao_menu}>

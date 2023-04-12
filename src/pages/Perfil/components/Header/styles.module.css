@@ -120,6 +120,7 @@
     margin-bottom: 10px;
     border-radius: 10px;
     width: 100%;
+    box-shadow: 0px 2px 4px 1px rgb(67, 114, 153);
 }
 
 .divisao_menu ul li {

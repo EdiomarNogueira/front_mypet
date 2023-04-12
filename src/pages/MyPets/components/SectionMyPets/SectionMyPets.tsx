@@ -111,6 +111,7 @@ export const SectionMyPets = () => {
                                         <div>
                                             <h2>Meu Pet Fugiu</h2>
                                         </div>
+
                                         <div className={styles.section_meus_pets}>
 
                                             {pets.map((item, index) => (

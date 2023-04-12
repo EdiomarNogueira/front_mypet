@@ -1,5 +1,5 @@
 .square {
-    background-color: #294369;
+    background-color: rgb(91, 45, 145);
     padding: 5px;
     margin: 0px;
     width: 100%;
@@ -33,7 +33,7 @@
 
 
 .logout:hover {
-    background-color: #4a668f;
+    background-color:  rgb(56, 28, 87);
     transition: 0.5s;
     border-radius: 180px;
 }
@@ -122,6 +122,7 @@
     margin-bottom: 10px;
     border-radius: 10px;
     width: 100%;
+    box-shadow: 0px 2px 4px 1px rgb(67, 114, 153);
 }
 
 .divisao_menu ul li {
