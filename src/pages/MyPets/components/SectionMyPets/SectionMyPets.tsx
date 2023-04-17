@@ -109,7 +109,7 @@ export const SectionMyPets = () => {
                                     </div>
                                     <div className={styles.container_pets}>
                                         <div>
-                                            <h2>Meu Pet Fugiu</h2>
+                                            <h2>Pet Desaparecido</h2>
                                         </div>
 
                                         <div className={styles.section_meus_pets}>
@@ -162,7 +162,7 @@ export const SectionMyPets = () => {
                                     {user?.category == '2' &&
                                         <div className={styles.container_pets}>
                                             <div>
-                                                <h2>EM Tratamento</h2>
+                                                <h2>Em Tratamento</h2>
                                             </div>
                                             <div className={styles.section_meus_pets}>
 

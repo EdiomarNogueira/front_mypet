@@ -12,6 +12,7 @@ export const SidebarOngs = () => {
     let id_user = auth.user?.id;
     return (
         <div className={styles.sidebar_area}>
+
             <div >
                 <div className={styles.sidebar_area_ongs}>
                     <h2>Pets De Ongs</h2>

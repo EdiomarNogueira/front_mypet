@@ -11,7 +11,6 @@
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(120.6deg, #c0f3f3 40%, #83acfa 99.05%);
 }
 
 
@@ -24,7 +23,7 @@
 }
 
 .container {
-    background-color: #E5E9F2;
+    background-color: #edfaf9;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -43,7 +42,7 @@
 }
 
 .login_desc {
-    background-color:  rgb(91, 45, 145);
+    background-color:   #00796B;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -71,7 +70,8 @@
 }
 
 .login_desc h2 a {
-    color:  rgb(91, 45, 145);
+    color: #00796B;
+    font-weight: 800;
     text-decoration: none;
     border: 2px solid #FFF;
     background-color: #FFF;
@@ -82,8 +82,7 @@
 .login_desc h2 a:hover {
     margin-top: 40px;
     color: #FFF !important;
-    background-color: rgb(91, 45, 145);
-
+    background-color:#00796B;
 }
 
 .area_btn {
@@ -99,8 +98,8 @@
     font-size: larger;
     font-weight: 600;
     cursor: pointer;
-    border: 2px solid  rgb(91, 45, 145);
-    background-color:  rgb(91, 45, 145);
+    border: 2px solid  #00796B;
+    background-color:  #00796B;
     color: #FFF;
 
     padding: 10px 30px 15px 30px;
@@ -109,7 +108,7 @@
 
 .btn_login:hover {
     font-weight: bold;
-    color:  rgb(91, 45, 145);
+    color:  #00796B;
     background-color: #FFF;
 }
 
@@ -126,7 +125,7 @@
     max-width: 420px;
     height: 40px;
     border: none;
-    border-bottom: 1px solid  rgb(91, 45, 145);
+    border-bottom: 1px solid  #00796B;
     margin-left: 10px;
 }
 
@@ -139,7 +138,7 @@
 }
 
 .text_login h1 {
-    color:  rgb(91, 45, 145);
+    color: #00796B;
     font-weight: 800;
     margin-bottom: 30px;
 }

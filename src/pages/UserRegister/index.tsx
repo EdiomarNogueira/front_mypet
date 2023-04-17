@@ -62,7 +62,7 @@ export const UserRegister = () => {
         const specialCharRegex = /(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/;
 
         if (password.length < 4) {
-            strength = 'Muito fraca';
+            strength = 'Muito Fraca';
         } else if (password.length < 6) {
             if (
                 lowercaseRegex.test(password) ||
@@ -92,7 +92,7 @@ export const UserRegister = () => {
                 numberRegex.test(password) &&
                 specialCharRegex.test(password)
             ) {
-                strength = 'Muito forte';
+                strength = 'Muito Forte';
             } else {
                 strength = 'Forte';
             }
@@ -102,7 +102,7 @@ export const UserRegister = () => {
     };
 
     const handleRegister = async () => {
-        if (name && email && password && category && phone && birthdate && passwordMatch && (passwordStrength === 'Forte' || passwordStrength === 'Muito forte')) {
+        if (name && email && password && category && phone && birthdate && passwordMatch && (passwordStrength === 'Forte' || passwordStrength === 'Muito Forte')) {
 
             let json = await api.postCreateuser(name, email, password, birthdate, category, phone,);
 
@@ -118,7 +118,7 @@ export const UserRegister = () => {
         } else {
             if (!passwordMatch) {
                 alert("A senha deve coincidir com a senha de confirmação!");
-            } else if (passwordStrength === 'Muito fraca' || passwordStrength == 'Fraca' || passwordStrength == 'Media') {
+            } else if (passwordStrength === 'Muito Fraca' || passwordStrength == 'Fraca' || passwordStrength == 'Média') {
                 alert("A senha informada tem segurança insuficiente! Senha " + passwordStrength);
             } else {
                 alert("Preencha todos os dados!");
@@ -132,7 +132,7 @@ export const UserRegister = () => {
             <div className={styles.container}>
                 <div className={styles.register_desc}>
                     <h1>Cadastre-se no MeuPetAqui</h1>
-                    <p>Fazendo parte do MyPet você poderá encontrar os amigos do seu pet e contar com diversas funcionalidades da plataforma.</p>
+                    <p>Faça parte do MeuPetAqui, siga e faça novos amigos e compartilhe os seus momentos com o seu pet.</p>
                 </div>
 
                 <div className={styles.register_inputs} onSubmit={handleRegister}>
@@ -201,17 +201,35 @@ export const UserRegister = () => {
                             <p style={{ color: 'red' }}>As senhas não correspondem.</p>
                         )}
                         {passwordMatch && (
-                            <p>Força da senha: {passwordStrength}</p>
+                            <div>
+                                {passwordStrength == "Muito Fraca" && (
+                                    <p>Força da senha: <strong style={{ color: 'red' }}>{passwordStrength}</strong></p>
+                                )}
+                                {passwordStrength == "Fraca" && (
+                                    <p>Força da senha: <strong style={{ color: 'orange' }}>{passwordStrength}</strong></p>
+                                )}
+                                {passwordStrength == "Média" && (
+                                    <p>Força da senha: <strong style={{ color: 'black' }}>{passwordStrength}</strong></p>
+                                )}
+                                {passwordStrength == "Forte" && (
+                                    <p>Força da senha: <strong style={{ color: 'green' }}>{passwordStrength}</strong></p>
+                                )}
+                                {passwordStrength == "Muito Forte" && (
+                                    <p>Força da senha: <strong style={{ color: 'green' }}>{passwordStrength}</strong></p>
+                                )}
+                            </div>
                         )}
                     </div>
                     <div className={styles.single_input}>
                         <label htmlFor="category">Categoria:
                             <select name="category" id="category" value={category} required onChange={cat => setCategory(cat.target.value)} >
                                 <option value="1">Usuário</option>
-                                <option value="2">Ong</option>
+                                <option value="2">Ong </option>
                             </select>
                         </label>
                     </div>
+                    <p>Perfis cadastrados como Ong serão avaliados e liberados em até 72h</p>
+
                     <div className={styles.single_input}>
                         <label htmlFor="phone">Telefone:
                             <InputMask

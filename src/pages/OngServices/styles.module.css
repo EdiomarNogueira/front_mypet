@@ -12,11 +12,13 @@
     display: flex;
     justify-content: center;
     margin-top: 70px;
+    min-height: calc(100vh - 40px);
+
 }
 
 .area_sidebar {
     flex: 1;
-    background-color: rgb(175, 183, 206);
+    background-color:#585e57;
 }
 
 .area_posts {

@@ -16,7 +16,6 @@ export const Headers = ({ title }: Props) => {
     const handleLogout = async () => {
         navigate('/auth/login');
         await auth.signout();
-
     }
 
     const menu_hamburguer = () => setIsActive(!isActive);

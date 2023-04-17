@@ -22,7 +22,7 @@
 .register_desc {
     margin-bottom: 20px;
     display: flex;
-    align-items: center;
+    align-items: left;
     justify-content: center;
     flex-direction: column;
     border-bottom: 1px solid rgba(88, 87, 87, 0.11);
@@ -30,7 +30,6 @@
 
 .register_desc p {
     margin-top: 10px;
-    width: 320px;
     text-align: justify;
     margin-bottom: 20px;
 }
@@ -61,7 +60,7 @@
     width: 200px;
     height: 40px;
     float: right;
-    background-color: #756df4;
+    background-color: #00796B;
     border: 0;
     font-weight: bold;
     color: #FFF;

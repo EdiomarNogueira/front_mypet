@@ -707,12 +707,12 @@ export const Posts = () => { //{ title }: Props
                 }
 
                 {!loading && posts.length > 0 && viewPostsFriends == true &&
-                    <div onClick={() => handleMorePosts()}>
+                    <div onClick={() => handleMorePosts()} className={styles.btn_veja_mais}>
                         <h4>veja mais</h4>
                     </div>
                 }
                 {!loading && alerts.length > 0 && viewAlerts == true &&
-                    <div onClick={() => handleMorePosts()}>
+                    <div onClick={() => handleMorePosts()}  className={styles.btn_veja_mais}>
                         <h4>veja mais</h4>
                     </div>
                 }

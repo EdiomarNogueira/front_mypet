@@ -7,6 +7,11 @@
     justify-content: center;
     margin-bottom: 40px;
     border-radius: 6px;
+    box-shadow: 0px 2px 4px 1px #4A4A4A;
+    transition: 0.3s;
+}
+
+.area_novo_post:hover {
     box-shadow: 0px 2px 4px 1px rgb(67, 114, 153);
 }
 
@@ -63,7 +68,7 @@
     width: 90px;
     height: 40px;
     float: right;
-    background-color: #756df4;
+    background-color: #00796B;
     border: 0;
     font-weight: bold;
     color: #FFF;
@@ -72,11 +77,12 @@
     border-radius: 10px;
     margin: 20px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 
 .btn_enviar:hover {
-    opacity: .9;
+    background-color: #00796B;
 }
 
 .Upload_Form {

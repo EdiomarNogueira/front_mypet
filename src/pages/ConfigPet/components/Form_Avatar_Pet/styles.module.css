@@ -7,7 +7,7 @@
     justify-content: center;
     margin-bottom: 40px;
     border-radius: 6px;
-    box-shadow: 0px 2px 4px 1px rgb(67, 114, 153);
+    box-shadow: 0px 2px 4px 1px #4A4A4A;
 }
 
 .area_input {
@@ -92,7 +92,7 @@
     width: 180px;
     height: 40px;
     float: right;
-    background-color: #756df4;
+    background-color: #00796B;
     border: 0;
     font-weight: bold;
     color: #FFF;

@@ -4,7 +4,7 @@
     height: 100vh;
     align-items: center;
     justify-content: center;
-    background: rgb(60, 192, 159);
+    background: #00796B;
 }
 
 .container {
@@ -23,18 +23,18 @@
 .register_desc h1 {
     margin-bottom: 10px;
     text-align: center;
-    color: rgb(60, 192, 159);
+    color: #00796B;
     font-weight: 800;
 }
 
 .register_desc p {
     padding: 5px;
     text-align: justify;
-    border-bottom: 1px solid rgba(63, 61, 61, 0.226);
+    border-bottom: 1px solid #00796B;
 }
 
 .register_inputs {
-    border: 1px solid rgba(97, 94, 94, 0.226);
+    border: 1px solid #00796B;
     border-radius: 6px;
     margin-top: 20px;
     width: 80%;
@@ -52,14 +52,14 @@
     width: 60%;
     height: 40px;
     border: none;
-    border-bottom: 1px solid rgb(60, 192, 159);
+    border-bottom: 1px solid #00796B;
     margin-left: 10px;
 }
 
 .single_input label {
     flex: 1;
     font-weight: bold;
-    color: #2a3852;
+    color: #00796B;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -74,7 +74,7 @@
     height: 40px;
     border-radius: 0;
     border: none;
-    border-bottom: 1px solid rgb(60, 192, 159);
+    border-bottom: 1px solid #00796B;
 }
 
 .info_password {
@@ -99,8 +99,8 @@
     font-weight: 600;
     cursor: pointer;
     float: right;
-    border: 2px solid rgb(60, 192, 159);
-    background-color: rgb(60, 192, 159);
+    border: 2px solid #00796B;
+    background-color: #00796B;
     color: #FFF;
     padding: 10px 30px 15px 30px;
     border-radius: 30px;
@@ -108,6 +108,6 @@
 
 .btn_register:hover {
     font-weight: bold;
-    color: rgb(60, 192, 159);
+    color: #00796B;
     background-color: #FFF;
 }

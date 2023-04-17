@@ -255,11 +255,11 @@ export const FormPet = () => {
                                 <option value="">Definir Situação</option>
                                 <option value="1">Meu Pet</option>
                                 <option value="2">Pet Para Adoção</option>
-                                <option value="3">Meu Pet Fugiu</option>
+                                <option value="3">Pet Desaparecido</option>
                                 <option value="4">Encontrei Este Pet</option>
-                                <option value="5">Pet Foi Adotado</option>
+                                {/* <option value="5">Pet Foi Adotado</option> */}
                                 {user?.category == 2 &&
-                                    <option value="6">Em tratamento</option>
+                                    <option value="5">Em Tratamento</option>
                                 }
                             </select>
                         </div>

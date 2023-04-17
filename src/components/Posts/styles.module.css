@@ -72,10 +72,10 @@
     font-weight: bold;
     margin: 5px;
     margin-left: 30px;
-    background-color: #5B7499;
+    background-color: #00796B;
     border: 0;
     color: #FFF;
-    box-shadow: 0px 2px 4px 1px rgb(67, 114, 153);
+    box-shadow: 0px 2px 4px 1px #4A4A4A;
     padding: 5px;
     width: 120px;
 }
@@ -85,10 +85,10 @@
     font-weight: bold;
     margin: 5px;
     margin-left: 30px;
-    background-color: #5B7499;
+    background-color: #00796B;
     border: 0;
     color: #FFF;
-    box-shadow: 0px 2px 4px 1px rgb(67, 114, 153);
+    box-shadow: 0px 2px 4px 1px #4A4A4A;
     padding: 5px;
     width: 120px;
 
@@ -101,7 +101,7 @@
     margin-left: 30px;
     background-color: #FFF;
     border: 0;
-    color: #5B7499;
+    color: #00796B;
     padding: 5px;
     width: 120px;
 
@@ -114,11 +114,30 @@
     margin-left: 30px;
     background-color: #FFF;
     border: 0;
-    color: #5B7499;
+    color: #00796B;
     padding: 5px;
     width: 120px;
 
 
+}
+
+.btn_veja_mais {
+    border: 2px solid #00796B;
+    background-color: #00796B;
+    box-shadow: 0px 2px 4px 1px #4A4A4A;
+    cursor: pointer;
+    padding: 5px;
+    color: #FFF;
+    transition: 0.3s;
+}
+
+.btn_veja_mais:hover {
+    border: 2px solid #00796B;
+    color: #00796B;
+    box-shadow: 0px 2px 4px 1px #4A4A4A;
+    cursor: pointer;
+    padding: 5px;
+    background: #FFF;
 }
 
 .post {
@@ -129,7 +148,7 @@
     margin-bottom: 20px;
     border-radius: 6px;
     background-color: #fff;
-    box-shadow: 0px 4px 8px 2px rgb(67, 114, 153);
+    box-shadow: 0px 4px 8px 2px #4A4A4A;
 
 }
 
@@ -177,7 +196,7 @@
     text-align: center;
     border: 2px solid #29303a;
     margin-bottom: 5px;
-    background-color: #5B7499;
+    background-color: #00796B;
     color: #FFF;
     display: flex;
     align-items: center;
@@ -346,8 +365,8 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    border-top: 1px solid #5b74994b;
-    border-bottom: 1px solid #5b74994b;
+    border-top: 1px solid #00796B;
+    border-bottom: 1px solid #00796B;
     margin-top: 5;
     padding: 10px;
 }
@@ -356,8 +375,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    border-top: 1px solid #5b74994b;
-    border-bottom: 1px solid #5b74994b;
+    border-top: 1px solid #00796B;
+    border-bottom: 1px solid #00796B;
     margin-top: 5;
     padding: 10px;
 }

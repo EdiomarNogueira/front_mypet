@@ -163,8 +163,8 @@ export const FormUser = () => {
                 <div className={styles.page_register}>
 
                     <div className={styles.register_desc}>
-                        <h1>Complete o dados do seu perfil</h1>
-                        <p>... Cadastrando todos os dados do seu perfil você terá acesso a todas as ferramentas da plataforma.</p>
+                        <h2>Seus Dados:</h2>
+                        <p>Cadastrando todos os dados do seu perfil você terá acesso a todas as ferramentas da plataforma.</p>
                     </div>
 
                     <div className={styles.register_inputs} onSubmit={handleRegister}>
@@ -203,7 +203,7 @@ export const FormUser = () => {
                                 placeholder={user?.phone}
                             />
                         </div>
-                        <div className={styles.single_input}>
+                        {/* <div className={styles.single_input}>
                             <label htmlFor="password">Senha</label>
                             <input
                                 type="password"
@@ -213,7 +213,7 @@ export const FormUser = () => {
                                 onChange={(element) => { dispatch(setUser_Password(element.target.value)) }}
                                 placeholder="********"
                             />
-                        </div>
+                        </div> */}
                         <div className={styles.single_input}>
                             <label htmlFor="category">Categoria</label>
                             <select name="category" id="category" value={user.category} required onChange={cat => dispatch(setUser_Category(cat.target.value))} >
