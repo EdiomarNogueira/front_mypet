@@ -12,7 +12,7 @@ export type Alerts = {
     id_pet: number,
     id_user: number,
     photo: string,
-    marked_users: [],
+    // marked_users: [],
     tutor_name: string,
     description: string,
     date_occurrence: string,

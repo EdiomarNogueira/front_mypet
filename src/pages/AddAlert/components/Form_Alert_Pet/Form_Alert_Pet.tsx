@@ -44,6 +44,7 @@ import {
     setUser_Road,
     setUser_Work
 } from '../../../../redux/reducers/userReducer';
+import { isEmpty } from 'lodash';
 
 export const FormAlertPet = () => {
     const [success, setSuccess] = useState('');
@@ -172,10 +173,11 @@ export const FormAlertPet = () => {
         const formData = new FormData(e.currentTarget);
         const file = formData.get('image') as File;
 
-        if (!user.latitude || !user.longitude) {
+        if (isEmpty(user.latitude) || isEmpty(user.longitude)) {
             alert('O seu cadastro de perfil está incompleto, complete seu endereço para gerar alertas!');
         }
-
+        console.log(user.latitude);
+        console.log(user.longitude);
         if (params.id_pet && params.id_user && file && file.size > 0 && pet.name && addText && pet.situation && date_occurrence && user.road && user.district && user.city && user.email && user.phone && user.latitude && user.longitude) {
             let photo = file;
             let id_user = parseInt(params.id_user);
@@ -190,6 +192,20 @@ export const FormAlertPet = () => {
                 console.log(" não enviou alerta");
             }
         } else {
+            console.log(params.id_pet);
+            console.log(params.id_pet);
+            console.log(file.size);
+            console.log(pet.name);
+            console.log(addText);
+            console.log(pet.situation);
+            console.log(date_occurrence);
+            console.log(user.road);
+            console.log(user.district);
+            console.log(user.city);
+            console.log(user.email);
+            console.log(user.phone);
+            console.log(user.latitude);
+            console.log(user.longitude);
             alert("Preencha todos os campos!");
         }
     }

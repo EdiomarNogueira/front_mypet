@@ -81,112 +81,130 @@ export const SectionMyPets = () => {
                                             ))}
                                         </div>
                                     </div>
-                                    <div className={styles.container_pets}>
+                                    {pets.filter(situation => situation.situation == '2').map(filtro => (
                                         <div>
-                                            <h2>Para Adoção</h2>
-                                        </div>
-                                        <div className={styles.section_meus_pets}>
-
-                                            {pets.map((item, index) => (
-                                                <div key={index}>
-                                                    {item.situation == '2' &&
-                                                        <div className={styles.list_pet}>
-                                                            <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
-                                                                <div className={styles.user_pet}>
-                                                                    <p>{item.name}</p>
-                                                                    <div className={styles.area_avatar}>
-                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            </Link>
-                                                        </div>
-                                                    }
-                                                </div>
-
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className={styles.container_pets}>
-                                        <div>
-                                            <h2>Pet Desaparecido</h2>
-                                        </div>
-
-                                        <div className={styles.section_meus_pets}>
-
-                                            {pets.map((item, index) => (
-                                                <div key={index}>
-                                                    {item.situation == '3' &&
-                                                        <div className={styles.list_pet}>
-                                                            <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
-                                                                <div className={styles.user_pet}>
-                                                                    <p>{item.name}</p>
-                                                                    <div className={styles.area_avatar}>
-                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            </Link>
-                                                        </div>
-                                                    }
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className={styles.container_pets}>
-                                        <div>
-                                            <h2>Encontrei Este Pet</h2>
-                                        </div>
-                                        <div className={styles.section_meus_pets}>
-
-                                            {pets.map((item, index) => (
-                                                <div key={index}>
-                                                    {item.situation == '4' &&
-                                                        <div className={styles.list_pet}>
-                                                            <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
-                                                                <div className={styles.user_pet}>
-                                                                    <p>{item.name}</p>
-                                                                    <div className={styles.area_avatar}>
-                                                                        <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            </Link>
-                                                        </div>
-                                                    }
-                                                </div>
-
-                                            ))}
-                                        </div>
-                                    </div>
-                                    {user?.category == '2' &&
-                                        <div className={styles.container_pets}>
-                                            <div>
-                                                <h2>Em Tratamento</h2>
-                                            </div>
-                                            <div className={styles.section_meus_pets}>
-
-                                                {pets.map((item, index) => (
-                                                    <div key={index}>
-                                                        {item.situation == '5' &&
-                                                            <div className={styles.list_pet}>
-                                                                <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
-                                                                    <div className={styles.user_pet}>
-                                                                        <p>{item.name}</p>
-                                                                        <div className={styles.area_avatar}>
-                                                                            <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                </Link>
-                                                            </div>
-                                                        }
+                                            {filtro &&
+                                                <div className={styles.container_pets}>
+                                                    <div>
+                                                        <h2>Para Adoção</h2>
                                                     </div>
+                                                    <div className={styles.section_meus_pets}>
 
-                                                ))}
-                                            </div>
+                                                        {pets.map((item, index) => (
+                                                            <div key={index}>
+                                                                {item.situation == '2' &&
+                                                                    <div className={styles.list_pet}>
+                                                                        <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
+                                                                            <div className={styles.user_pet}>
+                                                                                <p>{item.name}</p>
+                                                                                <div className={styles.area_avatar}>
+                                                                                    <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        </Link>
+                                                                    </div>
+                                                                }
+                                                            </div>
+
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            }
                                         </div>
-                                    }
+                                    ))}
+                                    {pets.filter(situation => situation.situation == '3').map(filtro => (
+                                        <div>
+                                            {filtro &&
+                                                <div className={styles.container_pets}>
+                                                    <div>
+                                                        <h2>Pet Desaparecido</h2>
+                                                    </div>
+                                                    <div className={styles.section_meus_pets}>
+                                                        {pets.map((item, index) => (
+                                                            <div key={index}>
+                                                                {item.situation == '3' &&
+                                                                    <div className={styles.list_pet}>
+                                                                        <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
+                                                                            <div className={styles.user_pet}>
+                                                                                <p>{item.name}</p>
+                                                                                <div className={styles.area_avatar}>
+                                                                                    <img className={styles.avatar} src={item.avatar} alt="avatar" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        </Link>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    ))}
+                                    {pets.filter(situation => situation.situation == '4').map(filtro => (
+                                        <div>
+                                            {filtro &&
+                                                <div className={styles.container_pets}>
+                                                    <div>
+                                                        <h2>Encontrei Este Pet</h2>
+                                                    </div>
+                                                    <div className={styles.section_meus_pets}>
+
+                                                        {pets.map((item, index) => (
+                                                            <div key={index}>
+                                                                {item.situation == '4' &&
+                                                                    <div className={styles.list_pet}>
+                                                                        <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
+                                                                            <div className={styles.user_pet}>
+                                                                                <p>{item.name}</p>
+                                                                                <div className={styles.area_avatar}>
+                                                                                    <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        </Link>
+                                                                    </div>
+                                                                }
+                                                            </div>
+
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    ))}
+                                    {pets.filter(situation => situation.situation == '5').map(filtro => (
+                                        <div>
+                                            {filtro &&
+                                                <div className={styles.container_pets}>
+                                                    <div>
+                                                        <h2>Em Tratamento</h2>
+                                                    </div>
+                                                    <div className={styles.section_meus_pets}>
+                                                        {pets.map((item, index) => (
+                                                            <div key={index}>
+                                                                {item.situation == '5' &&
+                                                                    <div className={styles.list_pet}>
+                                                                        <Link to={'/user/' + item.id_user + '/mypet/' + item.id}>< div className={styles.pets} >
+                                                                            <div className={styles.user_pet}>
+                                                                                <p>{item.name}</p>
+                                                                                <div className={styles.area_avatar}>
+                                                                                    <img className={styles.avatar} src={item.avatar} alt="avatar" loading="lazy" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        </Link>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    ))}
                                 </div>
                             }
                         </div>

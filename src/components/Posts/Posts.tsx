@@ -57,7 +57,6 @@ export const Posts = () => { //{ title }: Props
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
     var api = useApi();
-    let myNewPost = 0;
 
     const loadPosts = async () => {
         let json = await api.getPosts(currentPerPage);
@@ -66,11 +65,8 @@ export const Posts = () => { //{ title }: Props
             if (posts != json.posts) {
                 setPosts(json.posts);
                 setCountPosts(json.count_posts.count);
-                //console.log('setCountPosts', countPosts);
-                //console.log('setCountPosts', json.count_posts.count);
             }
         }
-        myNewPost = 0;
         setCountLoop(countLoop + 1);
         setExistUpdates(false);
         setLoading(false);
@@ -94,20 +90,9 @@ export const Posts = () => { //{ title }: Props
         setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 5);
     }
 
-    // window.onscroll = function () {
-    //     if (
-    //         window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
-    //     ) {
-    //         setCurrentPerPageAlerts((currentPerPageAlertsInsideState) => currentPerPageAlertsInsideState + 5);
-    //         setCurrentPerPage((currentPerPageInsideState) => currentPerPageInsideState + 5);
-    //     }
-    // }
-
     const handleNewPostCallback = (newPost: any) => {
         //setExistUpdates(false);
-        setCreatePost(createPost + newPost);
-
-        myNewPost = createPost + newPost;
+        setCreatePost((prevCreatePost) => prevCreatePost + newPost);
     }
 
     const handleCommentCallback = (newComment: any) => {
@@ -147,42 +132,20 @@ export const Posts = () => { //{ title }: Props
 
     }
 
-    // const handleStartCount = async () => {
-    //     let json = await api.getUpdateFeed();
-    //     if (json) {
-    //         setCountPosts(json.count_posts);
-    //     }
-    // }
-
-    // const handlePostsUpdate = async () => {
-    //     console.log("ponto 1");
-    //     if (existUpdates == false) {
-    //         console.log("ponto 2");
-    //         //countPosts = 0;
-    //         const loop = setTimeout(async function () {
-    //             //update_cont();
-    //         }, 15000);
-
-    //         //clearTimeout(loop);
-    //     }
-    // }
-
     const update_cont = async () => {
 
         let json = await api.getUpdateFeed();
-        console.log('cont atual', json.count);
-        console.log('countPosts', countPosts);
-        console.log('myNewPost', myNewPost);
         if (json.count != countPosts && countPosts > 0) {
             var updates = json.count - countPosts;
-            if (updates > 0 && myNewPost == 0) {
+            console.log('teste', json.autor_post.id_user);
+            if (updates > 0 && json.autor_post.id_user != auth.user?.id) {
                 setExistUpdates(true);
                 console.log('updates pendentes', updates);
                 setCountLoop(countLoop + 1);
 
             } else {
                 setExistUpdates(false);
-                setCountLoop(countLoop + 1);
+                setCountLoop((prevcountLoop) => countLoop + 1);
             }
         }
         setCountLoop(countLoop + 1);
@@ -213,7 +176,7 @@ export const Posts = () => { //{ title }: Props
             const loop = setTimeout(function () {
                 console.log("inicio do loop");
                 update_cont();
-            }, 60000);
+            }, 30000);
 
             //clearTimeout(loop);
         }
@@ -712,7 +675,7 @@ export const Posts = () => { //{ title }: Props
                     </div>
                 }
                 {!loading && alerts.length > 0 && viewAlerts == true &&
-                    <div onClick={() => handleMorePosts()}  className={styles.btn_veja_mais}>
+                    <div onClick={() => handleMorePosts()} className={styles.btn_veja_mais}>
                         <h4>veja mais</h4>
                     </div>
                 }

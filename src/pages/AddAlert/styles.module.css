@@ -18,6 +18,10 @@
 
 .area_posts {
     flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .area_sidebar_ong {

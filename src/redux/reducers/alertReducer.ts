@@ -6,7 +6,7 @@ export const slice = createSlice({
         id_pet: null,
         id_user: null,
         photo: '',
-        marked_users: [],
+        // marked_users: [],
         tutor_name: '',
         description: '',
         date_occurrence: '',
@@ -26,7 +26,7 @@ export const slice = createSlice({
         phone: '',
         latitude: '',
         longitude: '',
-        distance: 0,
+        // distance: 0,
         status: 1,
         date_register: '',
         date_change: '',
@@ -41,9 +41,9 @@ export const slice = createSlice({
         setAlert_photo: (state, action) => {
             state.photo = action.payload;
         },
-        setAlert_marked_users: (state, action) => {
-            state.marked_users = action.payload;
-        },
+        // setAlert_marked_users: (state, action) => {
+        //     state.marked_users = action.payload;
+        // },
         setAlert_tutor_name: (state, action) => {
             state.tutor_name = action.payload;
         },
@@ -101,9 +101,9 @@ export const slice = createSlice({
         setAlert_longitude: (state, action) => {
             state.longitude = action.payload;
         },
-        setAlert_distance: (state, action) => {
-            state.distance = action.payload;
-        },
+        // setAlert_distance: (state, action) => {
+        //     state.distance = action.payload;
+        // },
         setAlert_status: (state, action) => {
             state.status = action.payload;
         },
@@ -121,7 +121,7 @@ export const {
     setAlert_id_pet,
     setAlert_id_user,
     setAlert_photo,
-    setAlert_marked_users,
+    // setAlert_marked_users,
     setAlert_tutor_name,
     setAlert_description,
     setAlert_date_occurrence,
@@ -141,7 +141,7 @@ export const {
     setAlert_phone,
     setAlert_latitude,
     setAlert_longitude,
-    setAlert_distance,
+    // setAlert_distance,
     setAlert_status,
     setAlert_date_register,
     setAlert_date_change,

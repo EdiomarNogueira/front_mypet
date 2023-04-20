@@ -20,13 +20,13 @@ export const SectionPets = () => {
         var situation = 0;
         if (section == "adocao") {
             situation = 2;
-        } else if (section == "tratamento") {
+        } else if (section == "perdidos") {
             situation = 3;
 
-        } else if (section == "perdidos") {
+        } else if (section == "encontrados") {
             situation = 4;
 
-        } else {
+        } else if (section == "tratamento") {
             situation = 5;
         }
         let json = await api.gePetsOngs(situation);
