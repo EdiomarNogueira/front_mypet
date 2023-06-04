@@ -274,13 +274,28 @@ export const SectionPerfilUser = (props: { id_user: any}) => {
 
                             </div>}
                     </div>
-
+                    <div className={styles.area_follow}>
+                        {auth.user?.id != id_user &&
+                            <div onClick={handleFollowUnfollow} className={styles.follow_unfollow}>
+                                {!isFollowing &&
+                                    <p className={styles.follow}>Seguir</p>
+                                }
+                                {isFollowing &&
+                                    <p className={styles.unfollow}>Não seguir</p>
+                                }
+                            </div>
+                        }
+                        <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Amigos: {amigos}</Link>
+                        <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Seguindo: {seguindo}</Link>
+                        <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Seguidores: {seguidores}</Link>
+                    </div>
+                    <div className={styles.container_infors}>
                     <div className={styles.infors_user}>
-                        <div className={styles.area_avatar}>
-                            <img className={styles.avatar} src={user?.avatar} alt="imagem perfil pet" loading="lazy" />
+                        {/* <div className={styles.area_avatar}> */}
+                            {/* <img className={styles.avatar} src={user?.avatar} alt="imagem perfil pet" loading="lazy" /> */}
 
                             {/* <p className={styles.biografia}>{biografia}</p> */}
-                        </div>
+                        {/* </div> */}
                         <div className={styles.infors}>
                             <div className={styles.infors_dados}>
                                 <div>
@@ -301,24 +316,8 @@ export const SectionPerfilUser = (props: { id_user: any}) => {
                                 <p className={styles.msg_rastreio}>{msg_rastreio}</p>
                             }
                         </div>
-
-
                     </div>
-                    <div className={styles.area_follow}>
-                        {auth.user?.id != id_user &&
-                            <div onClick={handleFollowUnfollow} className={styles.follow_unfollow}>
-                                {!isFollowing &&
-                                    <p className={styles.follow}>Seguir</p>
-                                }
-                                {isFollowing &&
-                                    <p className={styles.unfollow}>Não seguir</p>
-                                }
-                            </div>
-                        }
-                        <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Amigos: {amigos}</Link>
-                        <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Seguindo: {seguindo}</Link>
-                        <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Seguidores: {seguidores}</Link>
-                    </div>
+                    
                     <div className={styles.infors_section}>
                         {auth.user?.id != id_user &&
                             <div className={styles.area_action_user}>
@@ -326,27 +325,23 @@ export const SectionPerfilUser = (props: { id_user: any}) => {
                                 <Link className={styles.btn_action} to={'/user/' + id_user + '/gallery'}>Galeria de Fotos</Link>
                             </div>
                         }
-                    </div>
-                    <div className={styles.infors_section}>
                         <p>Email: {email}</p>
                         <p>Facebook: <a target="_blank" href={'https://www.facebook.com/' + facebook}>{facebook}</a></p>
                         <p>Instagram: <a target="_blank" href={'https://www.instagram.com/' + instagram}>@{instagram}</a></p>
                         <p>Telefone: {telefone}</p>
-                    </div>
-
-                    <div className={styles.infors_section}>
+                        <hr />
                         <p>Profissão: {trabalho}</p>
-                    </div>
-                    <div className={styles.infors_section}>
+                        <hr />
                         <p>Cidade: {cidade}</p>
                         <p>Bairro: {bairro}</p>
                         <p>Rua: {rua}</p>
                     </div>
+                    </div>
+                    
                     {/* let idade = ' -';
                     let biografia = ' -';
                     let data_nascimento = ' -';
                     let genero = ' -'; */}
-
                 </div>
 
             </div>

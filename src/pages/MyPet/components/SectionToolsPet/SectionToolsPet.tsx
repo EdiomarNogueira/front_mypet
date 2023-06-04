@@ -6,6 +6,7 @@ import { Publish } from '../../../../types/Publish';
 import { RGA } from '../RGA/RGA';
 import { VaccineCard } from '../VaccineCard/VaccineCard';
 import {
+    setPet_Id,
     setPet_Age,
     setPet_Biography,
     setPet_Birthdate,
@@ -29,6 +30,7 @@ import { useDispatch } from 'react-redux';
 
 export const SectionToolsPet = (props: {
     id_user: Number, idpet: Number, me: Boolean, dados_pet: {
+        id: Number;
         name: String;
         id_user: Number;
         species: Number;
@@ -63,6 +65,7 @@ export const SectionToolsPet = (props: {
 
     const setDadosPet = async (pet_dados:
         {
+            id: Number;
             name: String;
             id_user: Number;
             species: Number;
@@ -80,6 +83,7 @@ export const SectionToolsPet = (props: {
             situation: Number;
             status: Number;
         }) => {
+        dispatch(setPet_Id(pet_dados?.id));
         dispatch(setPet_Name(pet_dados?.name));
         dispatch(setPet_Id_User(pet_dados?.id_user));
         dispatch(setPet_Species(pet_dados?.species));
@@ -174,7 +178,7 @@ export const SectionToolsPet = (props: {
                 {viewGaleria == true &&
                     <div>
                         <div className={styles.area_galeria_pet}>
-                            <GaleryPhotosPet posts={posts} />
+                            <GaleryPhotosPet posts={posts} setPosts={setPosts} />
                         </div>
                         <div className={styles.sentinela} id='sentinela' />
 

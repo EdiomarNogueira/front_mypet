@@ -121,7 +121,7 @@ export const Gallery = () => {
 
                     }
 
-                    <UserGallery id={params.id_user} isMe={me} posts={posts} />
+                    <UserGallery id={params.id_user} isMe={me} posts={posts} setPosts={setPosts} />
                     <div className={styles.sentinela} id='sentinela' />
 
                 </div>

@@ -28,14 +28,15 @@
     display: flex;
     align-content: center;
     justify-content: space-between;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .area_avatar {
     flex: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     margin: 10px;
 }
 
@@ -65,17 +66,34 @@
 
 .acoes {
     flex: 1;
+    width: 100%;
     margin: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+
+    border: 2px solid red;
 }
 
 .btn_config {
     display: flex;
+    float: right;
+    margin-bottom: 15px;
+}
+
+.config {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.config p {
+    margin-left: 10px;
+}
+/* 
+.btn_config {
+    display: flex;
     align-content: center;
     justify-content: center;
+    justify-items: center;
 }
 
 .btn_config:hover {
@@ -86,11 +104,12 @@
 .btn_config p {
     align-self: center;
     margin-left: 10px;
-}
+} */
 
-.config {
+.config img {
     width: 40px;
     height: 40px;
+    margin-left: 10px;
     transition: 0.3s;
 }
 
@@ -99,12 +118,15 @@
     height: 400px;
     object-position: center;
     object-fit: cover;
+    border: 2px solid #CCC;
+    border-radius: 6px;
 }
 
 
 .btn_alert {
     height: 40px;
-    width: 130px;
+    width: 90%;
+    margin: 0 auto;
     margin-top: 20px;
     padding: 8px;
     background-color: rgb(255, 0, 0);
@@ -158,3 +180,9 @@
 
 
 @media (max-width: 860px) {}
+
+@media(max-width: 530px) {
+    .infors_pet {
+        flex-direction: column;
+    }
+}

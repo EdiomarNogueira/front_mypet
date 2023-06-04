@@ -7,6 +7,7 @@ import { SectionToolsPet } from '../SectionToolsPet/SectionToolsPet';
 import { useAppSelector } from '../../../../redux/hooks/useAppSelector';
 
 import {
+    setPet_Id,
     setPet_Age,
     setPet_Avatar,
     setPet_Biography,
@@ -52,6 +53,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
 
     const setDadosPet = async (pet_dados:
         {
+            id: Number;
             name: String;
             id_user: Number;
             species: Number;
@@ -71,6 +73,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
             avatar: String;
             cover: String;
         }) => {
+        dispatch(setPet_Id(pet_dados?.id));
         dispatch(setPet_Name(pet_dados?.name));
         dispatch(setPet_Id_User(pet_dados?.id_user));
         dispatch(setPet_Species(pet_dados?.species));
@@ -226,14 +229,25 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
     return (
         <>
             <div className={styles.area_Section_Perfil_Pet}>
+
                 <div className={styles.container}>
+                    {me &&
+                        <div className={styles.btn_config}>
+                            {/* <Link to={+'/mypet/'+pet.id+'/config'}> */}
+                            <Link className={styles.config} to={'/user/' + pet.id_user + '/mypet/' + id_pet + '/config'}>
+                                <img src="\src\media\icons\config.png" alt="configurar" loading="lazy" />
+                                <p>Configurar</p>
+                            </Link>
+
+                        </div>
+                    }
                     <div>
                         <img className={styles.cover_pet} src={pet.cover} alt="cover" loading="lazy" />
                     </div>
-                    <h2>{pet.name}</h2>
                     <div className={styles.infors_pet}>
                         <div className={styles.area_avatar}>
                             <img className={styles.avatar} src={pet.avatar} alt="imagem perfil pet" loading="lazy" />
+                            <h2>{pet.name}</h2>
                         </div>
                         <div className={styles.infors}>
                             <div className={styles.infors_dados}>
@@ -260,29 +274,15 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
 
                         </div>
 
-                        {me &&
-                            <div className={styles.acoes}>
-                                {/* <Link to={+'/mypet/'+pet.id+'/config'}> */}
-                                <Link to={'/user/' + pet.id_user + '/mypet/' + id_pet + '/config'}>
-                                    <div className={styles.btn_config}>
-                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" loading="lazy" />
-                                        <p>Configurar</p>
-                                    </div>
-                                </Link>
-                                {/* <Link to={'/user/' + pet.tutor_name + '/mypet/' + pet.id + '/update'}>
-                                    <div className={styles.btn_config}>
-                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" loading="lazy" />
-                                        <p>Configurar</p>
-                                    </div>
-                                </Link> */}
-                                <Link className={styles.btn_alert} to={'/user/' + pet.id_user + '/mypet/' + id_pet + '/addAlert'}>Gerar Alerta!</Link>
 
-
-                            </div>
-                        }
 
                     </div>
+
                 </div>
+                {me &&
+
+                    <Link className={styles.btn_alert} to={'/user/' + pet.id_user + '/mypet/' + id_pet + '/addAlert'}>Gerar Alerta!</Link>
+                }
                 <div className={styles.container}>
                     <SectionToolsPet id_user={pet.id_user} idpet={id_pet} me={me} dados_pet={pet} />
                 </div>

@@ -16,6 +16,9 @@
 }
 
 .divisao_menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 260px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -27,12 +30,17 @@
     box-shadow: 0px 2px 4px 1px #4A4A4A;
 }
 
+
 .divisao_menu ul li {
     margin: 10px;
     font-size: 18px;
     font-weight: bold;
     list-style-type: none;
     color: rgb(68, 96, 119);
+}
+
+.divisao_menu ul {
+    padding-left: 0;
 }
 
 .divisao_menu:hover {

@@ -5,6 +5,7 @@ import { User } from '../types/User';
 import { Comment } from '../types/Comment';
 
 export type Publish = {
+    parentId: number;
     error:Error,
     
     id:number,

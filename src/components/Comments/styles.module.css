@@ -1,11 +1,39 @@
 .area_comments {
     padding: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     border: 1px solid #DDD;
     margin-bottom: 1px;
     width: 100%;
 
+}
+
+.comment_area {
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.area_comments input {
+    width: 80%;
+    margin: 0 auto;
+    
+}
+
+
+.btn_enviar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 100%;
+    margin-left: 5px;
+}
+.child_comments {
+    margin-top: 10px;
+    margin-left: 40px;
+    background-color: #EEE;
 }
 
 .header_comment {

@@ -25,11 +25,6 @@
     border: 2px solid #DDD;
 }
 
-.infors_user {
-    display: flex;
-    align-content: center;
-    justify-content: space-between;
-}
 
 .area_avatar {
     flex: 1;
@@ -43,9 +38,7 @@
 .infors {
     flex: 3;
     border: 2px solid #DDD;
-    border-radius: 6px;
     padding: 10px;
-    margin: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -69,6 +62,13 @@
     cursor: pointer;
 }
 
+.container_infors {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .infors_dados {
     width: 100%;
     display: flex;
@@ -85,11 +85,20 @@
     padding: 5px;
 }
 
+.infors_user {
+    flex: 1;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    margin: 10px;
+}
+
 .infors_section {
+    flex: 1;
     display: flex;
     flex-direction: column;
     border: 2px solid #DDD;
-
+    margin: 10px;
 }
 
 .infors_section p {
@@ -275,7 +284,11 @@
 }
 
 
-
+@media (max-width:1250px) {
+    .container_infors {
+        flex-direction: column;
+    }
+}
 
 @media (max-width: 1080px) {}
 

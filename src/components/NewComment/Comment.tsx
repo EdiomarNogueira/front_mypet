@@ -1,21 +1,20 @@
 import styles from './styles.module.css';
 import { ChangeEvent, useContext, useEffect, useState, FormEvent } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
-// import { User } from '../../types/User';
 import { useApi } from "../../hooks/useApi";
-import axios from 'axios';
-import { redirect, useNavigate } from 'react-router-dom';
 
 type Props = {
-    text?: string; //interrogação deixa a prop não obrigatória 
-}
+    text?: string;
+    parentId?: number | null; // Alterado para ser opcional
+    id: number;
+    parentCommentCallBack: any;
+  };
 
-export const NewComment = (props: { id: number, parentCommentCallBack: any }) => {
 
+export const NewComment = (props: Props) => {
     const [addText, setAddText] = useState('');
     const auth = useContext(AuthContext);
-    // var [user, setUser] = useState<User | null>(null);
-    var api = useApi();
+    const api = useApi();
 
     var id_post = props.id;
 
@@ -25,15 +24,16 @@ export const NewComment = (props: { id: number, parentCommentCallBack: any }) =>
 
     const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        console.log('aqui vei');
         const formData = new FormData(e.currentTarget);
         if (addText) {
-            let comment = addText;
-            let json = await api.newCommentPost(id_post, comment);
+            const comment = addText;
+            const json = await api.newCommentPost(props.id, comment, props.parentId || undefined); // Usando o operador || para lidar com o valor null
+            console.log('teste novo post', json);
             onTrigger();
-        } else {
-            alert("Post vazio!");
-        }
+          } else {
+            alert('Post vazio!');
+          }
 
     }
 
@@ -55,23 +55,22 @@ export const NewComment = (props: { id: number, parentCommentCallBack: any }) =>
     // }, []);
 
     return (
-        <form className={styles.comment_area} method='POST' onSubmit={handleFormSubmit}>
-
-            <div className={styles.Upload_Form}>
-                <input value={addText}
-                    onChange={handleAddTextChange}
-                    className={styles.input_text}
-                    type="text"
-                    placeholder="Comentar..."
-                    maxLength={480}
-                />
-            </div>
-
-            <div className={styles.area_acoes}>
-                <input className={styles.btn_enviar} type="submit" value="Enviar" />
-            </div>
+        <form className={styles.comment_area} method="POST" onSubmit={handleFormSubmit}>
+          <div className={styles.Upload_Form}>
+            <input
+              value={addText}
+              onChange={handleAddTextChange}
+              className={styles.input_text}
+              type="text"
+              placeholder="Comentar..."
+              maxLength={480}
+            />
+          </div>
+          <div className={styles.area_acoes}>
+            <input className={styles.btn_enviar} type="submit" value="Enviar" />
+          </div>
         </form>
-    )
+      );
 }
 
 

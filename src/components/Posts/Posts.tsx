@@ -22,7 +22,7 @@ export const Posts = () => { //{ title }: Props
     const [loading, setLoading] = useState(true);
     const [comment_post, setCommentPost] = useState(1);
     const [comment_alert, setCommentAlert] = useState(1);
-    const [currentPerPage, setCurrentPerPage] = useState(2);
+    const [currentPerPage, setCurrentPerPage] = useState(6);
     const [currentPerPageAlerts, setCurrentPerPageAlerts] = useState(2);
     const [createPost, setCreatePost] = useState(1);
     const [viewPostsFriends, setPostsFriends] = useState(true);
@@ -75,9 +75,10 @@ export const Posts = () => { //{ title }: Props
 
     const loadAlerts = async () => {
         setLoading(true);
+        console.log('TESTE');
         let json = await api.getAlerts(currentPerPageAlerts, isCheckedEncontrado, isCheckedPerdido, isCheckedAdocao, isCheckedTratamento);
         if (json) {
-            console.log(json);
+            console.log('TESTE',json);
             if (alerts != json.alerts) {
                 setAlerts(json.alerts);
             }
@@ -275,7 +276,7 @@ export const Posts = () => { //{ title }: Props
                                                     {/* like_count={item.likeCount} liked={item.liked}  */}
                                                 </div>
                                                 <div className={styles.interacao_comment}>
-                                                    <NewComment id={item.id} parentCommentCallBack={handleCommentCallback} />
+                                                    <NewComment id={item.id} parentId={item.parentId} parentCommentCallBack={handleCommentCallback} />
                                                 </div>
                                             </div>
 
@@ -595,7 +596,7 @@ export const Posts = () => { //{ title }: Props
                                                         {item.species == 1 &&
                                                             <>
                                                                 <h2 className={styles.title_header}>Cão precisando de ajuda!</h2>
-                                                                <h4 className={styles.subTitle_header}>Este doguinho precisa da sua ajuda!</h4>
+                                                                <h4 className={styles.subTitle_header}>Esse doguinho precisa da sua ajuda!</h4>
                                                             </>
                                                         }
                                                         {item.species == 2 &&

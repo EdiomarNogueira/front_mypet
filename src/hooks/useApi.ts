@@ -72,6 +72,13 @@ export const useApi = () => ({
         return response.data;
     },
 
+    putPasswordUser: async (password: string, confirmPassword: string) => {
+        var config_headers = refreshConfig();
+        const response = await api.put('/user/password', {
+            password, confirmPassword
+        }, config_headers);
+        return response.data;
+    },
     putUser: async (
         name: string,
         email: string,
@@ -391,7 +398,30 @@ export const useApi = () => ({
         return response.data;
     },
 
+    readVaccineCard: async (id_pet: Number) => {
 
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken')
+            }
+        };
+        const response = await api.get('/user/pet/' + id_pet + '/listmedicaments', config);
+        return response.data;
+    },
+    postCreateVaccineCard: async (id_pet: Number, name: string, application_date: string, tipo: string, recommendation: string) => {
+        var config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('authToken')
+            },
+        };
+        const response = await api.post('/user/pet/' + id_pet + '/medicament', {
+            id_pet, name, application_date, tipo, recommendation
+
+        }, config);
+        return response.data;
+    },
     postNewPostText: async (type: string, body: string, pets: any) => {
         var config = {
             headers: {
@@ -405,13 +435,15 @@ export const useApi = () => ({
         return response;
     },
 
-    newCommentPost: async (id: number, txt: string) => {
+
+
+    newCommentPost: async (id: number, txt: string, parentId?: number) => {
         let id_post = id;
         var config_headers = refreshConfig();
-        const response = await api.post('/post/' + id_post + '/comment', {
+        const url = parentId ? `/post/${id_post}/comment/${parentId}` : `/post/${id_post}/comment`;
+        const response = await api.post(url, {
             txt
-        }, config_headers).then((response) => {
-        }); //ALTERAR A VALIDAÇÃO
+        }, config_headers);
         return response;
     },
 
@@ -500,7 +532,6 @@ export const useApi = () => ({
 
     getPet: async (id_user: any, id_pet: any) => {
         var config_headers = refreshConfig();
-
         const response = await api.get('/user/' + id_user + '/pet/' + id_pet, config_headers);
         return response.data;
     },

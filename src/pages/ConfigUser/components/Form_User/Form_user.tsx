@@ -34,8 +34,11 @@ export const FormUser = () => {
 
     const user = useAppSelector(state => state.user);
 
-
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [passwordStrength, setPasswordStrength] = useState<string>('');
+    const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
     //const auth = useContext(AuthContext);
     //const [loading, setLoading] = useState(false);
     var api = useApi();
@@ -99,7 +102,17 @@ export const FormUser = () => {
             }
         }
     }
-
+    const handleUpdatePassword = async () => {
+        var json = await api.putPasswordUser(password, confirmPassword);
+        if (json.success) {
+            setSuccess(json.success);
+        } else {
+            setError(json.error);
+        }
+        setPassword('');
+        setConfirmPassword('');
+        setIsModalOpen(false);
+    };
     const handleRegister = async () => {
         if (user.road && user.city && user.district) {
             alert("Iremos registrar o seu endereço, com isso poderemos auxiliar na localização do seu pet.")
@@ -131,6 +144,85 @@ export const FormUser = () => {
         }
     }
 
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setPassword('');
+        setConfirmPassword('');
+    };
+
+    const handlePasswordChange = (e: any) => {
+        setPassword(e.target.value);
+    };
+
+    const handleConfirmPasswordChange = (e: any) => {
+        setConfirmPassword(e.target.value);
+    };
+
+
+
+    const checkPasswordStrength = (password: string): string => {
+        let strength = '';
+        const lowercaseRegex = /(?=.*[a-z])/;
+        const uppercaseRegex = /(?=.*[A-Z])/;
+        const numberRegex = /(?=.*\d)/;
+        const specialCharRegex = /(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/;
+
+        if (password.length < 4) {
+            strength = 'Muito Fraca';
+        } else if (password.length < 6) {
+            if (
+                lowercaseRegex.test(password) ||
+                uppercaseRegex.test(password) ||
+                numberRegex.test(password) ||
+                specialCharRegex.test(password)
+            ) {
+                strength = 'Fraca';
+            } else {
+                strength = 'Média';
+            }
+        } else if (password.length < 8) {
+            if (
+                lowercaseRegex.test(password) &&
+                uppercaseRegex.test(password) &&
+                numberRegex.test(password) &&
+                specialCharRegex.test(password)
+            ) {
+                strength = 'Forte';
+            } else {
+                strength = 'Média';
+            }
+        } else {
+            if (
+                lowercaseRegex.test(password) &&
+                uppercaseRegex.test(password) &&
+                numberRegex.test(password) &&
+                specialCharRegex.test(password)
+            ) {
+                strength = 'Muito Forte';
+            } else {
+                strength = 'Forte';
+            }
+        }
+
+        return strength;
+    };
+
+    const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        if (name === 'password') {
+            setPassword(value);
+            setPasswordMatch(value === confirmPassword);
+            const strength = checkPasswordStrength(value);
+            setPasswordStrength(strength);
+        } else {
+            setConfirmPassword(value);
+            setPasswordMatch(value === password);
+        }
+    };
 
     useEffect(() => {
         if (user.road && user.city && user.district) {
@@ -332,10 +424,78 @@ export const FormUser = () => {
                         <div className={styles.area_btn}>
                             <button className={styles.btn_register} onClick={handleRegister}>Atualizar Dados</button>
                         </div>
+                        <div>
+                            <button className={styles.btn_register} onClick={handleOpenModal}>Alterar Senha</button>
+
+                        </div>
                     </div>
                 </div>
             </div>
+
+            {isModalOpen && (
+                <div className={styles.container}>
+                    <div className={styles.page_register}>
+                        <div className={styles.register_desc}>
+                            <h2>Alterar Senha</h2>
+                        </div>
+                        <div className={styles.register_inputs}>
+
+                            <div className={styles.single_input}>
+                                <label htmlFor="password">Senha:</label>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    value={password}
+                                    required
+                                    onChange={handlePasswordInput}
+                                />
+
+                            </div>
+                            <div className={styles.single_input}>
+                                <label htmlFor="confirmPassword">Confirmar Senha:</label>
+                                <input
+                                    type="password"
+                                    name="confirmPassword"
+                                    value={confirmPassword}
+                                    onChange={handlePasswordInput}
+                                />
+
+
+                            </div>
+                            <div className={styles.info_password}>
+                                {!passwordMatch && (
+                                    <p style={{ color: 'red' }}>As senhas não correspondem.</p>
+                                )}
+                                {passwordMatch && (
+                                    <div>
+                                        {passwordStrength == "Muito Fraca" && (
+                                            <p>Força da senha: <strong style={{ color: 'red' }}>{passwordStrength}</strong></p>
+                                        )}
+                                        {passwordStrength == "Fraca" && (
+                                            <p>Força da senha: <strong style={{ color: 'orange' }}>{passwordStrength}</strong></p>
+                                        )}
+                                        {passwordStrength == "Média" && (
+                                            <p>Força da senha: <strong style={{ color: 'black' }}>{passwordStrength}</strong></p>
+                                        )}
+                                        {passwordStrength == "Forte" && (
+                                            <p>Força da senha: <strong style={{ color: 'green' }}>{passwordStrength}</strong></p>
+                                        )}
+                                        {passwordStrength == "Muito Forte" && (
+                                            <p>Força da senha: <strong style={{ color: 'green' }}>{passwordStrength}</strong></p>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+
+                        <div className={styles.modal_buttons}>
+                            <button className={styles.btn_register} onClick={handleUpdatePassword}>Atualizar Senha</button>
+                            <button className={styles.btn_cancelar} onClick={handleCloseModal}>Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     )
 }
-
