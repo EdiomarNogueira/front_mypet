@@ -6,8 +6,11 @@ import { Link } from 'react-router-dom';
 import { Pets } from '../../types/Pets';
 import { User } from '../../types/User';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
-
-export const SectionListRecommended = () => {
+type Props = {
+    onFollowUnfollow: (id_user: any) => void;
+    pendingUpdate: boolean;
+}
+export const SectionListRecommended =({ onFollowUnfollow, pendingUpdate }: { onFollowUnfollow: (id_user: any) => void; pendingUpdate: boolean }) => {
     const user = useAppSelector(state => state.user);
 
     const [pets, setPets] = useState<Pets[]>([] || 0);
@@ -40,15 +43,15 @@ export const SectionListRecommended = () => {
         let json = await api.postFollowUnfollow(id_user);
         if (json) {
             setIsFollowing(json.relation);
-
             setCount(count + 1);
+            onFollowUnfollow(id_user);
         }
     }
 
     var api = useApi();
     useEffect(() => {
         loadRecommendUsers();
-    }, [count]);
+    }, [count, pendingUpdate]);
 
     return (
         <>
@@ -76,7 +79,6 @@ export const SectionListRecommended = () => {
                         </div>
                     </div>
                 }
-
             </div>
         </>
     )

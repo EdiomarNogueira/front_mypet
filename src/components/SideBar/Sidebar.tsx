@@ -7,22 +7,37 @@ import { useApi } from '../../hooks/useApi';
 import { User } from '../../types/User';
 type Props = {
     text?: string; //interrogação deixa a prop não obrigatória 
+    pendingUpdate: boolean;
+    onFollowUnfollow: () => void; // Adicione a prop onFollowUnfollow com o tipo correto
 }
 
-export const Sidebar = () => {
+export const Sidebar = (props: Props) => {
     const auth = useContext(AuthContext);
     let name = auth.user?.name;
     let id_user = auth.user?.id;
+    const [pendingUpdate, setPendingUpdate] = useState(false);
     var [user, setUser] = useState<User | null>(null);
     var api = useApi();
     const loadUser = async () => {
         let json = await api.getUserMe();
         setUser(json);
     }
+    const handleFollowUnfollow = () => {
+        console.log('teste');
+
+        setPendingUpdate(true);
+        props.onFollowUnfollow(); // Chame a função de callback passada como prop
+    }
+    useEffect(() => {
+        if (props.pendingUpdate) {
+            setPendingUpdate(true);
+        }
+    }, [props.pendingUpdate]);
 
     useEffect(() => {
         loadUser();
     }, []);
+
     return (
         <div className={styles.sidebar_area}>
             <div className={styles.divisao_menu}>
@@ -46,7 +61,7 @@ export const Sidebar = () => {
                 </ul>
             </div>
             <div className={styles.divisao_menu}>
-                <SectionListRecommended />
+                <SectionListRecommended onFollowUnfollow={handleFollowUnfollow} pendingUpdate={props.pendingUpdate} />
             </div>
         </div>
     )

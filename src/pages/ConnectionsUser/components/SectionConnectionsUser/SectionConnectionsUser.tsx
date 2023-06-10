@@ -9,7 +9,7 @@ import { AuthContext } from '../../../../contexts/Auth/AuthContext';
 //     text?: string; //interrogação deixa a prop não obrigatória 
 // }
 
-export const SectionConnectionsUser = () => {
+export const SectionConnectionsUser = ({ onFollowUnfollow, pendingUpdate }: { onFollowUnfollow: (id_user: any) => void; pendingUpdate: boolean }) => {
 
     var [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(false);
@@ -53,7 +53,8 @@ export const SectionConnectionsUser = () => {
             console.log(json.relation);
             setIsFollowing(json.relation);
             setCount(count + 1);
-            window.location.reload();
+            onFollowUnfollow(id_user);
+            // window.location.reload();
         }
     }
 
@@ -110,7 +111,7 @@ export const SectionConnectionsUser = () => {
 
     useEffect(() => {
         loadRelations();
-    }, [count]);
+    }, [count,pendingUpdate]);
 
     useEffect(() => {
         loadRelations();
@@ -161,7 +162,7 @@ export const SectionConnectionsUser = () => {
                                                 <p className={styles.follow}>Seguir</p>
                                             }
                                             {item.isFollowing && item.id != auth.user?.id &&
-                                                <p className={styles.unfollow}>Não seguir</p>
+                                                <p className={styles.unfollow}>Não Seguir</p>
                                             }
                                             {item.id == auth.user?.id &&
                                                 <p>Eu</p>
@@ -192,7 +193,7 @@ export const SectionConnectionsUser = () => {
 
                                             }
                                             {item.isFollowing && item.id != auth.user?.id &&
-                                                <p className={styles.unfollow}>Não seguir</p>
+                                                <p className={styles.unfollow}>Não Seguir</p>
                                             }
                                             {item.id == auth.user?.id &&
                                                 <p>Eu</p>
@@ -221,7 +222,7 @@ export const SectionConnectionsUser = () => {
                                                 <p className={styles.follow}>Seguir</p>
                                             }
                                             {item.isFollowing && item.id != auth.user?.id &&
-                                                <p className={styles.unfollow}>Não seguir</p>
+                                                <p className={styles.unfollow}>Não Seguir</p>
                                             }
                                             {item.id == auth.user?.id &&
                                                 <p>Eu</p>

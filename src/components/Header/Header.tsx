@@ -6,11 +6,14 @@ import styles from './styles.module.css';
 
 type Props = {
     title?: string; //interrogação deixa a prop não obrigatória 
+    onFollowUnfollow: () => void;
+    pendingUpdate: boolean;
 }
 
-export const Header = ({ title }: Props) => {
+export const Header = ({ title, onFollowUnfollow }: Props) => {
     const auth = useContext(AuthContext);
     const [isActive, setIsActive] = useState(false);
+    const [pendingUpdate, setPendingUpdate] = useState(false);
     const navigate = useNavigate();
     let name = auth.user?.name;
     let id_user = auth.user?.id;
@@ -20,9 +23,15 @@ export const Header = ({ title }: Props) => {
 
     }
 
+    const handleFollowUnfollow = () => {
+        console.log('teste');
+
+        setPendingUpdate(true);
+    }
+
     const menu_hamburguer = () => setIsActive(!isActive);
 
- 
+
     return (
         <div>
 
@@ -51,7 +60,7 @@ export const Header = ({ title }: Props) => {
                 <ul className={`${styles['menu_tablet']} ${!isActive && styles.inactive}`}>
                     <div className={styles.menu_sidebar}>
                         <div className={styles.divisao_menu}>
-                            
+
                             <Link to="/Home"><h1 className={styles.title_nav_tablet}>{title}</h1></Link>
 
                             <ul>
@@ -67,7 +76,8 @@ export const Header = ({ title }: Props) => {
                             </ul>
                         </div>
                         <div className={styles.divisao_menu}>
-                            <SectionListRecommended />
+                            <SectionListRecommended onFollowUnfollow={handleFollowUnfollow} pendingUpdate={pendingUpdate} />
+
                         </div>
                     </div>
 

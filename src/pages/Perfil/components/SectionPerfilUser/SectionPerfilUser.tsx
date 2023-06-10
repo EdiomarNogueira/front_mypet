@@ -32,7 +32,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { AuthContext } from '../../../../contexts/Auth/AuthContext';
 
-export const SectionPerfilUser = (props: { id_user: any}) => {
+export const SectionPerfilUser = (props: { id_user: any }) => {
 
     let id_user = props.id_user;
 
@@ -289,35 +289,58 @@ export const SectionPerfilUser = (props: { id_user: any}) => {
                         <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Seguindo: {seguindo}</Link>
                         <Link className={styles.btn_follows} to={'/user/' + id_user + '/connections'}>Seguidores: {seguidores}</Link>
                     </div>
-                    <div className={styles.container_infors}>
-                    <div className={styles.infors_user}>
-                        {/* <div className={styles.area_avatar}> */}
-                            {/* <img className={styles.avatar} src={user?.avatar} alt="imagem perfil pet" loading="lazy" /> */}
 
-                            {/* <p className={styles.biografia}>{biografia}</p> */}
-                        {/* </div> */}
-                        <div className={styles.infors}>
-                            <div className={styles.infors_dados}>
-                                <div>
-                                    <p>Categoria: {categoria}</p>
-                                    <p>Rastreio: {rastreio}</p>
-                                    <p>Cadastrado em: {data_registro}</p>
-                                    <p>Idade: {idade} anos</p>
-                                    <p>Data_nascimento: {data_nascimento}</p>
-                                    <p>Genero: {genero}</p>
-                                    <p>Biografia: {biografia}</p>
+
+                    {auth.user?.id == id_user ?
+                        <div className={styles.container_infors_me}>
+                            <div className={styles.infors_user}>
+                                <div className={styles.infors}>
+                                    <div className={styles.infors_dados}>
+                                        <div>
+                                            <p>Categoria: {categoria}</p>
+                                            <p>Rastreio: {rastreio}</p>
+                                            <p>Cadastrado em: {data_registro}</p>
+                                            <p>Idade: {idade} anos</p>
+                                            <p>Data_nascimento: {data_nascimento}</p>
+                                            <p>Genero: {genero}</p>
+                                            <p>Biografia: {biografia}</p>
+                                        </div>
+                                    </div>
+                                    {msg_rastreio &&
+                                        <p className={styles.msg_rastreio}>{msg_rastreio}</p>
+                                    }
                                 </div>
                             </div>
+                        </div> :
+                        <div className={styles.container_infors}>
+                            <div className={styles.infors_user}>
+                                <div className={styles.area_avatar}>
+                                    <img className={styles.avatar} src={user?.avatar} alt="imagem perfil pet" loading="lazy" />
 
-                            <div>
+                                    <p className={styles.biografia}>{biografia}</p>
+                                </div>
+                                <div className={styles.infors}>
+                                    <div className={styles.infors_dados}>
+                                        <div>
+                                            <p>Categoria: {categoria}</p>
+                                            <p>Rastreio: {rastreio}</p>
+                                            <p>Cadastrado em: {data_registro}</p>
+                                            <p>Idade: {idade} anos</p>
+                                            <p>Data_nascimento: {data_nascimento}</p>
+                                            <p>Genero: {genero}</p>
+                                            <p>Biografia: {biografia}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                    </div>
+
+                                    {msg_rastreio &&
+                                        <p className={styles.msg_rastreio}>{msg_rastreio}</p>
+                                    }
+                                </div>
                             </div>
-
-                            {msg_rastreio &&
-                                <p className={styles.msg_rastreio}>{msg_rastreio}</p>
-                            }
                         </div>
-                    </div>
-                    
+                    }
                     <div className={styles.infors_section}>
                         {auth.user?.id != id_user &&
                             <div className={styles.area_action_user}>
@@ -336,14 +359,12 @@ export const SectionPerfilUser = (props: { id_user: any}) => {
                         <p>Bairro: {bairro}</p>
                         <p>Rua: {rua}</p>
                     </div>
-                    </div>
-                    
-                    {/* let idade = ' -';
+                </div>
+
+                {/* let idade = ' -';
                     let biografia = ' -';
                     let data_nascimento = ' -';
                     let genero = ' -'; */}
-                </div>
-
             </div>
         </>
     )

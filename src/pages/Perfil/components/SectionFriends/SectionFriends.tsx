@@ -115,7 +115,7 @@ export const SectionFriends = () => {
 
                                         {id_user != item?.id &&
                                             <div onClick={() => handleFollowUnfollow(item?.id)}>
-                                                <p className={styles.unfollow}>Desfazer Amizade</p>
+                                                <p className={styles.unfollow}>Não Seguir</p>
                                             </div>
                                         }
 
