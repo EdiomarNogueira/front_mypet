@@ -27,7 +27,6 @@ export const SectionConnectionsUser = ({ onFollowUnfollow, pendingUpdate }: { on
     const [qtnFollowing, setQtnFollowing] = useState(Number);
     const params = useParams();
 
-
     var api = useApi();
     const auth = useContext(AuthContext);
     const loadDadosUser = async () => {

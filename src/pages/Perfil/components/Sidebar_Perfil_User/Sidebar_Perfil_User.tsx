@@ -6,11 +6,13 @@ import { SectionFriends } from '../SectionFriends/SectionFriends';
 import { useApi } from '../../../../hooks/useApi';
 import { User } from '../../../../types/User';
 type Props = {
-    text?: string; //interrogação deixa a prop não obrigatória 
-}
+    onUpdate: () => void;
+  }
 
-export const SidebarPerfilUser = () => {
+export const SidebarPerfilUser = ({ onUpdate }: Props) => {
     const auth = useContext(AuthContext);
+    const [pendingUpdate, setPendingUpdate] = useState(false);
+
     let id_user = auth.user?.id;
     let name = auth.user?.name;
     var [user, setUser] = useState<User | null>(null);
@@ -18,6 +20,11 @@ export const SidebarPerfilUser = () => {
     const loadUser = async () => {
         let json = await api.getUserMe();
         setUser(json);
+    }
+
+    const handleUpdate = () => {
+        setPendingUpdate(true);
+        onUpdate();
     }
 
     useEffect(() => {
@@ -44,7 +51,7 @@ export const SidebarPerfilUser = () => {
                 </ul>
             </div>
             <div className={styles.divisao_menu}>
-                <SectionFriends />
+                <SectionFriends onUpdate={handleUpdate} />
             </div>
         </div>
     )

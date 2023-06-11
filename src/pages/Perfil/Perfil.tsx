@@ -16,12 +16,17 @@ export const Perfil = () => {
     let id_user = auth.user?.id;
     const params = useParams();
     const [userPage, setUserPage] = useState('');
+    const [sidebarUpdated, setSidebarUpdated] = useState(false); // Estado para rastrear a atualização do Sidebar_Perfil_User
 
     useEffect(() => {
         if (id_user == params.id_user) {
             setMe(true);
         }
     }, []);
+
+    const handleSidebarUpdate = () => {
+        setSidebarUpdated(true); // Define o estado de atualização do Sidebar_Perfil_User como verdadeiro
+    }
 
     useEffect(() => {
 
@@ -32,7 +37,7 @@ export const Perfil = () => {
             <Header title="MeuPetAqui" />
             <div className={styles.area_body}>
                 <div className={styles.area_sidebar}>
-                    <SidebarPerfilUser />
+                    <SidebarPerfilUser onUpdate={handleSidebarUpdate} />
                     {/* <SidebarPerfilContact /> */}
 
                     {/* {me &&
@@ -43,7 +48,7 @@ export const Perfil = () => {
                     } */}
                 </div>
                 <div className={styles.area_posts}>
-                    <SectionPerfilUser id_user={params.id_user} />
+                    <SectionPerfilUser id_user={params.id_user} sidebarUpdated={sidebarUpdated} />
                 </div>
                 <div className={styles.area_sidebar_ong}>
                     <SidebarOngs />

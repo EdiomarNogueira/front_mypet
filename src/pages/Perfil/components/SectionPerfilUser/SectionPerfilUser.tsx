@@ -31,10 +31,13 @@ import {
 } from '../../../../redux/reducers/userReducer';
 import { useDispatch } from 'react-redux';
 import { AuthContext } from '../../../../contexts/Auth/AuthContext';
+type Props = {
+    id_user?: string;
+    sidebarUpdated: boolean; // Nova prop para receber a informação de atualização
+}
+export const SectionPerfilUser = ({ id_user ='', sidebarUpdated }: Props) => {
 
-export const SectionPerfilUser = (props: { id_user: any }) => {
-
-    let id_user = props.id_user;
+    // let id_user =id_user;
 
     const [viewGaleria, setViewGaleria] = useState(true);
     const [currentPerPage, setCurrentPerPage] = useState(0);
@@ -238,7 +241,7 @@ export const SectionPerfilUser = (props: { id_user: any }) => {
     useEffect(() => {
         loadDadosUser();
         handleVerificFollow();
-    }, [params]);
+    }, [params,sidebarUpdated]);
 
     useEffect(() => {
         const intersectionObserver = new IntersectionObserver((entries) => {
@@ -263,7 +266,7 @@ export const SectionPerfilUser = (props: { id_user: any }) => {
                     <div className={styles.flex_row}>
                         <h2>{user?.name}</h2>
 
-                        {auth.user?.id == id_user &&
+                        {auth.user?.id == parseInt(id_user) &&
                             < div className={styles.area_config}>
                                 <Link to={'/user/config'}>
                                     <div className={styles.btn_config}>
@@ -275,7 +278,7 @@ export const SectionPerfilUser = (props: { id_user: any }) => {
                             </div>}
                     </div>
                     <div className={styles.area_follow}>
-                        {auth.user?.id != id_user &&
+                        {auth.user?.id != parseInt(id_user) &&
                             <div onClick={handleFollowUnfollow} className={styles.follow_unfollow}>
                                 {!isFollowing &&
                                     <p className={styles.follow}>Seguir</p>
@@ -291,7 +294,7 @@ export const SectionPerfilUser = (props: { id_user: any }) => {
                     </div>
 
 
-                    {auth.user?.id == id_user ?
+                    {auth.user?.id == parseInt(id_user) ?
                         <div className={styles.container_infors_me}>
                             <div className={styles.infors_user}>
                                 <div className={styles.infors}>
@@ -342,7 +345,7 @@ export const SectionPerfilUser = (props: { id_user: any }) => {
                         </div>
                     }
                     <div className={styles.infors_section}>
-                        {auth.user?.id != id_user &&
+                        {auth.user?.id != parseInt(id_user) &&
                             <div className={styles.area_action_user}>
                                 <Link className={styles.btn_action} to={'/user/' + id_user + '/mypets'}>Ver Pets</Link>
                                 <Link className={styles.btn_action} to={'/user/' + id_user + '/gallery'}>Galeria de Fotos</Link>

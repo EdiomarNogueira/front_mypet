@@ -8,8 +8,10 @@ import { User } from '../../../../types/User';
 // type Props = {
 //     text?: string; //interrogação deixa a prop não obrigatória 
 // }
-
-export const SectionFriends = () => {
+type Props = {
+    onUpdate: () => void;
+}
+export const SectionFriends = ({ onUpdate }: Props) => {
 
     const [pets, setPets] = useState<Pets[]>([] || 0);
     const [loading, setLoading] = useState(false);
@@ -56,13 +58,14 @@ export const SectionFriends = () => {
 
             setIsFollowing(json.relation);
             setCount(count + 1);
-            handleReloadPage();
+            onUpdate();
+            // handleReloadPage();
         }
     }
 
-    const handleReloadPage = async () => {
-        { window.location.reload() }
-    }
+    // const handleReloadPage = async () => {
+    //     { window.location.reload() }
+    // }
 
     let latitude = '';
     let longitude = '';
@@ -115,7 +118,7 @@ export const SectionFriends = () => {
 
                                         {id_user != item?.id &&
                                             <div onClick={() => handleFollowUnfollow(item?.id)}>
-                                                <p className={styles.unfollow}>Não Seguir</p>
+                                                <p className={styles.unfollow}>Desfazer Amizade</p>
                                             </div>
                                         }
 
