@@ -13,6 +13,8 @@ import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { isEmpty } from 'lodash';
 import { MapPetAlert } from '../MapPetAlert/MapPetAlert';
 import Checkbox from '../Checkbox/checkbox';
+import trash from '../../media/trash.png';
+
 type Props = {
     // title?: string; //interrogação deixa a prop não obrigatória 
 }
@@ -240,7 +242,7 @@ export const Posts = () => { //{ title }: Props
                                                 </div>
                                                 {auth.user?.id == item.id_user &&
                                                     <div className={styles.area_btn_deletar}>
-                                                        <p onClick={() => handleDeletePost(item.id)} className={styles.btn_deletar}><img src="src\media\icons\trash.png" alt="deletar post" /></p>
+                                                        <p onClick={() => handleDeletePost(item.id)} className={styles.btn_deletar}><img src={trash} alt="deletar post" /></p>
                                                     </div>
                                                 }
                                             </div>
@@ -353,7 +355,7 @@ export const Posts = () => { //{ title }: Props
                                             </div>
                                             {auth.user?.id == item.id_user &&
                                                 <div className={styles.area_btn_deletar}>
-                                                    <p onClick={() => handleDeleteAlert(item.id, item.id_pet, item.situation)} className={styles.btn_deletar}><img src="src\media\icons\trash.png" alt="deletar alert" /></p>
+                                                    <p onClick={() => handleDeleteAlert(item.id, item.id_pet, item.situation)} className={styles.btn_deletar}><img src={trash} alt="deletar alert" /></p>
 
                                                 </div>
                                             }

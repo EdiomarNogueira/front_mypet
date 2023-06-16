@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../contexts/Auth/AuthContext';
 import styles from './styles.module.css';
+import account_circle from '../../../../media/account_circle.png';
 
 type Props = {
     title?: string; //interrogação deixa a prop não obrigatória 
@@ -37,7 +38,7 @@ export const Header = ({ title }: Props) => {
                         {auth.user &&
                             <button className={styles.btn_sair} onClick={handleLogout}>Sair </button>
                         }
-                        <img src="\src\media\icons\account_circle.svg" onClick={handleLogout} alt="Logout" />
+                        <img className={styles.icon_logout} src={account_circle} onClick={handleLogout} alt="Logout" />
                     </div>
                 </nav>
 

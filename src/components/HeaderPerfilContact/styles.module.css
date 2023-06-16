@@ -12,7 +12,9 @@
 .title_nav_desktop {
     color: #FFF;
 }
-
+.icon_logout {
+    width: 30px;
+}
 
 .nav_button {
     color: #FFF;

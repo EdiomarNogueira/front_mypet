@@ -3,11 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { SectionListRecommended } from '../SectionListRecommended/SectionListRecommended';
 import styles from './styles.module.css';
-
+import account_circle from '../../media/account_circle.png';
 type Props = {
     title?: string; //interrogação deixa a prop não obrigatória 
-    onFollowUnfollow: () => void;
-    pendingUpdate: boolean;
+    onFollowUnfollow?: () => void;
+    pendingUpdate?: boolean;
 }
 
 export const Header = ({ title, onFollowUnfollow }: Props) => {
@@ -49,7 +49,7 @@ export const Header = ({ title, onFollowUnfollow }: Props) => {
                         {auth.user &&
                             <button className={styles.btn_sair} onClick={handleLogout}>Sair </button>
                         }
-                        <img src="\src\media\icons\account_circle.svg" onClick={handleLogout} alt="Logout" />
+                        <img className={styles.icon_logout} src={account_circle} onClick={handleLogout} alt="Logout" />
                     </div>
                 </nav>
 

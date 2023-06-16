@@ -4,6 +4,7 @@ import { Comment } from '../../types/Comment';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { useApi } from '../../hooks/useApi';
+import trash from '../../media/trash.png';
 
 type Props = {
     comments: Comment;
@@ -59,7 +60,7 @@ export const Comments = (props: Props) => {
                         {auth.user?.id === props.comments.id_user &&
                             <div className={styles.area_btn_deletar}>
                                 <p onClick={() => handleDeletePost(props.comments.id)} className={styles.btn_deletar}>
-                                    <img src="src\media\icons\trash.png" alt="deletar post" />
+                                    <img src={trash} alt="deletar post" />
                                 </p>
                             </div>
                         }

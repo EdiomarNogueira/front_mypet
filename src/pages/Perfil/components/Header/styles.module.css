@@ -48,6 +48,10 @@
 
 }
 
+.icon_logout {
+    width: 30px;
+}
+
 .nav_desktop {
     display: flex;
     flex-direction: row;

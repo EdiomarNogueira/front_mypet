@@ -3,6 +3,7 @@ import styles from './styles.module.css';
 import { useApi } from '../../../../hooks/useApi';
 import { Link, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../../../redux/hooks/useAppSelector';
+import config from '../../../../media/config.png';
 import {
     setUser_Age,
     setUser_Avatar,
@@ -270,7 +271,7 @@ export const SectionPerfilUser = ({ id_user ='', sidebarUpdated }: Props) => {
                             < div className={styles.area_config}>
                                 <Link to={'/user/config'}>
                                     <div className={styles.btn_config}>
-                                        <img className={styles.config} src="\src\media\icons\config.png" alt="configurar" loading="lazy" />
+                                        <img className={styles.config} src={config} alt="configurar" loading="lazy" />
                                         <p>Configurar</p>
                                     </div>
                                 </Link>

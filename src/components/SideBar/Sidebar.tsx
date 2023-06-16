@@ -7,8 +7,8 @@ import { useApi } from '../../hooks/useApi';
 import { User } from '../../types/User';
 type Props = {
     text?: string; //interrogação deixa a prop não obrigatória 
-    pendingUpdate: boolean;
-    onFollowUnfollow: () => void; // Adicione a prop onFollowUnfollow com o tipo correto
+    pendingUpdate?: boolean;
+    onFollowUnfollow?: () => void; // Adicione a prop onFollowUnfollow com o tipo correto
 }
 
 export const Sidebar = (props: Props) => {
@@ -26,7 +26,9 @@ export const Sidebar = (props: Props) => {
         console.log('teste');
 
         setPendingUpdate(true);
-        props.onFollowUnfollow(); // Chame a função de callback passada como prop
+        if (props.onFollowUnfollow) { // Verificar se a função está definida antes de chamá-la
+            props.onFollowUnfollow;
+        }
     }
     useEffect(() => {
         if (props.pendingUpdate) {
@@ -61,7 +63,7 @@ export const Sidebar = (props: Props) => {
                 </ul>
             </div>
             <div className={styles.divisao_menu}>
-                <SectionListRecommended onFollowUnfollow={handleFollowUnfollow} pendingUpdate={props.pendingUpdate} />
+                <SectionListRecommended onFollowUnfollow={handleFollowUnfollow} pendingUpdate={pendingUpdate} />
             </div>
         </div>
     )

@@ -5,7 +5,7 @@ import { AuthContext } from '../../../../contexts/Auth/AuthContext';
 import { Link, useParams } from 'react-router-dom';
 import { SectionToolsPet } from '../SectionToolsPet/SectionToolsPet';
 import { useAppSelector } from '../../../../redux/hooks/useAppSelector';
-
+import config from '../../../../media/config.png';
 import {
     setPet_Id,
     setPet_Age,
@@ -235,7 +235,7 @@ export const SectionPerfilPet = (props: { idpet: any }) => {
                         <div className={styles.btn_config}>
                             {/* <Link to={+'/mypet/'+pet.id+'/config'}> */}
                             <Link className={styles.config} to={'/user/' + pet.id_user + '/mypet/' + id_pet + '/config'}>
-                                <img src="\src\media\icons\config.png" alt="configurar" loading="lazy" />
+                                <img src={config} alt="configurar" loading="lazy" />
                                 <p>Configurar</p>
                             </Link>
 

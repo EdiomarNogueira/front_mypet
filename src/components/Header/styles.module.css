@@ -144,7 +144,9 @@ li {
     width: 100%;
 }
 
-
+.icon_logout {
+    width: 30px;
+}
 /* menu hamburguer */
 
 .menu_hamburguer {
