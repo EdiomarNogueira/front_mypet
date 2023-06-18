@@ -16,6 +16,7 @@
     "bootstrap": "^5.2.3",
     "cors": "^2.8.5",
     "html-to-image": "^1.10.8",
+    "html2canvas": "^1.4.1",
     "isset-php": "^1.0.7",
     "leaflet": "^1.9.3",
     "qrcode": "^1.5.1",
