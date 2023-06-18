@@ -91,12 +91,12 @@ export const FormPost = (props: { parentNewPostCallBack: any }) => {
       } else if (type === "text") {
         let json = await api.postNewPostText(type, body, pet);
       }
-  
+
       setSelectPets([]); // Limpa os pets selecionados
       setAddText("");
       setPreviewImage(null);
       arraypets = []; // Define arraypets como um array vazio
-  
+
       onTrigger();
     } else {
       alert("Post vazio!");
@@ -146,12 +146,12 @@ export const FormPost = (props: { parentNewPostCallBack: any }) => {
             <label htmlFor="marcar_pet">Marcar Pet</label>
             <Select
               className={styles.select_pet}
-              isMulti
-              options={arraypets}
-              defaultValue={selectPets}
+              isMulti options={arraypets}
+              // defaultValue={selectPets}
               onChange={(item: any) => setSelectPets(item)}
-              key={selectPets.length} 
+              key={selectPets.length}
             />
+            
           </div>
           <div className={styles.area_acoes}>
             <input className={styles.btn_enviar} type="submit" value="Enviar" />
