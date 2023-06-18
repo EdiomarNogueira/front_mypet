@@ -7,9 +7,9 @@ import { Comment } from '../types/Comment';
 export type Publish = {
     parentId: number;
     error:Error,
-    
     id:number,
     id_user: number,
+    id_pet: number,
     type:string,
     body:string,
     subtitle: string,

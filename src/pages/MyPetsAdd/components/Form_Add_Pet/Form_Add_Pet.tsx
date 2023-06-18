@@ -53,6 +53,10 @@ export const Form_Add_Pet = () => {
             let json = await api.postCreatepet(pet.name, pet.id_user, pet.species, pet.birthdate, pet.situation, user.latitude, user.longitude);
             if (json.success) {
                 setSuccess(json.success);
+                dispatch(setPet_Name('')); // Limpar campo de nome
+                dispatch(setPet_Species('1')); // Definir espécie padrão
+                dispatch(setPet_Birthdate('')); // Limpar campo de nascimento
+                dispatch(setPet_Situation('1')); // Definir situação padrão
             } else {
                 setError(json.error);
             }

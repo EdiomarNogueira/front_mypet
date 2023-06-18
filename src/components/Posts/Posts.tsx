@@ -63,7 +63,9 @@ export const Posts = () => { //{ title }: Props
     const loadPosts = async () => {
         let json = await api.getPosts(currentPerPage);
         setLoading(true);
+        console.log('posts');
         if (json) {
+            console.log('posts',json);
             if (posts != json.posts) {
                 setPosts(json.posts);
                 setCountPosts(json.count_posts.count);
@@ -140,7 +142,7 @@ export const Posts = () => { //{ title }: Props
         let json = await api.getUpdateFeed();
         if (json.count != countPosts && countPosts > 0) {
             var updates = json.count - countPosts;
-            console.log('teste', json.autor_post.id_user);
+            console.log('teste', updates);
             if (updates > 0 && json.autor_post.id_user != auth.user?.id) {
                 setExistUpdates(true);
                 console.log('updates pendentes', updates);
@@ -263,9 +265,9 @@ export const Posts = () => { //{ title }: Props
                                                 item.marked_pets &&
                                                 <div className={styles.area_marked_pets}>
                                                     <h4>Pets Marcados:</h4>
-                                                    {item.marked_pets.map((pets_marked, index) => (
+                                                    {item.marked_pets.map((pets_marked:{id_pet:number, name:string}, index) => (
                                                         <div className={styles.marked_pets} key={index}>
-                                                            <Link className={styles.mark} to={'/user/' + item.id_user + '/mypet/' + item.id}>{pets_marked}</Link>
+                                                            <Link className={styles.mark} to={'/user/' + item.id_user + '/mypet/' + pets_marked.id_pet}>{pets_marked.name}</Link>
 
                                                             {/* <p>{pets_marked}</p> */}
                                                         </div>

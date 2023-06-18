@@ -7,6 +7,7 @@ import { useApiLocation } from '../../../../hooks/useApiGeolocation';
 import InputMask from 'react-input-mask';
 import { useAppSelector } from '../../../../redux/hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
+import adicionar_imagem from '../../../../media/adicionar_imagem.jpg';
 import {
     setPet_Age,
     setPet_Avatar,
@@ -74,6 +75,7 @@ export const FormAlertPet = () => {
 
     const loadDadosPet = async () => {
         let json = await api.getPet(params.id_user, params.id_pet);
+        console.log('json pet', json);
         if (json) {
             setDadosPet(json.currentPet[0]);
             // setPet(json.currentPet[0]);
@@ -192,20 +194,20 @@ export const FormAlertPet = () => {
                 console.log(" não enviou alerta");
             }
         } else {
-            console.log(params.id_pet);
-            console.log(params.id_pet);
-            console.log(file.size);
-            console.log(pet.name);
-            console.log(addText);
-            console.log(pet.situation);
-            console.log(date_occurrence);
-            console.log(user.road);
-            console.log(user.district);
-            console.log(user.city);
-            console.log(user.email);
-            console.log(user.phone);
-            console.log(user.latitude);
-            console.log(user.longitude);
+            console.log('id_pet', params.id_user);
+            console.log('id_pet', params.id_pet);
+            console.log('size', file.size);
+            console.log('name', pet.name);
+            console.log('addText', addText);
+            console.log('situation', pet.situation);
+            console.log('date_occurrence', date_occurrence);
+            console.log('road', user.road);
+            console.log('district', user.district);
+            console.log('city', user.city);
+            console.log('email', user.email);
+            console.log('phone', user.phone);
+            console.log('latitude', user.latitude);
+            console.log('longitude', user.longitude);
             alert("Preencha todos os campos!");
         }
     }
@@ -224,10 +226,10 @@ export const FormAlertPet = () => {
     const loadCidade = async (road: string, city: string, district: string) => {
         let json = await apiLocation.getLocation(road, city, district);
         console.log('json', json);
-        if (json[0]) {
-            if (json[0].lat && json[0].lon) {
-                setLatitude(json[0].lat);
-                setLongitude(json[0].lon);
+        if (json) {
+            if (json.lat && json.lon) {
+                setLatitude(json.lat);
+                setLongitude(json.lon);
             }
         }
     }
@@ -274,7 +276,7 @@ export const FormAlertPet = () => {
                 <div className={styles.flex_column}>
                     <h3>Foto de Divulgação:</h3>
                     <p>Escolha uma foto recente para facilitar a identificação do seu Pet</p>
-                    {image ? <img className={styles.avatar} src={URL.createObjectURL(image)} alt="Imagem" loading="lazy" /> : <img className={styles.avatar} src="\src\media\images\adicionar_imagem.jpg" alt="Imagem" width="150" height="150" loading="lazy" />}<br /><br />
+                    {image ? <img className={styles.avatar} src={URL.createObjectURL(image)} alt="Imagem" loading="lazy" /> : <img className={styles.avatar} src={adicionar_imagem} alt="Imagem" width="150" height="150" loading="lazy" />}<br /><br />
                 </div>
 
                 <form method='POST' onSubmit={handleFormAlertSubmit}>
