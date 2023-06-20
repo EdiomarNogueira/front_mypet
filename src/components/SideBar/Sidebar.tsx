@@ -27,7 +27,7 @@ export const Sidebar = (props: Props) => {
 
         setPendingUpdate(true);
         if (props.onFollowUnfollow) { // Verificar se a função está definida antes de chamá-la
-            props.onFollowUnfollow;
+            props.onFollowUnfollow();
         }
     }
     useEffect(() => {
@@ -63,7 +63,7 @@ export const Sidebar = (props: Props) => {
                 </ul>
             </div>
             <div className={styles.divisao_menu}>
-                <SectionListRecommended onFollowUnfollow={handleFollowUnfollow} pendingUpdate={pendingUpdate} />
+                <SectionListRecommended onFollowUnfollow={handleFollowUnfollow} pendingUpdate={props.pendingUpdate} />
             </div>
         </div>
     )

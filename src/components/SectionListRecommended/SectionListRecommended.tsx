@@ -10,7 +10,7 @@ type Props = {
     onFollowUnfollow: (id_user: any) => void;
     pendingUpdate: boolean;
 }
-export const SectionListRecommended =({ onFollowUnfollow, pendingUpdate }: { onFollowUnfollow: (id_user: any) => void; pendingUpdate: boolean }) => {
+export const SectionListRecommended =({ onFollowUnfollow, pendingUpdate }: { onFollowUnfollow: (id_user: any) => void; pendingUpdate?: boolean }) => {
     const user = useAppSelector(state => state.user);
 
     const [pets, setPets] = useState<Pets[]>([] || 0);
