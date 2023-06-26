@@ -94,7 +94,7 @@ export const Form_Add_Pet = () => {
                 </div>
                 <div className={styles.register_inputs} onSubmit={handleRegister}>
                     <div className={styles.single_input}>
-                        <label htmlFor="name">* Nome</label>
+                        <label htmlFor="name">Nome: *</label>
                         <input
                             type="text"
                             value={pet.name}
@@ -105,7 +105,7 @@ export const Form_Add_Pet = () => {
                         />
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="species">* Espécie</label>
+                        <label htmlFor="species">Espécie: *</label>
                         <select name="species" id="species" value={pet.species} required onChange={especie => dispatch(setPet_Species(especie.target.value))} >
                             <option value="1">Cachorro</option>
                             <option value="2">Gato</option>
@@ -123,7 +123,7 @@ export const Form_Add_Pet = () => {
                         />
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="situation">* Situação</label>
+                        <label htmlFor="situation">:Situação: *</label>
                         <select name="situation" id="situation" value={pet.situation} required onChange={situation => dispatch(setPet_Situation(situation.target.value))} >
                             <option value="1">Meu Pet</option>
                             <option value="2">Pet Para Adoção</option>

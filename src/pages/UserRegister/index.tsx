@@ -19,7 +19,9 @@ export const UserRegister = () => {
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [passwordStrength, setPasswordStrength] = useState<string>('');
     const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
-
+    const isFieldsEmpty = () => {
+        return !name || !email || !password || !category || !phone || !birthdate;
+      };
     const handleNameInput = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
     }
@@ -102,7 +104,7 @@ export const UserRegister = () => {
     };
 
     const handleRegister = async () => {
-        if (name && email && password && category && phone && birthdate && passwordMatch && (passwordStrength === 'Forte' || passwordStrength === 'Muito Forte')) {
+        if (!isFieldsEmpty() && passwordMatch && (passwordStrength === 'Forte' || passwordStrength === 'Muito Forte')) {
 
             let json = await api.postCreateuser(name, email, password, birthdate, category, phone,);
 
@@ -138,7 +140,7 @@ export const UserRegister = () => {
                 <div className={styles.register_inputs} onSubmit={handleRegister}>
 
                     <div className={styles.single_input}>
-                        <label htmlFor="name">Nome:
+                        <label htmlFor="name">Nome: *
                             <input
                                 type="text"
                                 value={name}
@@ -150,7 +152,7 @@ export const UserRegister = () => {
                         </label>
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="email">Email:
+                        <label htmlFor="email">Email: *
                             <input
                                 type="text"
                                 value={email}
@@ -174,7 +176,7 @@ export const UserRegister = () => {
                     </div> */}
                     <div className={styles.single_input}>
                         <label htmlFor="password">
-                            Senha:
+                            Senha: *
                             <input
                                 type="password"
                                 name="password"
@@ -186,7 +188,7 @@ export const UserRegister = () => {
                     </div>
                     <div className={styles.single_input}>
                         <label htmlFor="confirmPassword">
-                            Confirmar Senha:
+                            Confirmar Senha: *
                             <input
                                 type="password"
                                 name="confirmPassword"
@@ -221,7 +223,7 @@ export const UserRegister = () => {
                         )}
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="category">Categoria:
+                        <label htmlFor="category">Categoria: *
                             <select name="category" id="category" value={category} required onChange={cat => setCategory(cat.target.value)} >
                                 <option value="1">Usuário</option>
                                 <option value="2">Ong </option>
@@ -231,7 +233,7 @@ export const UserRegister = () => {
                     <p>Perfis cadastrados como Ong serão avaliados e liberados em até 72h</p>
 
                     <div className={styles.single_input}>
-                        <label htmlFor="phone">Telefone:
+                        <label htmlFor="phone">Telefone: *
                             <InputMask
                                 type="text"
                                 value={phone}
@@ -244,7 +246,7 @@ export const UserRegister = () => {
                         </label>
                     </div>
                     <div className={styles.single_input}>
-                        <label htmlFor="birthdate">Data Nascimento:
+                        <label htmlFor="birthdate">Data Nascimento: *
                             <input
                                 type="date"
                                 value={birthdate}

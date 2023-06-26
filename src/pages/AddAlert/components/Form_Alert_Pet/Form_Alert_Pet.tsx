@@ -287,7 +287,7 @@ export const FormAlertPet = () => {
                     </div>
 
                     <div className={styles.single_input}>
-                        <label htmlFor="descricao">Descrição do alerta:</label>
+                        <label htmlFor="descricao">Descrição do alerta: *</label>
 
                         <input value={addText}
                             name="descricao"
@@ -299,7 +299,7 @@ export const FormAlertPet = () => {
                         />
                     </div>
                     <div className={styles.single_input_situation}>
-                        <label htmlFor="situation">Situação</label>
+                        <label htmlFor="situation">Situação: *</label>
                         <select name="situation" id="situation" value={pet.situation} required onChange={situation => dispatch(setPet_Situation(situation.target.value))} >
                             {/* <option value="1">Meu Pet</option> */}
                             <option value="">Selecione uma situação</option>
@@ -312,7 +312,7 @@ export const FormAlertPet = () => {
                         </select>
                     </div>
                     <div className={styles.single_input_data}>
-                        <label htmlFor="data_alerta">Data ocorrência: </label>
+                        <label htmlFor="data_alerta">Data ocorrência: *</label>
                         <input
                             name='data_alerta'
                             type="datetime-local"
@@ -347,7 +347,7 @@ export const FormAlertPet = () => {
                         <h4>Localização de Referência:</h4>
                         <p>Será enviado um post de alerta para usuários em um raio de 5km de distância do ponto de referência.</p>
                         <div className={styles.single_input}>
-                            <label htmlFor="city">Cidade</label>
+                            <label htmlFor="city">Cidade: *</label>
                             <input
                                 type="city"
                                 value={user?.city}
@@ -358,7 +358,7 @@ export const FormAlertPet = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="district">Bairro</label>
+                            <label htmlFor="district">Bairro: *</label>
                             <input
                                 type="district"
                                 value={user?.district}
@@ -369,7 +369,7 @@ export const FormAlertPet = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="road">Rua/Avenida</label>
+                            <label htmlFor="road">Rua/Avenida: *</label>
                             <input
                                 type="road"
                                 value={user?.road}

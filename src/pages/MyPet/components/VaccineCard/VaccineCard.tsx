@@ -156,7 +156,7 @@ export const VaccineCard = (props: { dados_pet: { id: Number; name: String; spec
                             </label>
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="name">Indicação</label>
+                            <label htmlFor="name">Recomendação</label>
                             <input
                                 type="text"
                                 value={recommendation}

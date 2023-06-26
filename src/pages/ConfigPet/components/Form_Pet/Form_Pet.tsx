@@ -157,14 +157,14 @@ export const FormPet = () => {
                 <div className={styles.page_register}>
 
                     <div className={styles.register_desc}>
-                        <h1>Complete o dados do seu pet</h1>
+                        <h1>Complete os dados do seu pet</h1>
                         <p>... Cadastre todos os dados do seu pet para uma melhor experiência com a plataforma.</p>
                     </div>
 
                     <div className={styles.register_inputs} onSubmit={handleRegister}>
 
                         <div className={styles.single_input}>
-                            <label htmlFor="name">Name</label>
+                            <label htmlFor="name">Name: *</label>
                             <input
                                 type="text"
                                 value={pet.name || ''}
@@ -175,7 +175,7 @@ export const FormPet = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="breed">Raça</label>
+                            <label htmlFor="breed">Raça: </label>
                             <input
                                 type="text"
                                 value={pet.breed || ''}
@@ -186,7 +186,7 @@ export const FormPet = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="birthdate">Data Nascimento</label>
+                            <label htmlFor="birthdate">Data Nascimento: </label>
                             <input
                                 type="date"
                                 value={pet.birthdate || ''}
@@ -196,7 +196,7 @@ export const FormPet = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="biography">Biografia</label>
+                            <label htmlFor="biography">Biografia: </label>
                             <input
                                 type="biography"
                                 value={pet.biography || ''}
@@ -207,7 +207,7 @@ export const FormPet = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="castrated">Castração</label>
+                            <label htmlFor="castrated">Castração: </label>
                             <select name="castrated" id="castrated" value={pet.castrated || ''} required onChange={cat => dispatch(setPet_Castrated(cat.target.value))} >
                                 <option value="">Definir Castração</option>
                                 <option value="1">Castrado</option>
@@ -215,7 +215,7 @@ export const FormPet = () => {
                             </select>
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="genre">Gênero</label>
+                            <label htmlFor="genre">Gênero: </label>
                             <select name="genre" id="genre" value={pet.genre || ''} required onChange={gen => dispatch(setPet_Genre(gen.target.value))} >
                                 <option value="">Definir Gênero</option>
                                 <option value="1">Macho</option>
@@ -223,7 +223,7 @@ export const FormPet = () => {
                             </select>
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="species">Espécie</label>
+                            <label htmlFor="species">Espécie: *</label>
                             <select name="species" id="species" value={pet.species || ''} required onChange={gen => dispatch(setPet_Species(gen.target.value))} >
                                 <option value="">Definir Espécie</option>
                                 <option value="1">Cão</option>
@@ -232,7 +232,7 @@ export const FormPet = () => {
                         </div>
 
                         <div className={styles.single_input}>
-                            <label htmlFor="size">Porte</label>
+                            <label htmlFor="size">Porte: </label>
                             <select name="size" id="size" value={pet.size || ''} required onChange={gen => dispatch(setPet_Size(gen.target.value))} >
                                 <option value="">Definir Porte</option>
                                 <option value="1">Pequeno</option>
@@ -241,7 +241,7 @@ export const FormPet = () => {
                             </select>
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="fur">Pelagem</label>
+                            <label htmlFor="fur">Pelagem: </label>
                             <select name="fur" id="fur" value={pet.fur || ''} required onChange={gen => dispatch(setPet_Fur(gen.target.value))} >
                                 <option value="">Definir Pelagem</option>
                                 <option value="1">Curto</option>
@@ -250,7 +250,7 @@ export const FormPet = () => {
                             </select>
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="situation">Situação</label>
+                            <label htmlFor="situation">Situação: *</label>
                             <select name="situation" id="situation" value={pet.situation || ''} required onChange={gen => dispatch(setPet_Situation(gen.target.value))} >
                                 <option value="">Definir Situação</option>
                                 <option value="1">Meu Pet</option>

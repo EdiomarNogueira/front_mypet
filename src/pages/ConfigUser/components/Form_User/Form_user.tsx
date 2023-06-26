@@ -31,14 +31,14 @@ export const FormUser = () => {
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
     const dispatch = useDispatch();
-
-    const user = useAppSelector(state => state.user);
-
+    const [isFieldsEmpty, setIsFieldsEmpty] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [passwordStrength, setPasswordStrength] = useState<string>('');
     const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
+    const user = useAppSelector(state => state.user);
+
     //const auth = useContext(AuthContext);
     //const [loading, setLoading] = useState(false);
     var api = useApi();
@@ -82,6 +82,20 @@ export const FormUser = () => {
         dispatch(setUser_Longitude(user_dados?.longitude));
     }
 
+    const checkFieldsEmpty = () => {
+        if (
+          user.name === '' ||
+          user.email === '' ||
+          user.phone === '' ||
+          user.birthdate === ''
+        ) {
+          setIsFieldsEmpty(true);
+          return true;
+        }
+        setIsFieldsEmpty(false);
+        return false;
+      };
+
     const loadDadosUser = async () => {
         //setLoading(true);
         var json = await api.getDadosUser();
@@ -113,7 +127,13 @@ export const FormUser = () => {
         setConfirmPassword('');
         setIsModalOpen(false);
     };
+    
     const handleRegister = async () => {
+
+        if (checkFieldsEmpty()) {
+            alert("Os campos obrigatórios marcados com * devem ser preenchidos.")
+            return;
+          }
         if (user.road && user.city && user.district) {
             alert("Iremos registrar o seu endereço, com isso poderemos auxiliar na localização do seu pet.")
         } else {
@@ -262,7 +282,7 @@ export const FormUser = () => {
                     <div className={styles.register_inputs} onSubmit={handleRegister}>
 
                         <div className={styles.single_input}>
-                            <label htmlFor="name">Name</label>
+                            <label htmlFor="name">Name *</label>
                             <input
                                 type="text"
                                 value={user.name}
@@ -273,7 +293,7 @@ export const FormUser = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="email">Email  *</label>
                             <input
                                 type="text"
                                 value={user.email || ''}
@@ -284,7 +304,7 @@ export const FormUser = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="phone">Telefone</label>
+                            <label htmlFor="phone">Telefone  *</label>
                             <InputMask
                                 type="text"
                                 value={user.phone}
@@ -307,8 +327,8 @@ export const FormUser = () => {
                             />
                         </div> */}
                         <div className={styles.single_input}>
-                            <label htmlFor="category">Categoria</label>
-                            <select name="category" id="category" value={user.category} required onChange={cat => dispatch(setUser_Category(cat.target.value))} >
+                            <label htmlFor="category">Categoria  </label>
+                            <select name="category" id="category" value={user.category}  onChange={cat => dispatch(setUser_Category(cat.target.value))} >
                                 <option value="">Selecionar Categoria</option>
                                 <option value="1">Usuário</option>
                                 <option value="2">Ong</option>
@@ -316,7 +336,7 @@ export const FormUser = () => {
                         </div>
 
                         <div className={styles.single_input}>
-                            <label htmlFor="birthdate">Nascimento</label>
+                            <label htmlFor="birthdate">Nascimento  *</label>
                             <input
                                 type="date"
                                 value={user.birthdate}
@@ -326,8 +346,8 @@ export const FormUser = () => {
                             />
                         </div>
                         <div className={styles.single_input}>
-                            <label htmlFor="genre">Gênero</label>
-                            <select name="genre" id="genre" value={user.genre} required onChange={gen => dispatch(setUser_Genre(gen.target.value))} >
+                            <label htmlFor="genre">Gênero  </label>
+                            <select name="genre" id="genre" value={user.genre} onChange={gen => dispatch(setUser_Genre(gen.target.value))} >
                                 <option value="">Selecionar Gênero</option>
                                 <option value="1">Masculino</option>
                                 <option value="2">Feminino</option>
@@ -341,7 +361,6 @@ export const FormUser = () => {
                                 value={user.work}
                                 onChange={(element) => { dispatch(setUser_Work(element.target.value)) }}
                                 id="work"
-                                required
                                 placeholder={user?.work}
                             />
                         </div>
@@ -353,7 +372,6 @@ export const FormUser = () => {
                                 value={user.biography}
                                 onChange={(element) => { dispatch(setUser_Biography(element.target.value)) }}
                                 id="biography"
-                                required
                                 maxLength={48}
                                 placeholder={user?.biography}
                             />
@@ -365,7 +383,6 @@ export const FormUser = () => {
                                 value={user.instagram}
                                 onChange={(element) => { dispatch(setUser_Instagram(element.target.value)) }}
                                 id="instagram"
-                                required
                                 placeholder="@instagram"
                             />
                         </div>
@@ -376,7 +393,6 @@ export const FormUser = () => {
                                 value={user.facebook}
                                 onChange={(element) => { dispatch(setUser_Facebook(element.target.value)) }}
                                 id="facebook"
-                                required
                                 placeholder="Facebook"
                             />
                         </div>
@@ -393,7 +409,6 @@ export const FormUser = () => {
                                     value={user.city}
                                     onChange={(element) => { dispatch(setUser_City(element.target.value)) }}
                                     id="city"
-                                    required
                                     placeholder={user?.city}
                                 />
                             </div>
@@ -404,7 +419,6 @@ export const FormUser = () => {
                                     value={user.district}
                                     onChange={(element) => { dispatch(setUser_District(element.target.value)) }}
                                     id="district"
-                                    required
                                     placeholder="Bairro"
                                 />
                             </div>
@@ -415,7 +429,6 @@ export const FormUser = () => {
                                     value={user.road}
                                     onChange={(element) => { dispatch(setUser_Road(element.target.value)) }}
                                     id="road"
-                                    required
                                     placeholder="Informe a rua de seu endereço"
                                 />
                             </div>
@@ -441,7 +454,7 @@ export const FormUser = () => {
                         <div className={styles.register_inputs}>
 
                             <div className={styles.single_input}>
-                                <label htmlFor="password">Senha:</label>
+                                <label htmlFor="password">Senha:  *</label>
                                 <input
                                     type="password"
                                     name="password"
@@ -452,11 +465,12 @@ export const FormUser = () => {
 
                             </div>
                             <div className={styles.single_input}>
-                                <label htmlFor="confirmPassword">Confirmar Senha:</label>
+                                <label htmlFor="confirmPassword">Confirmar Senha:  *</label>
                                 <input
                                     type="password"
                                     name="confirmPassword"
                                     value={confirmPassword}
+                                    required
                                     onChange={handlePasswordInput}
                                 />
 
